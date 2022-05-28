@@ -1,4 +1,4 @@
-package com.example.mystor.ui.home
+package com.example.mystore.ui.home
 
 import androidx.lifecycle.ViewModel
 

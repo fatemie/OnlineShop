@@ -1,4 +1,4 @@
-package com.example.mystor.ui.home
+package com.example.mystore.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
