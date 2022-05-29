@@ -1,5 +1,7 @@
 package com.example.mystore.ui.adapter
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystore.data.model.ProductsApiResultItem
 
@@ -20,26 +23,27 @@ class NewestProductAdapter(var onWordClicked: ItemClickHandler) :
     ListAdapter<ProductsApiResultItem, NewestProductAdapter.ViewHolder>(WordDiffCallback) {
 
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
         var ivProductPicture = view.findViewById<ImageView>(R.id.iv_picture)
         var tvProductTitle = view.findViewById<TextView>(R.id.tv_title)
         var productLauout = view.findViewById<ConstraintLayout>(R.id.constraint)
 
         fun bind(product: ProductsApiResultItem, onWordClicked: ItemClickHandler) {
             tvProductTitle.text = product.name
+            Glide.with(context)
+                .load(product.images[0].src)
+                .fitCenter()
+                .into(ivProductPicture)
             productLauout.setOnClickListener {
                 onWordClicked(product)
             }
         }
     }
 
-    override fun onCreateViewHolder(
-        viewGroup: ViewGroup,
-        viewType: Int
-    ): NewestProductAdapter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.newest_product_item, viewGroup, false)
-        return ViewHolder(view)
+        return ViewHolder(view,viewGroup.context)
     }
 
     override fun onBindViewHolder(holder: NewestProductAdapter.ViewHolder, position: Int) {
