@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import com.example.mystor.R
 import com.example.mystor.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding

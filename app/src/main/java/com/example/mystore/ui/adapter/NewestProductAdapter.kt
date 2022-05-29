@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,24 +16,29 @@ import com.example.mystore.data.model.ProductsApiResultItem
 
 typealias ItemClickHandler = (ProductsApiResultItem) -> Unit
 
-class NewestProductAdapter (var onWordClicked : ItemClickHandler) :
+class NewestProductAdapter(var onWordClicked: ItemClickHandler) :
     ListAdapter<ProductsApiResultItem, NewestProductAdapter.ViewHolder>(WordDiffCallback) {
 
 
-    class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var ivProductPicture = view.findViewById<ImageView>(R.id.iv_picture)
         var tvProductTitle = view.findViewById<TextView>(R.id.tv_title)
         var productLauout = view.findViewById<ConstraintLayout>(R.id.constraint)
 
-        fun bind(product : ProductsApiResultItem, onWordClicked: ItemClickHandler){
+        fun bind(product: ProductsApiResultItem, onWordClicked: ItemClickHandler) {
+            tvProductTitle.text = product.name
             productLauout.setOnClickListener {
                 onWordClicked(product)
             }
         }
     }
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NewestProductAdapter.ViewHolder {
+
+    override fun onCreateViewHolder(
+        viewGroup: ViewGroup,
+        viewType: Int
+    ): NewestProductAdapter.ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.newest_product_item, viewGroup , false)
+            .inflate(R.layout.newest_product_item, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -46,11 +50,17 @@ class NewestProductAdapter (var onWordClicked : ItemClickHandler) :
 }
 
 object WordDiffCallback : DiffUtil.ItemCallback<ProductsApiResultItem>() {
-    override fun areItemsTheSame(oldItem: ProductsApiResultItem, newItem: ProductsApiResultItem): Boolean {
+    override fun areItemsTheSame(
+        oldItem: ProductsApiResultItem,
+        newItem: ProductsApiResultItem
+    ): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: ProductsApiResultItem, newItem: ProductsApiResultItem): Boolean {
+    override fun areContentsTheSame(
+        oldItem: ProductsApiResultItem,
+        newItem: ProductsApiResultItem
+    ): Boolean {
         return oldItem.id == newItem.id
     }
 }
