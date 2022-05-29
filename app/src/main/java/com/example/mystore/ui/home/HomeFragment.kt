@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentHomeBinding
 import com.example.mystore.data.model.ProductsApiResultItem
@@ -43,7 +44,9 @@ class HomeFragment : Fragment() {
     }
 
     fun goToProductDetailFragment(product : ProductsApiResultItem){
-
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product.id)
+        findNavController().navigate(action)
     }
 
 }

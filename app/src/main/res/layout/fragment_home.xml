@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:padding="4dp"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
             tools:context="com.example.mystore.ui.home.HomeFragment">
@@ -46,7 +47,6 @@
                 android:layout_marginRight="-90dp"
                 android:background="@color/green"
                 android:gravity="center"
-                android:padding="4dp"
                 android:rotation="-90"
                 android:text="جدیدترین محصولات"
                 android:textSize="18dp" />
@@ -56,8 +56,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/orange"
             android:gravity="end"
             android:orientation="horizontal"
+            android:layout_marginTop="8dp"
             tools:context="com.example.mystore.ui.home.HomeFragment">
 
 
@@ -89,6 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:layout_marginTop="8dp"
+            android:background="@color/yellow"
             android:orientation="horizontal"
             tools:context="com.example.mystore.ui.home.HomeFragment">
 
