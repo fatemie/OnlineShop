@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.example.mystor.R
@@ -36,6 +37,8 @@ class HomeFragment : Fragment() {
 
         val adapter = NewestProductAdapter { product -> goToProductDetailFragment(product) }
         binding.newestProductsRecyclerView.adapter = adapter
+        binding.mostViewProductsRecyclerView.adapter = adapter
+        binding.mostPopularProductsRecyclerView.adapter = adapter
         vModel.productList.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 

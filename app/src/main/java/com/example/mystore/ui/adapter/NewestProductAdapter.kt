@@ -31,7 +31,7 @@ class NewestProductAdapter(var onWordClicked: ItemClickHandler) :
         fun bind(product: ProductsApiResultItem, onWordClicked: ItemClickHandler) {
             tvProductTitle.text = product.name
             Glide.with(context)
-                .load(product.images[0].src)
+                .load(product.images[0 ].src)
                 .fitCenter()
                 .into(ivProductPicture)
             productLauout.setOnClickListener {

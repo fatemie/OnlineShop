@@ -10,7 +10,7 @@
     <color name="blue">#7E949E</color>
     <color name="green">#AEC2AB</color>
     <color name="yellow">#EBCEA0</color>
-    <color name="yellow_1">#EBDDCB</color>
-    <color name="orange">#FC7765</color>
-    <color name="red">#FF335F</color>
+    <color name="yellow_1">#FFF3DB</color>
+    <color name="orange">#E39B7D</color>
+    <color name="red">#C84648</color>
 </resources>
