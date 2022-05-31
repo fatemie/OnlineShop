@@ -1,5 +1,6 @@
 package com.example.mystore.ui.adapter
 
+
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,10 +18,8 @@ import com.example.mystor.R
 import com.example.mystore.data.model.ProductsApiResultItem
 
 
-typealias ItemClickHandler = (ProductsApiResultItem) -> Unit
-
-class NewestProductAdapter(var onProductClicked: ItemClickHandler) :
-    ListAdapter<ProductsApiResultItem, NewestProductAdapter.ViewHolder>(NewestProductDiffCallback) {
+class MostPopularAdapter(var onProductClicked: ItemClickHandler) :
+    ListAdapter<ProductsApiResultItem, MostPopularAdapter.ViewHolder>(ProductDiffCallback) {
 
 
     class ViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
@@ -46,14 +45,14 @@ class NewestProductAdapter(var onProductClicked: ItemClickHandler) :
         return ViewHolder(view,viewGroup.context)
     }
 
-    override fun onBindViewHolder(holder: NewestProductAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MostPopularAdapter.ViewHolder, position: Int) {
         val product = getItem(position)
         holder.bind(product, onProductClicked)
     }
 
 }
 
-object NewestProductDiffCallback : DiffUtil.ItemCallback<ProductsApiResultItem>() {
+object ProductDiffCallback : DiffUtil.ItemCallback<ProductsApiResultItem>() {
     override fun areItemsTheSame(
         oldItem: ProductsApiResultItem,
         newItem: ProductsApiResultItem

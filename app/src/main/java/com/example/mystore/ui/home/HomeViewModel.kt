@@ -12,6 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
     val productList = MutableLiveData<List<ProductsApiResultItem>>()
+    val mostPopularProduct = MutableLiveData<List<ProductsApiResultItem>>()
+    val mostViewProduct = MutableLiveData<List<ProductsApiResultItem>>()
 
     init {
         getNewestProducts()
@@ -21,7 +23,12 @@ class HomeViewModel @Inject constructor(private val repository : ProductReposito
         viewModelScope.launch {
             val list = repository.getNewestProducts()
             productList.value = list
+            val popularList = list.sortedBy { it.averageRating }
+            mostPopularProduct.value = popularList
+            val mostViewList = list.sortedBy { it.ratingCount }
+            mostViewProduct.value = mostViewList
         }
     }
+
 
 }

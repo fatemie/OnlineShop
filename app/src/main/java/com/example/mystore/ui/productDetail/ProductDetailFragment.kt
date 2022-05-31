@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.example.mystor.R
-import com.example.mystor.databinding.FragmentHomeBinding
 import com.example.mystor.databinding.FragmentProductDetailBinding
 import com.example.mystore.ui.home.HomeViewModel
 
