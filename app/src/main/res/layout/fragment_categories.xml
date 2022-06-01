@@ -1,7 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.mystore.ui.categories.CategoriesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,15 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:gravity="center"
         tools:context="com.example.mystore.ui.categories.CategoriesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoriesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </LinearLayout>

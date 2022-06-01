@@ -60,15 +60,15 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.bags -> {
-                goToCategoriesFragment("bags")
+                goToCategoriesFragment("کیف و کوله")
                 true
             }
             R.id.digital -> {
-                goToCategoriesFragment("digital")
+                goToCategoriesFragment("دیجیتال")
                 true
             }
             R.id.health -> {
-                goToCategoriesFragment("health")
+                goToCategoriesFragment("بهداشت")
                 true
             }
             else -> super.onOptionsItemSelected(item)
