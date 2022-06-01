@@ -1,10 +1,8 @@
 package com.example.mystore.ui.home
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -26,6 +24,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_home, container, false
@@ -55,6 +54,35 @@ class HomeFragment : Fragment() {
     fun goToProductDetailFragment(product : ProductsApiResultItem){
         val action =
             HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product.id)
+        findNavController().navigate(action)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.bags -> {
+                goToCategoriesFragment("bags")
+                true
+            }
+            R.id.digital -> {
+                goToCategoriesFragment("digital")
+                true
+            }
+            R.id.health -> {
+                goToCategoriesFragment("health")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    fun goToCategoriesFragment(category : String){
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToCategoriesFragment(category)
         findNavController().navigate(action)
     }
 
