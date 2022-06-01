@@ -39,7 +39,7 @@ class MostViewAdapter(var onProductClicked: ItemClickHandler) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.newest_product_item, viewGroup, false)
+            .inflate(R.layout.recycler_product_item, viewGroup, false)
         return ViewHolder(view, viewGroup.context)
     }
 

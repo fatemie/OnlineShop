@@ -2,13 +2,11 @@ package com.example.mystore.ui.adapter
 
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -41,7 +39,7 @@ class MostPopularAdapter(var onProductClicked: ItemClickHandler) :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.newest_product_item, viewGroup, false)
+            .inflate(R.layout.recycler_product_item, viewGroup, false)
         return ViewHolder(view,viewGroup.context)
     }
 

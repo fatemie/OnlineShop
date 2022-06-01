@@ -3,18 +3,155 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <data>
 
         <variable
-            name="vModel"
-            type="com.example.mystore.ui.home.HomeViewModel" />
+            name="vModelDetail"
+            type="com.example.mystore.ui.productDetail.ProductDetailViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/yellow_1"
-        tools:context="com.example.mystore.ui.home.HomeFragment">
+        android:background="@color/yellow_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.example.mystore.ui.productDetail.ProductDetailFragment">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="0dp"
+                app:cardCornerRadius="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ivImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:gravity="center"
+                        android:text="@{vModelDetail.product.name}"
+                        android:textSize="20dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvReleaseDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text=""
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.503"
+                        app:layout_constraintStart_toEndOf="@+id/ivImage"
+                        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="@{vModelDetail.product.categories[0].name }"
+                        android:textSize="15dp"
+                        app:cornerRadius="20dp"
+                        app:iconGravity="textEnd"
+                        android:backgroundTint="@color/gray"
+                        app:iconSize="15dp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="@{vModelDetail.product.averageRating}"
+                        android:textSize="12dp"
+                        app:cornerRadius="20dp"
+                        app:iconGravity="textEnd"
+                        android:backgroundTint="@color/gray"
+                        app:iconSize="15dp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:text="@{vModelDetail.product.ratingCountStr}"
+                        android:textSize="15dp"
+                        app:cornerRadius="20dp"
+                        app:iconGravity="textEnd"
+                        android:backgroundTint="@color/gray"
+                        app:iconSize="15dp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:backgroundTint="@color/gray_2"
+                        android:text="@{vModelDetail.product.price}"
+                        android:textSize="15dp"
+                        app:icon="@drawable/ic_baseline_attach_money_24"
+                        app:iconGravity="textEnd"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
+
+                </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="0dp"
+                app:cardCornerRadius="20sp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:text="@{vModelDetail.product.description}" />
+                </ScrollView>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
 
     </ScrollView>
 </layout>

@@ -23,9 +23,9 @@ class HomeViewModel @Inject constructor(private val repository : ProductReposito
         viewModelScope.launch {
             val list = repository.getNewestProducts()
             productList.value = list
-            val popularList = list.sortedBy { it.averageRating }
+            val popularList = list.sortedByDescending { it.averageRating }
             mostPopularProduct.value = popularList
-            val mostViewList = list.sortedBy { it.ratingCount }
+            val mostViewList = list.sortedByDescending { it.ratingCount }
             mostViewProduct.value = mostViewList
         }
     }

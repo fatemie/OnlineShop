@@ -1,5 +1,6 @@
 package com.example.mystore.data
 
+import com.example.mystore.data.model.Category
 import com.example.mystore.data.model.Image
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.network.ApiService
@@ -16,8 +17,8 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
 
     fun sampleProduct() : List<ProductsApiResultItem>{
         val product = ProductsApiResultItem("","","",
-        "","","",1, listOf(Image(0, "")),"",true,"",
-        100,"","","",100,"","")
+        listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
+        100,"","","","",100,"","")
         return listOf(product)
     }
 }

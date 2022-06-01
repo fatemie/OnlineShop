@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    val vModel: HomeViewModel by viewModels()
+    private val vModel: HomeViewModel by viewModels()
     lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(

@@ -9,118 +9,130 @@
             name="vModel"
             type="com.example.mystore.ui.home.HomeViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/yellow_1">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:padding="4dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            tools:context="com.example.mystore.ui.home.HomeFragment">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/newestProductsRecyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                android:gravity="end"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <TextView
-                android:layout_width="240dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="-96dp"
-                android:layout_marginTop="108dp"
-                android:layout_marginRight="-90dp"
-                android:background="@color/green"
-                android:gravity="center"
-                android:rotation="-90"
-                android:text="جدیدترین محصولات"
-                android:textSize="18dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/orange"
-            android:gravity="end"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            tools:context="com.example.mystore.ui.home.HomeFragment">
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostPopularProductsRecyclerView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/newestProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/gray_2"
+                    android:gravity="center"
+                    android:rotation="-90"
+                    android:text="جدیدترین محصولات"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
+                android:layout_marginTop="16dp"
+                android:background="@color/yellow_1"
+                android:gravity="end"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
 
-            </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:layout_width="240dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="-96dp"
-                android:layout_marginTop="108dp"
-                android:layout_marginRight="-90dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mostViewProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/pink"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:rotation="-90"
+                    android:text="پربازدیدترین محصولات"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:background="@color/orange"
-                android:gravity="center"
-                android:padding="4dp"
-                android:rotation="-90"
-                android:text="محبوب ترین محصولات"
-                android:textSize="18dp" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_marginTop="8dp"
-            android:background="@color/yellow"
-            android:orientation="horizontal"
-            tools:context="com.example.mystore.ui.home.HomeFragment">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostViewProductsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
+                android:gravity="end"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
 
-            </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:layout_width="240dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="-96dp"
-                android:layout_marginTop="108dp"
-                android:layout_marginRight="-90dp"
-                android:background="@color/yellow"
-                android:gravity="center"
-                android:padding="4dp"
-                android:rotation="-90"
-                android:text="پربازدیدترین محصولات"
-                android:textSize="18dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mostPopularProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/yellow_2"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:rotation="-90"
+                    android:text="محبوب ترین محصولات"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 </layout>

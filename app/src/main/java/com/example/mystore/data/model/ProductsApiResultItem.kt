@@ -20,8 +20,8 @@ data class ProductsApiResultItem(
     val buttonText: String,
     @Json(name = "catalog_visibility")
     val catalogVisibility: String,
-    //@Json(name = "categories")
-    //val categories: List<Category>,
+    @Json(name = "categories")
+    val categories: List<Category>,
     //@Json(name = "cross_sell_ids")
     //val crossSellIds: List<Any>,
     @Json(name = "date_created")
@@ -90,6 +90,7 @@ data class ProductsApiResultItem(
     //val purchaseNote: String,
     @Json(name = "rating_count")
     val ratingCount: Int,
+    val ratingCountStr : String= ratingCount.toString(),
     //@Json(name = "regular_price")
     //val regularPrice: String,
     //@Json(name = "related_ids")
