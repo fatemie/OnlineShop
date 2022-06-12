@@ -30,4 +30,15 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListener()
+    }
+
+    fun setListener(){
+        binding.btnSearch.setOnClickListener {
+            vModel.searchProducts(binding.etSearch.text.toString())
+        }
+    }
+
 }
