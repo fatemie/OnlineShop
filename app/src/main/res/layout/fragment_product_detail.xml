@@ -9,7 +9,9 @@
             name="vModelDetail"
             type="com.example.mystore.ui.productDetail.ProductDetailViewModel" />
     </data>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,84 +71,138 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
                 </LinearLayout>
-
-
             </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
 
                     <com.google.android.material.button.MaterialButton
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:backgroundTint="@color/gray"
+                        android:textColor="@color/black"
                         android:text="@{vModelDetail.product.categories[0].name }"
                         android:textSize="15dp"
                         app:cornerRadius="20dp"
                         app:iconGravity="textEnd"
-                        android:backgroundTint="@color/gray"
-                        app:iconSize="15dp" />
+                        app:iconSize="15dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="دسته بندی:"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
 
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/gray"
+                    android:textColor="@color/black"
+                    android:text="@{vModelDetail.product.averageRating}"
+                    android:textSize="12dp"
+                    app:cornerRadius="20dp"
+                    app:iconGravity="textEnd"
+                    android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="رضایت:"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/gray"
+                    android:textColor="@color/black"
+                    android:text="@{vModelDetail.product.ratingCountStr}"
+                    android:textSize="15dp"
+                    app:cornerRadius="20dp"
+                    app:iconGravity="textEnd"
+                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="تعداد نظرات:"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:text="@{vModelDetail.product.averageRating}"
-                        android:textSize="12dp"
-                        app:cornerRadius="20dp"
-                        app:iconGravity="textEnd"
-                        android:backgroundTint="@color/gray"
-                        app:iconSize="15dp" />
-
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:text="@{vModelDetail.product.ratingCountStr}"
-                        android:textSize="15dp"
-                        app:cornerRadius="20dp"
-                        app:iconGravity="textEnd"
-                        android:backgroundTint="@color/gray"
-                        app:iconSize="15dp" />
-
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
+                        android:layout_height="48dp"
                         android:backgroundTint="@color/gray_2"
                         android:text="@{vModelDetail.product.price}"
                         android:textSize="15dp"
-                        app:icon="@drawable/ic_baseline_attach_money_24"
-                        app:iconGravity="textEnd"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="قیمت:"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"/>
+
+
 
                 </LinearLayout>
+
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewDescription"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="0dp"
                 app:cardCornerRadius="20sp">
 
-                <ScrollView
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="16dp"
-                        android:text="@{vModelDetail.product.description}" />
-                </ScrollView>
-
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:text="@{vModelDetail.description}" />
 
             </androidx.cardview.widget.CardView>
 
@@ -154,4 +210,6 @@
 
 
     </ScrollView>
+
+    </RelativeLayout>
 </layout>

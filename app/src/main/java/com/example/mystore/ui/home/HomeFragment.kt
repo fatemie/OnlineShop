@@ -71,6 +71,10 @@ class HomeFragment : Fragment() {
                 goToCategoriesFragment("بهداشت")
                 true
             }
+            R.id.search -> {
+                goToSearchFragment()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -83,6 +87,12 @@ class HomeFragment : Fragment() {
     fun goToCategoriesFragment(category : String){
         val action =
             HomeFragmentDirections.actionHomeFragmentToCategoriesFragment(category)
+        findNavController().navigate(action)
+    }
+
+    fun goToSearchFragment(){
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToSearchFragment()
         findNavController().navigate(action)
     }
 

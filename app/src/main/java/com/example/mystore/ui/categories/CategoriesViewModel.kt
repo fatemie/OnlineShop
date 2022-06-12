@@ -12,6 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
     val productsInCategory = MutableLiveData<List<ProductsApiResultItem>>()
+    val thisCategory = MutableLiveData<String>()
 
 
     fun getProductsInCategories(category : String) {
@@ -21,6 +22,7 @@ class CategoriesViewModel @Inject constructor(private val repository : ProductRe
             for (product in list){
                 if (product.categories[0].name == category){
                     array.add(product)
+                    thisCategory.value = category
                 }
             }
             productsInCategory.value = array.toList()
