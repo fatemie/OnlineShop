@@ -24,4 +24,8 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getSearchedProducts(searchStr, order)
     }
 
+    suspend fun getProduct(id : Int): ProductsApiResultItem {
+        return productRemoteDataSource.getProduct(id)
+    }
+
 }

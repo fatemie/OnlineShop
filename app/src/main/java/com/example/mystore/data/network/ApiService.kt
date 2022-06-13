@@ -49,5 +49,14 @@ interface ApiService {
     ): List<ProductsApiResultItem>
 
 
+    @GET("products")
+    suspend fun getProduct(
+        @Query("id") page: Int ,
+        @Query("consumer_key") key: String = CONSUMER_KEY,
+        @Query("consumer_secret") secret: String = CONSUMER_SECRET
+
+    ): ProductsApiResultItem
+
+
 
 }

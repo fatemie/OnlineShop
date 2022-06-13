@@ -12,15 +12,6 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_categoriesFragment2"
-            app:destination="@id/categoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -29,6 +20,9 @@
         <argument
             android:name="productId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_shoppingBasketFragment2"
+            app:destination="@id/shoppingBasketFragment2" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -50,4 +44,8 @@
             android:id="@+id/action_searchFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/shoppingBasketFragment2"
+        android:name="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment"
+        android:label="ShoppingBasketFragment" />
 </navigation>

@@ -13,7 +13,7 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         try {
             return apiService.getProductsOrderBy(orderBy = order)
         } catch (e: Exception) {
-            return sampleProduct()
+            return sampleProducts()
         }
     }
 
@@ -29,7 +29,7 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         try {
             return apiService.getProductsInCategory(category = category)
         } catch (e: Exception) {
-            return sampleProduct()
+            return sampleProducts()
         }
     }
 
@@ -37,16 +37,31 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         try {
             return apiService.getSearchedProducts(search = searchStr, orderBy = order)
         } catch (e: Exception) {
+            return sampleProducts()
+        }
+    }
+
+    suspend fun getProduct(id : Int): ProductsApiResultItem {
+        try {
+            return apiService.getProduct(id)
+        } catch (e: Exception) {
             return sampleProduct()
         }
     }
 
 
-    fun sampleProduct() : List<ProductsApiResultItem>{
+    fun sampleProducts() : List<ProductsApiResultItem>{
         val product = ProductsApiResultItem("","","",
         listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
         100,"","","","", listOf(),100,"","")
         return listOf(product)
+    }
+
+    fun sampleProduct() : ProductsApiResultItem{
+        val product = ProductsApiResultItem("","","",
+            listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
+            100,"","","","", listOf(),100,"","")
+        return product
     }
 
     fun sampleCategory() : List<CategoriesApiResultItem>{
