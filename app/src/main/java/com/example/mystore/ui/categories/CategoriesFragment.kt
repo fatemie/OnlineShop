@@ -10,12 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentCategoriesBinding
-import com.example.mystor.databinding.FragmentHomeBinding
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.ui.adapter.CategoriesAdapter
-import com.example.mystore.ui.adapter.NewestProductAdapter
-import com.example.mystore.ui.home.HomeFragmentDirections
-import com.example.mystore.ui.home.HomeViewModel
+import com.example.mystore.ui.adapter.ProductsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,14 +42,33 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vModel.getProductsInCategories(categories)
+        val healthCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.category1RecyclerView.adapter = healthCategoryAdapter
+        vModel.productsInCategoryHealth.observe(viewLifecycleOwner){healthCategoryAdapter.submitList(it)}
 
-        val categoryAdapter = CategoriesAdapter { product -> goToProductDetailFragment(product) }
-        binding.categoriesRecyclerView.adapter = categoryAdapter
-        vModel.productsInCategory.observe(viewLifecycleOwner) { categoryAdapter.submitList(it) }
+        val womenClothingCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.category2RecyclerView.adapter = womenClothingCategoryAdapter
+        vModel.productsInCategoryWomenClothing.observe(viewLifecycleOwner){womenClothingCategoryAdapter.submitList(it)}
+
+        val menClothingCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.category3RecyclerView.adapter = menClothingCategoryAdapter
+        vModel.productsInCategoryMenClothing.observe(viewLifecycleOwner){menClothingCategoryAdapter.submitList(it)}
+
+        val digitalsCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.category4RecyclerView.adapter = digitalsCategoryAdapter
+        vModel.productsInCategoryDigitals.observe(viewLifecycleOwner){digitalsCategoryAdapter.submitList(it)}
+
+        val clocksCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.category5RecyclerView.adapter = clocksCategoryAdapter
+        vModel.productsInCategoryClocks.observe(viewLifecycleOwner){clocksCategoryAdapter.submitList(it)}
+
+        val superMarketCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.category6RecyclerView.adapter = superMarketCategoryAdapter
+        vModel.productsInCategorySuperMarket.observe(viewLifecycleOwner){superMarketCategoryAdapter.submitList(it)}
+
     }
 
-    fun goToProductDetailFragment(product : ProductsApiResultItem){
+    fun goToProductDetailFragment(product: ProductsApiResultItem) {
         val action =
             CategoriesFragmentDirections.actionCategoriesFragmentToProductDetailFragment(product.id)
         findNavController().navigate(action)

@@ -9,34 +9,251 @@
             type="com.example.mystore.ui.categories.CategoriesViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/yellow_1"
         android:gravity="center"
+        android:layout_marginBottom="40dp"
         tools:context="com.example.mystore.ui.categories.CategoriesFragment">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{vModel.thisCategory}"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:textSize="20dp"
-            android:padding="8dp"
-            android:gravity="center"
-            android:background="@color/gray"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoriesRecyclerView"
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category1RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/tvCategory1"
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/gray_2"
+                    android:gravity="center"
+                    android:rotation="-90"
+                    android:text="@{vModel.categories[0].name}"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/yellow_1"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category2RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/pink"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:rotation="-90"
+                    android:text="@{vModel.categories[1].name}"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/orange"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category3RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/yellow_2"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:rotation="-90"
+                    android:text="@{vModel.categories[2].name}"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category4RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/gray_2"
+                    android:gravity="center"
+                    android:rotation="-90"
+                    android:text="@{vModel.categories[3].name}"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/yellow_1"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category5RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/pink"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:rotation="-90"
+                    android:text="@{vModel.categories[4].name}"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/orange"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.example.mystore.ui.home.HomeFragment">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category6RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-96dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginRight="-90dp"
+                    android:background="@color/yellow_2"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:rotation="-90"
+                    android:text="@{vModel.categories[5].name}"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
 </layout>
 

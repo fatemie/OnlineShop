@@ -32,7 +32,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="end"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <EditText
@@ -48,13 +48,95 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="16sp"
-                    android:text="Search"
+                    android:text="جستجو"
                     app:icon="@drawable/ic_baseline_search_24" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24sp"
+            android:layout_marginTop="8sp"
+            android:layout_marginEnd="24sp"
+            app:cardCornerRadius="20sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="دسته بندی:"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <RadioButton android:id="@+id/radio_health"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="بهداشت"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="16dp"/>
+                    <RadioButton android:id="@+id/radio_bags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="کیف و کوله"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"/>
+                    <RadioButton android:id="@+id/radio_digitals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="دیجیتال"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="16dp"/>
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/healthDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <RadioButton android:id="@+id/radio_soft_hair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="نرم کننده" />
+                    <RadioButton android:id="@+id/radio_anti_dandruff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ضدشوره" />
+                    <RadioButton android:id="@+id/radio_Dry_hair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="موی خشک" />
+                    <RadioButton android:id="@+id/radio_Oily_hair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="موی چرب" />
+                </RadioGroup>
+
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_list"

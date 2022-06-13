@@ -24,18 +24,21 @@ class SearchViewModel @Inject constructor(private val repository : ProductReposi
 
     private fun getProducts() {
         viewModelScope.launch {
-            val list = repository.getNewestProducts()
+            val list = repository.getProductsOrderBy("date ")
             products.value = list
         }
     }
 
     fun searchProducts(str : String){
+        searchList.value = listOf()
         val arrayList = arrayListOf<ProductsApiResultItem>()
         for (product in products.value!!){
-            if(product.name.contains(str) || product.description.contains(str)){
+            if(product.name.contains(" "+str+" ") || product.description.contains(" "+str+" ")){
                 arrayList.add(product)
             }
         }
         searchList.value = arrayList
     }
+
+
 }

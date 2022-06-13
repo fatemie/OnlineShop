@@ -18,7 +18,7 @@ class ProductDetailViewModel @Inject constructor(private val repository : Produc
 
     fun getProduct(id : Int)  {
         viewModelScope.launch {
-            val list = repository.getNewestProducts()
+            val list = repository.getProductsOrderBy("date")
             for ( thisProduct in list){
                 if(thisProduct.id == id){
                     product.value = thisProduct

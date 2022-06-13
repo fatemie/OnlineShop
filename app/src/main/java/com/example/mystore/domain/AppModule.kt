@@ -18,19 +18,29 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
+
     @Provides
     @Singleton
-    internal fun providesRetrofitInit(): ApiService {
+    internal fun provideMoshiInit(): Moshi {
         val moshi  = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
+        return moshi
+    }
+
+    @Provides
+    @Singleton
+    internal fun providesRetrofitInit(): ApiService {
+
         val retrofit = Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(MoshiConverterFactory.create(provideMoshiInit()))
             .baseUrl(BASE_URL)
             .build()
 
         return retrofit.create(ApiService::class.java)
     }
+
+
 
 }

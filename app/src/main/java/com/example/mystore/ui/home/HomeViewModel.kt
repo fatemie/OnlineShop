@@ -1,5 +1,7 @@
 package com.example.mystore.ui.home
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,22 +12,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: ProductRepository , app: Application) : AndroidViewModel(app) {
     val productList = MutableLiveData<List<ProductsApiResultItem>>()
     val mostPopularProduct = MutableLiveData<List<ProductsApiResultItem>>()
     val mostViewProduct = MutableLiveData<List<ProductsApiResultItem>>()
 
     init {
-        getNewestProducts()
+        getProducts()
     }
 
-    private fun getNewestProducts() {
+    fun getProducts() {
         viewModelScope.launch {
-            val list = repository.getNewestProducts()
-            productList.value = list
-            val popularList = list.sortedByDescending { it.averageRating }
+
+            val dateList = repository.getProductsOrderBy("date")
+            productList.value = dateList
+            val popularList = repository.getProductsOrderBy("popularity")
             mostPopularProduct.value = popularList
-            val mostViewList = list.sortedByDescending { it.ratingCount }
+            val mostViewList = repository.getProductsOrderBy("rating")
             mostViewProduct.value = mostViewList
         }
     }
