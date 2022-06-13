@@ -20,9 +20,9 @@ class SearchViewModel @Inject constructor(private val repository : ProductReposi
 
 
 
-    fun getSearchedProducts(searchStr : String) {
+    fun getSearchedProducts(searchStr : String, order : String) {
         viewModelScope.launch {
-            val list = repository.getSearchedProducts(searchStr)
+            val list = repository.getSearchedProducts(searchStr, order)
             searchList.value = list
         }
     }

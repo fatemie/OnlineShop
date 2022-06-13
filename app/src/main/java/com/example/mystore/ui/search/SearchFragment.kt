@@ -47,10 +47,21 @@ class SearchFragment : Fragment() {
     }
 
     private fun setListener() {
-        val inputText = binding.outlinedTextField.editText?.text.toString()
-        //vModel.getSearchedProducts(inputText)
-        binding.outlinedTextField.
-        editText?.afterTextChanged { vModel.getSearchedProducts(it) }
+        val order = when(binding.sortRadioGroup.checkedRadioButtonId){
+            binding.sellRadioBtn.id -> "rating"
+            binding.newestRadioBtn.id -> "date"
+            binding.expensiveRadioBtn.id -> "price"
+            binding.cheapRadioBtn.id -> "price"
+            else -> "date"
+        }
+            binding.outlinedTextField.
+        editText?.afterTextChanged { vModel.getSearchedProducts(searchStr = it, order =  order) }
+
+        binding.btnSort.setOnClickListener {
+            binding.btnFilter.visibility = View.INVISIBLE
+            binding.llSort.visibility = View.VISIBLE
+        }
+
     }
 
     private fun goToProductDetailFragment(product: ProductsApiResultItem) {

@@ -33,9 +33,9 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
-    suspend fun getSearchedProducts(searchStr : String): List<ProductsApiResultItem> {
+    suspend fun getSearchedProducts(searchStr : String, order: String): List<ProductsApiResultItem> {
         try {
-            return apiService.getSearchedProducts(search = searchStr)
+            return apiService.getSearchedProducts(search = searchStr, orderBy = order)
         } catch (e: Exception) {
             return sampleProduct()
         }

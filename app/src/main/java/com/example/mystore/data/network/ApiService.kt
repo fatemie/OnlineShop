@@ -42,6 +42,7 @@ interface ApiService {
     suspend fun getSearchedProducts(
         @Query("per_page") page: Int = 55,
         @Query("search") search: String ,
+        @Query("orderby") orderBy: String ,
         @Query("consumer_key") key: String = CONSUMER_KEY,
         @Query("consumer_secret") secret: String = CONSUMER_SECRET
 

@@ -58,8 +58,8 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:layout_marginStart="20dp"
                 android:text="مرتب سازی"
                 android:textSize="16dp"
                 app:icon="@drawable/ic_baseline_sort_24" />
@@ -69,13 +69,48 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:layout_marginEnd="20dp"
                 android:text="فیلتر کردن"
                 android:textSize="16dp"
                 app:icon="@drawable/ic_baseline_filter_list_24" />
 
         </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/llSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone">
+
+            <RadioGroup
+                android:id="@+id/sortRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:layout_marginEnd="16dp">
+                <RadioButton android:id="@+id/sellRadioBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="پرفروش ترین" />
+                <RadioButton android:id="@+id/newestRadioBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="جدیدترین" />
+                <RadioButton android:id="@+id/expensiveRadioBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="گران ترین" />
+                <RadioButton android:id="@+id/cheapRadioBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ارزان ترین" />
+            </RadioGroup>
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_list"

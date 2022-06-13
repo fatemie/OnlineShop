@@ -31,10 +31,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    internal fun providesRetrofitInit(): ApiService {
+    internal fun providesRetrofitInit(moshi: Moshi): ApiService {
 
         val retrofit = Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(provideMoshiInit()))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(BASE_URL)
             .build()
 
