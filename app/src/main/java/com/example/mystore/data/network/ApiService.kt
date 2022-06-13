@@ -12,14 +12,6 @@ private const val CONSUMER_SECRET = "cs_9b09e5125acffdd27bbe72843ced49db5f8bffb4
 interface ApiService {
 
     @GET("products")
-    suspend fun getProducts(
-        @Query("per_page") page: Int = 55,
-        @Query("consumer_key") key: String = CONSUMER_KEY,
-        @Query("consumer_secret") secret: String = CONSUMER_SECRET
-
-    ): List<ProductsApiResultItem>
-
-    @GET("products")
     suspend fun getProductsOrderBy(
         @Query("per_page") page: Int = 55,
         @Query("orderby") orderBy: String,
@@ -41,6 +33,15 @@ interface ApiService {
     suspend fun getProductsInCategory(
         @Query("per_page") page: Int = 30,
         @Query("category") category: String ,
+        @Query("consumer_key") key: String = CONSUMER_KEY,
+        @Query("consumer_secret") secret: String = CONSUMER_SECRET
+
+    ): List<ProductsApiResultItem>
+
+    @GET("products")
+    suspend fun getSearchedProducts(
+        @Query("per_page") page: Int = 55,
+        @Query("search") search: String ,
         @Query("consumer_key") key: String = CONSUMER_KEY,
         @Query("consumer_secret") secret: String = CONSUMER_SECRET
 

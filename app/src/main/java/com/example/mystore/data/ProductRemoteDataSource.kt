@@ -33,6 +33,14 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
+    suspend fun getSearchedProducts(searchStr : String): List<ProductsApiResultItem> {
+        try {
+            return apiService.getSearchedProducts(search = searchStr)
+        } catch (e: Exception) {
+            return sampleProduct()
+        }
+    }
+
 
     fun sampleProduct() : List<ProductsApiResultItem>{
         val product = ProductsApiResultItem("","","",

@@ -15,29 +15,16 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
 
-    val products = MutableLiveData<List<ProductsApiResultItem>>()
     val searchList = MutableLiveData<List<ProductsApiResultItem>>()
 
-    init {
-        getProducts()
-    }
 
-    private fun getProducts() {
+
+
+    fun getSearchedProducts(searchStr : String) {
         viewModelScope.launch {
-            val list = repository.getProductsOrderBy("date ")
-            products.value = list
+            val list = repository.getSearchedProducts(searchStr)
+            searchList.value = list
         }
-    }
-
-    fun searchProducts(str : String){
-        searchList.value = listOf()
-        val arrayList = arrayListOf<ProductsApiResultItem>()
-        for (product in products.value!!){
-            if(product.name.contains(" "+str+" ") || product.description.contains(" "+str+" ")){
-                arrayList.add(product)
-            }
-        }
-        searchList.value = arrayList
     }
 
 
