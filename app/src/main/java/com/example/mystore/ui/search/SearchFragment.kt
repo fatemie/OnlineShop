@@ -1,10 +1,14 @@
 package com.example.mystore.ui.search
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.RadioButton
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -43,9 +47,10 @@ class SearchFragment : Fragment() {
     }
 
     private fun setListener() {
-        binding.btnSearch.setOnClickListener {
-            vModel.getSearchedProducts(binding.edtSearch.text.toString())
-        }
+        val inputText = binding.outlinedTextField.editText?.text.toString()
+        //vModel.getSearchedProducts(inputText)
+        binding.outlinedTextField.
+        editText?.afterTextChanged { vModel.getSearchedProducts(it) }
     }
 
     private fun goToProductDetailFragment(product: ProductsApiResultItem) {
@@ -53,24 +58,19 @@ class SearchFragment : Fragment() {
             SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(product.id)
         findNavController().navigate(action)
     }
+    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
-    fun onRadioButtonClicked(view: View) {
-        if (view is RadioButton) {
-            // Is the button now checked?
-            val checked = view.isChecked
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
 
-//            // Check which radio button was clicked
-//            when (view.getId()) {
-//                R.id.health ->
-//                    if (checked) {
-//                        binding.healthDetail.isVisible = true
-//                    }
-//                R.id.bags ->
-//                    if (checked) {
-//                        // Ninjas rule
-//                    }
-//            }
-        }
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+        })
     }
+
 
 }
