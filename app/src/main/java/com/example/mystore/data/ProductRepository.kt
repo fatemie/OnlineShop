@@ -28,4 +28,8 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getProduct(id)
     }
 
+    suspend fun getRelatedProducts(str : String): List<ProductsApiResultItem> {
+        return productRemoteDataSource.getRelatedProducts(str)
+    }
+
 }

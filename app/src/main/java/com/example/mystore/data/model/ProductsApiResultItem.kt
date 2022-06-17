@@ -93,8 +93,8 @@ data class ProductsApiResultItem(
     val ratingCountStr : String= ratingCount.toString(),
     //@Json(name = "regular_price")
     //val regularPrice: String,
-    //@Json(name = "related_ids")
-    //val relatedIds: List<Int>,
+    @Json(name = "related_ids")
+    val relatedIds: List<Int>,
     //@Json(name = "reviews_allowed")
     //val reviewsAllowed: Boolean,
     @Json(name = "sale_price")

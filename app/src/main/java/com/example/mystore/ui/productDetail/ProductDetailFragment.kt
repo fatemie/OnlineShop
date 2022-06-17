@@ -1,11 +1,11 @@
 package com.example.mystore.ui.productDetail
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProductDetailBinding
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.ui.home.HomeFragmentDirections
+import com.example.mystore.ui.adapter.ProductsAdapter
 import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,6 +33,7 @@ class ProductDetailFragment : Fragment() {
         }
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,24 +52,28 @@ class ProductDetailFragment : Fragment() {
         vModel.getProduct(productId)
         setImage()
         setListener()
+
+        val relatedProductsAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
+        binding.relatedProductsRecyclerView.adapter = relatedProductsAdapter
+        vModel.relatedProducts.observe(viewLifecycleOwner) { relatedProductsAdapter.submitList(it) }
     }
 
-    private fun setImage(){
-        vModel.product.observe(viewLifecycleOwner){
+    private fun setImage() {
+        vModel.product.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it.images[0].src)
                 .fitCenter()
                 .into(binding.ivImage)
         }
 
-        vModel.product.observe(viewLifecycleOwner){
+        vModel.product.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it.images[1].src)
                 .fitCenter()
                 .into(binding.ivImage2)
         }
 
-        vModel.product.observe(viewLifecycleOwner){
+        vModel.product.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it.images[2].src)
                 .fitCenter()
@@ -76,7 +81,7 @@ class ProductDetailFragment : Fragment() {
         }
     }
 
-    fun setListener(){
+    fun setListener() {
         binding.fab.setOnClickListener {
             sharedVModel.addProductToBasket(productId)
             //goToShoppingBasketFragment()
@@ -84,9 +89,18 @@ class ProductDetailFragment : Fragment() {
         binding.flipperid.setOnClickListener { binding.flipperid.startFlipping() }
     }
 
-    fun goToShoppingBasketFragment(){
+    fun goToShoppingBasketFragment() {
         val action =
             ProductDetailFragmentDirections.actionProductDetailFragmentToShoppingBasketFragment2()
         findNavController().navigate(action)
     }
+
+
+    fun goToProductDetailFragment(product: ProductsApiResultItem) {
+        val action =
+            ProductDetailFragmentDirections.actionProductDetailFragmentSelf(product.id)
+        findNavController().navigate(action)
+    }
+
+
 }

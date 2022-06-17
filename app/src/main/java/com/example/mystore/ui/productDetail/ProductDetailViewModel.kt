@@ -15,6 +15,7 @@ class ProductDetailViewModel @Inject constructor(private val repository: Product
 
     val product = MutableLiveData<ProductsApiResultItem>()
     val description = MutableLiveData<String>()
+    val relatedProducts = MutableLiveData<List<ProductsApiResultItem>>()
 
 
     fun getProduct(id: Int) {
@@ -24,6 +25,14 @@ class ProductDetailViewModel @Inject constructor(private val repository: Product
             description.value = thisProduct.description.replace("<br />", "")
                 .replace("<p>", "")
                 .replace("</p>", "")
+            getRelatedProducts(thisProduct.relatedIds.toString() )
+        }
+    }
+
+    fun getRelatedProducts(str : String) {
+        viewModelScope.launch {
+            val thisRelatedProducts = repository.getRelatedProducts(str)
+            relatedProducts.value = thisRelatedProducts
         }
     }
 }

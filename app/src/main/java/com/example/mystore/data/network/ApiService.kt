@@ -49,6 +49,11 @@ interface ApiService {
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): ProductsApiResultItem
 
+    @GET("products")
+    suspend fun getRelatedProducts(
+        @Query("include") str : String,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+    ): List<ProductsApiResultItem>
 
 
 }

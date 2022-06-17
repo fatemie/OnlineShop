@@ -13,8 +13,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_5"
-        android:layout_marginBottom="56dp">
+        android:layout_marginBottom="56dp"
+        android:background="@color/white_5">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -96,77 +96,70 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginStart="16dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@{vModelDetail.product.categories[0].name}"
+                        android:textSize="12dp"
+                        app:iconGravity="textTop"
+                        app:iconSize="15dp"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:insetLeft="0dp"
-                            android:insetTop="0dp"
-                            android:insetRight="0dp"
-                            android:insetBottom="0dp"
-                            android:text="@{vModelDetail.product.categories[0].name}"
-                            android:textSize="12dp"
-                            app:iconGravity="textTop"
-                            app:iconSize="15dp"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="32dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@{vModelDetail.product.ratingCountStr}"
+                        android:textSize="12dp"
+                        app:icon="@drawable/ic_baseline_person_24"
+                        app:iconGravity="textTop"
+                        app:iconSize="15dp"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:insetLeft="0dp"
-                            android:insetTop="0dp"
-                            android:insetRight="0dp"
-                            android:insetBottom="0dp"
-                            android:layout_marginStart="32dp"
-                            app:icon="@drawable/ic_baseline_person_24"
-                            android:text="@{vModelDetail.product.ratingCountStr}"
-                            android:textSize="12dp"
-                            app:iconGravity="textTop"
-                            app:iconSize="15dp"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginEnd="32dp"
-                            android:insetLeft="0dp"
-                            android:insetTop="0dp"
-                            android:insetRight="0dp"
-                            android:insetBottom="0dp"
-                            android:text="@{vModelDetail.product.averageRating}"
-                            app:icon="@drawable/ic_baseline_favorite_24"
-                            android:textSize="12dp"
-                            app:iconGravity="textTop"
-                            app:iconSize="15dp"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@{vModelDetail.product.averageRating}"
+                        android:textSize="12dp"
+                        app:icon="@drawable/ic_baseline_favorite_24"
+                        app:iconGravity="textTop"
+                        app:iconSize="15dp"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="16dp"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:text="درباره کالا:" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:text="درباره کالا:"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewDescription"
@@ -184,7 +177,28 @@
 
                 </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="محصولات مشابه:"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/relatedProductsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red_3"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingStart="16dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
 
             </LinearLayout>
         </ScrollView>
@@ -192,27 +206,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal"
+            android:layout_gravity="bottom"
             android:background="@color/white_5"
-            android:layout_gravity="bottom">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/price2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_margin="4dp"
-                android:text="@{vModelDetail.product.price +`  تومان  `}"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{vModelDetail.product.price +`  تومان  `}" />
 
             <Button
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                android:textColor="@color/white"
+                android:layout_weight="1"
                 android:text="افزودن به سبد خرید"
-                android:layout_weight="1"/>
+                android:textColor="@color/white" />
 
 
         </LinearLayout>

@@ -49,18 +49,28 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
+    suspend fun getRelatedProducts(str : String): List<ProductsApiResultItem> {
+        try {
+            return apiService.getRelatedProducts(str = str)
+        } catch (e: Exception) {
+            return sampleProducts()
+        }
+    }
+
+
+
 
     fun sampleProducts() : List<ProductsApiResultItem>{
         val product = ProductsApiResultItem("","","",
         listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
-        100,"","","","", listOf(),100,"","")
+        100,"", listOf(),"","","", listOf(),100,"","")
         return listOf(product)
     }
 
     fun sampleProduct() : ProductsApiResultItem{
         val product = ProductsApiResultItem("","","",
             listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
-            100,"","","","", listOf(),100,"","")
+            100,"", listOf(),"","","", listOf(),100,"","")
         return product
     }
 
