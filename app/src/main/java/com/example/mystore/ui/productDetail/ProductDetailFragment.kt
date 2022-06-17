@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -59,13 +60,28 @@ class ProductDetailFragment : Fragment() {
                 .fitCenter()
                 .into(binding.ivImage)
         }
+
+        vModel.product.observe(viewLifecycleOwner){
+            Glide.with(this)
+                .load(it.images[1].src)
+                .fitCenter()
+                .into(binding.ivImage2)
+        }
+
+        vModel.product.observe(viewLifecycleOwner){
+            Glide.with(this)
+                .load(it.images[2].src)
+                .fitCenter()
+                .into(binding.ivImage2)
+        }
     }
 
     fun setListener(){
         binding.fab.setOnClickListener {
             sharedVModel.addProductToBasket(productId)
-            goToShoppingBasketFragment()
+            //goToShoppingBasketFragment()
         }
+        binding.flipperid.setOnClickListener { binding.flipperid.startFlipping() }
     }
 
     fun goToShoppingBasketFragment(){

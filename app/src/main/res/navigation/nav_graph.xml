@@ -47,5 +47,9 @@
     <fragment
         android:id="@+id/shoppingBasketFragment2"
         android:name="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment"
-        android:label="ShoppingBasketFragment" />
+        android:label="ShoppingBasketFragment" >
+        <action
+            android:id="@+id/action_shoppingBasketFragment2_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 </navigation>

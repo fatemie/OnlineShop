@@ -1,7 +1,9 @@
 package com.example.mystore.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -11,6 +13,7 @@ import com.example.mystor.R
 import com.example.mystor.databinding.FragmentHomeBinding
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.ui.adapter.ProductsAdapter
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +35,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,10 +53,17 @@ class HomeFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun goToProductDetailFragment(product : ProductsApiResultItem){
+        if(vModel.isOnline()){
         val action =
             HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product.id)
         findNavController().navigate(action)
+        }else{
+            val snack = Snackbar.make(binding.newestProductsRecyclerView,"خطا در برقراری ارتباط",Snackbar.LENGTH_LONG)
+            snack.show()
+        }
+
     }
 
 

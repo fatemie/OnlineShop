@@ -138,5 +138,6 @@ data class ProductsApiResultItem(
     //@Json(name = "virtual")
     //val virtual: Boolean,
     @Json(name = "weight")
-    val weight: String
+    val weight: String,
+    var numberInBasket : Int = 1
 )

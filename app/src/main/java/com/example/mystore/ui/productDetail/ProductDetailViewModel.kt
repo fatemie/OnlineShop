@@ -10,26 +10,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductDetailViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
+class ProductDetailViewModel @Inject constructor(private val repository: ProductRepository) :
+    ViewModel() {
 
     val product = MutableLiveData<ProductsApiResultItem>()
     val description = MutableLiveData<String>()
 
 
-    fun getProduct(id : Int)  {
+    fun getProduct(id: Int) {
         viewModelScope.launch {
-            val list = repository.getProductsOrderBy("date")
-            for ( thisProduct in list){
-                if(thisProduct.id == id){
-                    product.value = thisProduct
-                    description.value = thisProduct.description.replace("<br />", "")
-                        .replace("<p>" , "")
-                        .replace("</p>", "")
-
-                }
-
-            }
+            val thisProduct = repository.getProduct(id)
+            product.value = thisProduct
+            description.value = thisProduct.description.replace("<br />", "")
+                .replace("<p>", "")
+                .replace("</p>", "")
         }
     }
-
 }
+

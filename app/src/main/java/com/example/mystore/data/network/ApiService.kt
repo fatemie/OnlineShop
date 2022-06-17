@@ -3,7 +3,9 @@ package com.example.mystore.data.network
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.category.CategoriesApiResultItem
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
 private const val CONSUMER_KEY = "ck_6b55bb0ff3ea0b7bf4c0aa879af50061964ce38f"
@@ -15,17 +17,13 @@ interface ApiService {
     suspend fun getProductsOrderBy(
         @Query("per_page") page: Int = 55,
         @Query("orderby") orderBy: String,
-        @Query("consumer_key") key: String = CONSUMER_KEY,
-        @Query("consumer_secret") secret: String = CONSUMER_SECRET
-
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ProductsApiResultItem>
 
 
     @GET("products/categories")
     suspend fun getCategories(
-        @Query("consumer_key") key: String = CONSUMER_KEY,
-        @Query("consumer_secret") secret: String = CONSUMER_SECRET
-
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<CategoriesApiResultItem>
 
 
@@ -33,9 +31,7 @@ interface ApiService {
     suspend fun getProductsInCategory(
         @Query("per_page") page: Int = 30,
         @Query("category") category: String ,
-        @Query("consumer_key") key: String = CONSUMER_KEY,
-        @Query("consumer_secret") secret: String = CONSUMER_SECRET
-
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ProductsApiResultItem>
 
     @GET("products")
@@ -43,18 +39,14 @@ interface ApiService {
         @Query("per_page") page: Int = 55,
         @Query("search") search: String ,
         @Query("orderby") orderBy: String ,
-        @Query("consumer_key") key: String = CONSUMER_KEY,
-        @Query("consumer_secret") secret: String = CONSUMER_SECRET
-
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ProductsApiResultItem>
 
 
-    @GET("products")
+    @GET("products/{id}")
     suspend fun getProduct(
-        @Query("id") page: Int ,
-        @Query("consumer_key") key: String = CONSUMER_KEY,
-        @Query("consumer_secret") secret: String = CONSUMER_SECRET
-
+        @Path("id") id: Int,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): ProductsApiResultItem
 
 

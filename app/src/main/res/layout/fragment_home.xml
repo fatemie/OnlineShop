@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="48dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,37 +23,37 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/gray"
+                android:layout_marginTop="8dp"
                 android:gravity="end"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 tools:context="com.example.mystore.ui.home.HomeFragment">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:paddingEnd="16dp"
+                    android:text="جدیدترین محصولات:"
+                    android:textSize="18dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/newestProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="60dp"
+                    android:background="@color/red_3"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingStart="16dp"
                     android:layoutDirection="rtl"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:layout_width="240dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="-96dp"
-                    android:layout_marginTop="108dp"
-                    android:layout_marginRight="-90dp"
-                    android:background="@color/gray_2"
-                    android:gravity="center"
-                    android:rotation="-90"
-                    android:text="جدیدترین محصولات"
-                    android:textSize="18dp" />
+
 
             </LinearLayout>
 
@@ -61,8 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@color/yellow_1"
                 android:gravity="end"
+                android:background="@color/white_4"
                 android:orientation="horizontal"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
@@ -82,13 +82,14 @@
 
                 <TextView
                     android:layout_width="240dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="-96dp"
                     android:layout_marginTop="108dp"
                     android:layout_marginRight="-90dp"
-                    android:background="@color/pink"
+                    android:background="@color/red_3"
+                    android:textColor="@color/white"
                     android:gravity="center"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:rotation="-90"
                     android:text="محبوب ترین محصولات"
                     android:textSize="18dp" />
@@ -99,37 +100,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@color/orange"
                 android:gravity="end"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 tools:context="com.example.mystore.ui.home.HomeFragment">
 
-
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="30dp"
+                    android:gravity="start"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/black"
+                    android:text="پرفروش ترین محصولات:"
+                    android:textSize="18dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mostPopularProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="60dp"
+                    android:background="@color/red_3"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:paddingStart="16dp"
                     android:layoutDirection="rtl"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:layout_width="240dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="-96dp"
-                    android:layout_marginTop="108dp"
-                    android:layout_marginRight="-90dp"
-                    android:background="@color/yellow_2"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:rotation="-90"
-                    android:text="پرفروش ترین محصولات"
-                    android:textSize="18dp" />
+
 
             </LinearLayout>
 

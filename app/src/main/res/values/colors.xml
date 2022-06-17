@@ -20,4 +20,10 @@
     <color name="green_2">#036564</color>
     <color name="yellow_2">#CDB380</color>
     <color name="yellow_1">#E8DDCB</color>
+    <color name="red_3">#FF3D7F</color>
+    <color name="blue_3">#26ADE4</color>
+    <color name="white_3">#F2E9E1</color>
+    <color name="green_3">#8FBE00</color>
+    <color name="white_4">#EAFDE6</color>
+    <color name="white_5">#F9F2E7</color>
 </resources>

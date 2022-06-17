@@ -1,21 +1,22 @@
 package com.example.mystore.ui.shoppingBasket
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentShoppingBasketBinding
-import com.example.mystore.ui.search.SearchViewModel
+import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.adapter.ShoppingBasketAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ShoppingBasketFragment : Fragment() {
-    lateinit var binding : FragmentShoppingBasketBinding
+    lateinit var binding: FragmentShoppingBasketBinding
     private val vModel: ShoppingBasketViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -33,6 +34,22 @@ class ShoppingBasketFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val searchAdapter = ShoppingBasketAdapter { product -> goToProductDetailFragment(product) }
+        binding.rvShoppingBasket.adapter = searchAdapter
+        vModel.shoppingBasketList.observe(viewLifecycleOwner) { searchAdapter.submitList(it) }
+
+        if(vModel.arrayList.isEmpty()){
+            binding.emptyMessage.visibility = View.VISIBLE
+        }
+    }
+
+    private fun goToProductDetailFragment(product: ProductsApiResultItem) {
+        val action =
+            ShoppingBasketFragmentDirections.actionShoppingBasketFragment2ToProductDetailFragment(
+                product.id
+            )
+        findNavController().navigate(action)
     }
 
 }
