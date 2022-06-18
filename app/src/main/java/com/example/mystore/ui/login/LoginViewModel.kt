@@ -31,11 +31,24 @@ class LoginViewModel @Inject constructor(
     var lastName = ""
     var avatar = ""
 
+    init{
+        isLogin()
+    }
+
     fun verifyPass(editText: TextInputLayout): Boolean {
         return if (editText.editText!!.text.length > 3){
             true
         } else{
             editText.error = "کلمه عبور باید حداقل شامل چهار کارکتر باشد"
+            false
+        }
+    }
+
+    fun verifyPostalCode(editText: TextInputLayout): Boolean {
+        return if (editText.editText!!.text.length == 10){
+            true
+        } else{
+            editText.error = " کد پستی باید شامل ده رقم باشد"
             false
         }
     }
@@ -74,6 +87,20 @@ class LoginViewModel @Inject constructor(
 
         return (!firstName.isNullOrBlank())
     }
+
+    fun deleteAccount(){
+        prefs = app.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val editor =  prefs.edit()
+        editor.putString(FIRSTNAME, "")
+        editor.putString(LASTNAME, "")
+        editor.putString(EMAIL, "")
+        editor.putString(PASS , "")
+        editor.apply()
+    }
+
 
 
 

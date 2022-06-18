@@ -64,17 +64,17 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextFieldEmail"
+                    android:id="@+id/TextFieldPhone"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint=" ایمیل"
+                    android:hint=" شماره تلفن"
                     android:textSize="15dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"/>
+                        android:inputType="number"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

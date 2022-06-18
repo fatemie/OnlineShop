@@ -66,5 +66,9 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.mystore.ui.login.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+    </fragment>
 </navigation>
