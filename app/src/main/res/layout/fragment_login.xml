@@ -17,7 +17,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="عضویت کابر جدید"
+                android:background="@color/white_4"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TextFieldFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="نام"
+                android:textSize="15dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TextFieldLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="نام خانوادگی"
+                android:textSize="15dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TextFieldUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="نام کاربری"
+                android:textSize="18dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>
