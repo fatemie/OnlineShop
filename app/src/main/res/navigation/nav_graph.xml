@@ -55,4 +55,8 @@
             android:id="@+id/action_shoppingBasketFragment2_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.example.mystore.ui.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
