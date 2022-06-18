@@ -37,5 +37,8 @@ data class CustomerItem(
     //@Json(name = "shipping")
     //val shipping: Shipping,
     @Json(name = "username")
-    val username: String
+    val username: String,
+    val phone : String,
+    val address : String,
+    val postalCode : String
 )

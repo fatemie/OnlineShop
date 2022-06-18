@@ -54,12 +54,14 @@ class LoginFragment : Fragment() {
                 val customer = CustomerItem(
                     "https://secure.gravatar.com/avatar/8eb1b522f60d11fa897de1dc6351b7e8?s=96",
                     LocalDate.now().toString(),
-                    binding.TextFieldPhone.editText!!.text.toString(),
+                    "",
                     binding.TextFieldFirstName.editText!!.text.toString(), 1,
                     binding.TextFieldLastName.editText!!.text.toString(),
-                    binding.TextFieldPass.editText!!.text.toString())
+                    binding.TextFieldPass.editText!!.text.toString(),
+                    binding.TextFieldPhone.editText!!.text.toString(),
+                    "","")
 
-                vModel.saveInfo(customer)
+                vModel.saveInfoLogin(customer)
                 goToProfileFragment()
             }
         }

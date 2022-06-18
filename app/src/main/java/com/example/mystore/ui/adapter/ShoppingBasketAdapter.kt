@@ -40,12 +40,16 @@ class ShoppingBasketAdapter(var onProductClicked: ItemClickHandler) :
                 onProductClicked(product)
             }
             btnDcr.setOnClickListener {
-                if(product.numberInBasket !=0) {
+                if(product.numberInBasket !=1) {
                     product.numberInBasket--
                     tvCount.text = product.numberInBasket.toString()
+                    if(product.numberInBasket ==1)
+                        if(product.numberInBasket !=1)
+                            btnDcr.setImageResource(R.drawable.ic_baseline_delete_24)
                 }
             }
             btnRlz.setOnClickListener {
+                btnDcr.setImageResource(R.drawable.ic_baseline_exposure_neg_1_24)
                 product.numberInBasket++
                 tvCount.text = product.numberInBasket.toString()
             }

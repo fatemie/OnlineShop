@@ -17,6 +17,9 @@ const val FIRSTNAME = "FIRSTNAME"
 const val LASTNAME = "LASTNAME"
 const val EMAIL = "EMAIL"
 const val PASS = "PASS"
+const val PHONE = "PHONE"
+const val ADDRESS= "ADDRESS"
+const val POSTALCODE= "POSTALCODE"
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -30,6 +33,7 @@ class LoginViewModel @Inject constructor(
     var firstName = ""
     var lastName = ""
     var avatar = ""
+    var pass = ""
 
     init{
         isLogin()
@@ -62,7 +66,21 @@ class LoginViewModel @Inject constructor(
         return true
     }
 
-    fun saveInfo(thisCustomer : CustomerItem) {
+    fun saveInfoLogin(thisCustomer : CustomerItem) {
+        prefs = app.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val editor =  prefs.edit()
+        editor.putString(FIRSTNAME, thisCustomer.firstName)
+        editor.putString(LASTNAME, thisCustomer.lastName)
+        editor.putString(PHONE, thisCustomer.phone)
+        editor.putString(PASS , thisCustomer.username)
+        editor.apply()
+        customer.value = thisCustomer
+    }
+
+    fun saveInfoProfile(thisCustomer : CustomerItem) {
         prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -71,7 +89,8 @@ class LoginViewModel @Inject constructor(
         editor.putString(FIRSTNAME, thisCustomer.firstName)
         editor.putString(LASTNAME, thisCustomer.lastName)
         editor.putString(EMAIL, thisCustomer.email)
-        editor.putString(PASS , thisCustomer.username)
+        editor.putString( ADDRESS, thisCustomer.address)
+        editor.putString( POSTALCODE, thisCustomer.postalCode)
         editor.apply()
         customer.value = thisCustomer
     }
@@ -83,6 +102,7 @@ class LoginViewModel @Inject constructor(
         )
         firstName = prefs.getString(FIRSTNAME , "").toString()
         lastName = prefs.getString(LASTNAME , "").toString()
+        pass = prefs.getString(PASS , "").toString()
         avatar = "https://secure.gravatar.com/avatar/be7b5febff88a2d947c3289e90cdf017?s=96"
 
         return (!firstName.isNullOrBlank())

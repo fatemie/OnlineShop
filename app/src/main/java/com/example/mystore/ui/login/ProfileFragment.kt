@@ -1,9 +1,11 @@
 package com.example.mystore.ui.login
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -11,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProfileBinding
+import com.example.mystore.data.model.customer.CustomerItem
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -32,6 +36,7 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,6 +50,7 @@ class ProfileFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun setListener() {
         binding.btnDeleteAccount.setOnClickListener {
             vModel.deleteAccount()
@@ -56,6 +62,17 @@ class ProfileFragment : Fragment() {
         }
         binding.btnRegister.setOnClickListener {
             if(verification()){
+                val customer = CustomerItem(
+                    "https://secure.gravatar.com/avatar/8eb1b522f60d11fa897de1dc6351b7e8?s=96",
+                    LocalDate.now().toString(),
+                    binding.TextFieldEmail.editText!!.text.toString(),
+                    binding.TextFieldFirstName1.editText!!.text.toString(), 1,
+                    binding.TextFieldLastName1.editText!!.text.toString(),
+                    vModel.pass, "",
+                binding.TextFieldAddress.editText!!.text.toString(),
+                binding.TextFieldPostalCode.editText!!.text.toString())
+                vModel.saveInfoProfile(customer)
+
                 binding.InfoLayout.visibility = View.GONE
                 binding.firstLayout.visibility = View.VISIBLE
             }

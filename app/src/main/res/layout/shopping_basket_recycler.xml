@@ -50,7 +50,7 @@
                 android:id="@+id/btnDcr"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src= "@drawable/ic_baseline_exposure_neg_1_24"
+                android:src= "@drawable/ic_baseline_delete_24"
                 android:layout_weight="1"/>
 
             <TextView
