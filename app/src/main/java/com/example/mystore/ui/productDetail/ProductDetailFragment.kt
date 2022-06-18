@@ -63,7 +63,7 @@ class ProductDetailFragment : Fragment() {
             Glide.with(this)
                 .load(it.images[0].src)
                 .fitCenter()
-                .into(binding.ivImage)
+                .into(binding.ivImage1)
         }
 
         vModel.product.observe(viewLifecycleOwner) {

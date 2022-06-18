@@ -14,10 +14,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.mystor.R
 import com.example.mystor.databinding.ActivityMainBinding
 import com.example.mystore.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import me.relex.circleindicator.CircleIndicator3
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
@@ -49,6 +51,8 @@ class SplashActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment?
         setupWithNavController(binding.bottomNav, navHostFragment!!.navController)
+
+
 
 
     }
