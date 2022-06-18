@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProfileBinding
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,15 +36,17 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vModel.customer.observe(viewLifecycleOwner){
+
             Glide.with(this)
-                .load(it.avatarUrl)
+                .load(vModel.avatar)
                 .fitCenter()
                 .circleCrop()
                 .into(binding.ivProfileImage)
-        }
+
 
 
     }
+
+
 
 }

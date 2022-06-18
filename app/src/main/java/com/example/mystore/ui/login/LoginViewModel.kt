@@ -25,7 +25,11 @@ class LoginViewModel @Inject constructor(
 ) : AndroidViewModel(app) {
 
     lateinit var prefs : SharedPreferences
+
     val customer = MutableLiveData<CustomerItem>()
+    var firstName = ""
+    var lastName = ""
+    var avatar = ""
 
     fun verifyPass(editText: TextInputLayout): Boolean {
         return if (editText.editText!!.text.length > 3){
@@ -60,14 +64,18 @@ class LoginViewModel @Inject constructor(
     }
 
     fun isLogin() :Boolean{
+
         val prefs = app.getSharedPreferences(R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
         )
-        val name = prefs.getString(FIRSTNAME , "")
-        Toast.makeText(app, name, Toast.LENGTH_SHORT).show()
+        firstName = prefs.getString(FIRSTNAME , "").toString()
+        lastName = prefs.getString(LASTNAME , "").toString()
+        avatar = "https://secure.gravatar.com/avatar/be7b5febff88a2d947c3289e90cdf017?s=96"
 
-        return (!name.isNullOrBlank())
+        return (!firstName.isNullOrBlank())
     }
+
+
 
 
 }
