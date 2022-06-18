@@ -16,6 +16,7 @@ import com.example.mystore.ui.adapter.ImageViewPagerAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import me.relex.circleindicator.CircleIndicator3
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -44,9 +45,11 @@ class HomeFragment : Fragment() {
         val newestAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
         binding.newestProductsRecyclerView.adapter = newestAdapter
         vModel.productList.observe(viewLifecycleOwner) {
-            newestAdapter.submitList(it)
-            imageViewPagerAdapter = ImageViewPagerAdapter(it[10].images)
-            binding.viewPager.adapter = imageViewPagerAdapter}
+            newestAdapter.submitList(it)}
+        vModel.specialProducts.observe(viewLifecycleOwner){
+            imageViewPagerAdapter = ImageViewPagerAdapter(it.images)
+            binding.viewPager.adapter = imageViewPagerAdapter
+        }
 
         val mostPopularAdapter = ProductsAdapter {product -> goToProductDetailFragment(product)}
         binding.mostPopularProductsRecyclerView.adapter = mostPopularAdapter
@@ -57,10 +60,12 @@ class HomeFragment : Fragment() {
         vModel.mostViewProduct.observe(viewLifecycleOwner){ mostViewAdapter.submitList(it)}
 
         setUpViewPager()
+
+
     }
 
     private fun setUpViewPager() {
-
+        binding.indicator.setViewPager(binding.viewPager)
 
 
         //set the orientation of the viewpager using ViewPager2.orientation

@@ -20,10 +20,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_marginTop="16dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
@@ -35,18 +36,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="50dp"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            </RelativeLayout>
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp" />
 
 
 
-        <LinearLayout
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -57,14 +57,13 @@
                 tools:context="com.example.mystore.ui.home.HomeFragment">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="start"
-                    android:textColor="@color/black"
                     android:paddingEnd="16dp"
                     android:text="جدیدترین محصولات:"
+                    android:textColor="@color/black"
                     android:textSize="18dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -72,15 +71,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/red_3"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:paddingStart="16dp"
                     android:layoutDirection="rtl"
                     android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
                 </androidx.recyclerview.widget.RecyclerView>
-
 
 
             </LinearLayout>
@@ -89,8 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:gravity="end"
                 android:background="@color/white_4"
+                android:gravity="end"
                 android:orientation="horizontal"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
@@ -115,11 +113,11 @@
                     android:layout_marginTop="108dp"
                     android:layout_marginRight="-90dp"
                     android:background="@color/red_3"
-                    android:textColor="@color/white"
                     android:gravity="center"
                     android:padding="8dp"
                     android:rotation="-90"
                     android:text="محبوب ترین محصولات"
+                    android:textColor="@color/white"
                     android:textSize="18dp" />
 
             </LinearLayout>
@@ -139,23 +137,23 @@
                     android:layout_height="30dp"
                     android:gravity="start"
                     android:paddingEnd="16dp"
-                    android:textColor="@color/black"
                     android:text="پرفروش ترین محصولات:"
+                    android:textColor="@color/black"
                     android:textSize="18dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mostPopularProductsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/red_3"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:paddingStart="16dp"
                     android:layoutDirection="rtl"
                     android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
                 </androidx.recyclerview.widget.RecyclerView>
-
 
 
             </LinearLayout>

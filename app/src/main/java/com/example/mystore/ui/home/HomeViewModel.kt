@@ -23,16 +23,21 @@ class HomeViewModel @Inject constructor(private val repository: ProductRepositor
     val productList = MutableLiveData<List<ProductsApiResultItem>>()
     val mostPopularProduct = MutableLiveData<List<ProductsApiResultItem>>()
     val mostViewProduct = MutableLiveData<List<ProductsApiResultItem>>()
+    val specialProducts = MutableLiveData<ProductsApiResultItem>()
 
     init {
         getProducts()
     }
 
     fun getProducts() {
+        var array = arrayListOf<ProductsApiResultItem>()
         viewModelScope.launch {
 
             val dateList = repository.getProductsOrderBy("date")
-            productList.value = dateList
+            specialProducts.value = dateList[10]
+            array = dateList as ArrayList
+            array.removeAt(10)
+            productList.value = array
             val popularList = repository.getProductsOrderBy("popularity")
             mostPopularProduct.value = popularList
             val mostViewList = repository.getProductsOrderBy("rating")
