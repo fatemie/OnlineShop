@@ -69,8 +69,6 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setUpViewPager() {
-
-
         //set the orientation of the viewpager using ViewPager2.orientation
         binding.viewPagerDetail.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 

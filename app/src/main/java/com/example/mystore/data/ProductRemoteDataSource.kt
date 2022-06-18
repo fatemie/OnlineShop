@@ -63,14 +63,14 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
     fun sampleProducts() : List<ProductsApiResultItem>{
         val product = ProductsApiResultItem("","","",
         listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
-        100,"", listOf(),"","","", listOf(),100,"","")
+        100,"", listOf(1,2),"","","",100,"","")
         return listOf(product)
     }
 
     fun sampleProduct() : ProductsApiResultItem{
         val product = ProductsApiResultItem("","","",
             listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
-            100,"", listOf(),"","","", listOf(),100,"","")
+            100,"", listOf(1,2),"","","",100,"","")
         return product
     }
 

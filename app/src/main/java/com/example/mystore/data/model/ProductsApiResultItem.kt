@@ -121,8 +121,8 @@ data class ProductsApiResultItem(
     //val stockQuantity: Any,
     //@Json(name = "stock_status")
     //val stockStatus: String,
-    @Json(name = "tags")
-    val tags: List<Any>,
+    //@Json(name = "tags")
+    //val tags: List<Any>,
     //@Json(name = "tax_class")
     //val taxClass: String,
     //@Json(name = "tax_status")

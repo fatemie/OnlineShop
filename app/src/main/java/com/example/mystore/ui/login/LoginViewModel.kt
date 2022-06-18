@@ -1,14 +1,73 @@
 package com.example.mystore.ui.login
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import android.content.SharedPreferences
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
+import com.example.mystore.data.model.customer.CustomerItem
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+const val FIRSTNAME = "FIRSTNAME"
+const val LASTNAME = "LASTNAME"
+const val EMAIL = "EMAIL"
+const val PASS = "PASS"
+
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val repository: ProductRepository,
+    private val app: Application
+) : AndroidViewModel(app) {
 
+    lateinit var prefs : SharedPreferences
+    val customer = MutableLiveData<CustomerItem>()
 
+    fun verifyPass(editText: TextInputLayout): Boolean {
+        return if (editText.editText!!.text.length > 3){
+            true
+        } else{
+            editText.error = "کلمه عبور باید حداقل شامل چهار کارکتر باشد"
+            false
+        }
+    }
+
+    fun checkFieldComplete(editText: TextInputLayout): Boolean {
+        if (editText.editText!!.text.isNullOrEmpty()) {
+            editText.error = "لطفا این فیلد را تکمیل کنید"
+            return false
+        }
+        editText.error = null
+        return true
+    }
+
+    fun saveInfo(thisCustomer : CustomerItem) {
+        prefs = app.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val editor =  prefs.edit()
+        editor.putString(FIRSTNAME, thisCustomer.firstName)
+        editor.putString(LASTNAME, thisCustomer.lastName)
+        editor.putString(EMAIL, thisCustomer.email)
+        editor.putString(PASS , thisCustomer.username)
+        editor.apply()
+        customer.value = thisCustomer
+    }
+
+    fun isLogin() :Boolean{
+        val prefs = app.getSharedPreferences(R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val name = prefs.getString(FIRSTNAME , "")
+        Toast.makeText(app, name, Toast.LENGTH_SHORT).show()
+
+        return (!name.isNullOrBlank())
+    }
 
 
 }

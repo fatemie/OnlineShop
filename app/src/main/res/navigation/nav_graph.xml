@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment2">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -58,5 +58,13 @@
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.mystore.ui.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment2_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mystore.ui.login.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>
