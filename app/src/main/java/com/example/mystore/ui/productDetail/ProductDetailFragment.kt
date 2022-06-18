@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProductDetailBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.adapter.ImageViewPagerAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
 import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
     private val vModel: ProductDetailViewModel by viewModels()
     private val sharedVModel: ShoppingBasketViewModel by activityViewModels()
+    private lateinit var imageViewPagerAdapter: ImageViewPagerAdapter
+
 
     lateinit var binding: FragmentProductDetailBinding
 
@@ -50,35 +54,40 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vModel.getProduct(productId)
-        setImage()
-        setListener()
+
+        vModel.product.observe(viewLifecycleOwner){
+            imageViewPagerAdapter = ImageViewPagerAdapter(it.images)
+            binding.viewPagerDetail.adapter = imageViewPagerAdapter
+        }
 
         val relatedProductsAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
         binding.relatedProductsRecyclerView.adapter = relatedProductsAdapter
         vModel.relatedProducts.observe(viewLifecycleOwner) { relatedProductsAdapter.submitList(it) }
+
+        setUpViewPager()
+        setListener()
     }
 
-    private fun setImage() {
-        vModel.product.observe(viewLifecycleOwner) {
-            Glide.with(this)
-                .load(it.images[0].src)
-                .fitCenter()
-                .into(binding.ivImage1)
-        }
+    private fun setUpViewPager() {
 
-        vModel.product.observe(viewLifecycleOwner) {
-            Glide.with(this)
-                .load(it.images[1].src)
-                .fitCenter()
-                .into(binding.ivImage2)
-        }
 
-        vModel.product.observe(viewLifecycleOwner) {
-            Glide.with(this)
-                .load(it.images[2].src)
-                .fitCenter()
-                .into(binding.ivImage2)
-        }
+        //set the orientation of the viewpager using ViewPager2.orientation
+        binding.viewPagerDetail.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        //select any page you want as your starting page
+        val currentPageIndex = 1
+        binding.viewPagerDetail.currentItem = currentPageIndex
+
+        // registering for page change callback
+        binding.viewPagerDetail.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+
+                }
+            }
+        )
     }
 
     fun setListener() {
@@ -86,7 +95,6 @@ class ProductDetailFragment : Fragment() {
             sharedVModel.addProductToBasket(productId)
             //goToShoppingBasketFragment()
         }
-        binding.flipperid.setOnClickListener { binding.flipperid.startFlipping() }
     }
 
     fun goToShoppingBasketFragment() {

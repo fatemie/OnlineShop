@@ -20,11 +20,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+                android:layout_marginTop="16dp">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
@@ -39,11 +38,14 @@
                 <me.relex.circleindicator.CircleIndicator3
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" />
+                    android:layout_height="48dp"
+                    app:ci_width="5dp"
+                    app:ci_height="5dp"
+                    app:ci_margin="5dp"
+                    app:ci_orientation="horizontal"
+                    app:ci_gravity="center"/>
 
-
-
-            </LinearLayout>
+            </RelativeLayout>
 
 
             <LinearLayout

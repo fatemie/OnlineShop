@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
         binding.newestProductsRecyclerView.adapter = newestAdapter
         vModel.productList.observe(viewLifecycleOwner) {
             newestAdapter.submitList(it)}
+
         vModel.specialProducts.observe(viewLifecycleOwner){
             imageViewPagerAdapter = ImageViewPagerAdapter(it.images)
             binding.viewPager.adapter = imageViewPagerAdapter
@@ -65,8 +66,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpViewPager() {
-        binding.indicator.setViewPager(binding.viewPager)
 
+        binding.indicator.setViewPager(binding.viewPager)
 
         //set the orientation of the viewpager using ViewPager2.orientation
         binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
