@@ -72,7 +72,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{vModel.totalPrice}"/>
+                    android:layout_gravity="end"
+                    android:text="@{vModel.totalPrice+`  تومان  `}"/>
 
                 </LinearLayout>
 

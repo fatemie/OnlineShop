@@ -35,9 +35,10 @@ class ShoppingBasketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val searchAdapter = ShoppingBasketAdapter { product -> goToProductDetailFragment(product) }
-        binding.rvShoppingBasket.adapter = searchAdapter
-        vModel.shoppingBasketList.observe(viewLifecycleOwner) { searchAdapter.submitList(it) }
+        val adapter = ShoppingBasketAdapter ( {product -> goToProductDetailFragment(product)},
+            {product -> vModel.onProductChanged(product)} )
+        binding.rvShoppingBasket.adapter = adapter
+        vModel.shoppingBasketList.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
         if(vModel.arrayList.isEmpty()){
             binding.emptyMessage.visibility = View.VISIBLE
