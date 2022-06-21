@@ -90,7 +90,7 @@ class ProductDetailFragment : Fragment() {
 
     fun setListener() {
         binding.fab.setOnClickListener {
-            sharedVModel.addProductToBasket(productId)
+            sharedVModel.addProductToBasket(productId,0)
             //goToShoppingBasketFragment()
         }
     }

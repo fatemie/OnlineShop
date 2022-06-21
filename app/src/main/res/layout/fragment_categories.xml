@@ -56,7 +56,7 @@
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:rotation="-90"
-                    android:text="@{ vModel.categories[0].name}"
+                    android:text="@{vModel.categories[0].name}"
                     android:textSize="18dp" />
 
             </LinearLayout>
