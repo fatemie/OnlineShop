@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CategoriesApiResultItem(
+data class CategoriesItem(
     @Json(name = "count")
     val count: Int,
     @Json(name = "description")

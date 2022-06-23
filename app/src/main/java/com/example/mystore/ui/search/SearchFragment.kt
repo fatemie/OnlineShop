@@ -125,8 +125,9 @@ class SearchFragment : Fragment() {
 
     fun filterSearch(str: String) {
         val filter1 = when (binding.filterRadioGroup1. checkedRadioButtonId) {
-            binding.blackRadioBtn11.id -> "49"
-            binding.greenRadioBtn12.id -> "59"
+            binding.mRadioBtn11.id -> "m"
+            binding.lRadioBtn12.id -> "l"
+            binding.xlRadioBtn12.id -> "xl"
             else -> "false"
         }
         val filter2 = when (binding.filterRadioGroup2.checkedRadioButtonId) {

@@ -3,7 +3,7 @@ package com.example.mystore.data
 import com.example.mystore.data.model.Category
 import com.example.mystore.data.model.Image
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.data.model.category.CategoriesApiResultItem
+import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.network.ApiService
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
-    suspend fun getCategories(): List<CategoriesApiResultItem> {
+    suspend fun getCategories(): List<CategoriesItem> {
         try {
             return apiService.getCategories()
         } catch (e: Exception) {
@@ -86,8 +86,8 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         return product
     }
 
-    fun sampleCategory() : List<CategoriesApiResultItem>{
-        val category = CategoriesApiResultItem(5,"","",
+    fun sampleCategory() : List<CategoriesItem>{
+        val category = CategoriesItem(5,"","",
             5,5,"category name",1, "")
         return listOf(category)
     }

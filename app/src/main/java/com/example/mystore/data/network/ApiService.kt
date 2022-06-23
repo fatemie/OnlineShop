@@ -1,7 +1,7 @@
 package com.example.mystore.data.network
 
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.data.model.category.CategoriesApiResultItem
+import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import retrofit2.http.*
 
@@ -22,7 +22,7 @@ interface ApiService {
     @GET("products/categories")
     suspend fun getCategories(
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
-    ): List<CategoriesApiResultItem>
+    ): List<CategoriesItem>
 
 
     @GET("products")

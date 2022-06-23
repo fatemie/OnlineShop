@@ -9,7 +9,7 @@ import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.customer.CustomerItem
-import com.example.mystore.data.model.customer.Shipping
+import com.example.mystore.data.model.order.Shipping
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

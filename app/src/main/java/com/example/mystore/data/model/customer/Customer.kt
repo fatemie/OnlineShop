@@ -1,5 +1,6 @@
 package com.example.mystore.data.model.customer
 
+import com.example.mystore.data.model.order.Shipping
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -18,4 +19,4 @@ data class Customer (
     @Json(name = "shipping")
     val shipping: Shipping,
 
-        )
+    )

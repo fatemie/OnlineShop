@@ -1,7 +1,7 @@
 package com.example.mystore.data
 
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.data.model.category.CategoriesApiResultItem
+import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getProductsOrderBy(order)
     }
 
-    suspend fun getCategories(): List<CategoriesApiResultItem> {
+    suspend fun getCategories(): List<CategoriesItem> {
         return productRemoteDataSource.getCategories()
     }
 

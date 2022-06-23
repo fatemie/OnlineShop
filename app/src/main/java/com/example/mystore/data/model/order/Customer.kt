@@ -1,11 +1,11 @@
-package com.example.mystore.data.model.customer
+package com.example.mystore.data.model.order
 
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Collection(
+data class Customer(
     @Json(name = "href")
     val href: String
 )

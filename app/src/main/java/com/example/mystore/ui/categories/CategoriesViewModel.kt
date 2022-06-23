@@ -1,19 +1,18 @@
 package com.example.mystore.ui.categories
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.data.model.category.CategoriesApiResultItem
+import com.example.mystore.data.model.category.CategoriesItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(private val repository : ProductRepository) : ViewModel() {
-    val categories = MutableLiveData<List<CategoriesApiResultItem>>()
+    val categories = MutableLiveData<List<CategoriesItem>>()
     val productsInCategoryHealth = MutableLiveData<List<ProductsApiResultItem>>()
     val productsInCategoryWomenClothing = MutableLiveData<List<ProductsApiResultItem>>()
     val productsInCategoryMenClothing = MutableLiveData<List<ProductsApiResultItem>>()
