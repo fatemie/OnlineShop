@@ -61,9 +61,9 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         return apiService.register(customer = customer)
     }
 
-    suspend fun searchWithFilter(attribute : String, attribute_term : String): List<ProductsApiResultItem> {
+    suspend fun searchWithFilter(attribute : String, attribute_term : String, str : String): List<ProductsApiResultItem> {
         try {
-            return apiService.searchWithFilter(attribute = attribute, attribute_term = attribute_term)
+            return apiService.searchWithFilter(attribute = attribute, attribute_term = attribute_term, search = str)
         } catch (e: Exception) {
             return sampleProducts()
         }

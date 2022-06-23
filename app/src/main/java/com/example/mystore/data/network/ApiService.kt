@@ -64,6 +64,7 @@ interface ApiService {
         @Query("per_page") page: Int = 55,
         @Query("attribute") attribute : String,
         @Query("attribute_term") attribute_term : String,
+        @Query("search") search: String ,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ProductsApiResultItem>
 

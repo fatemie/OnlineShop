@@ -37,8 +37,8 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.register(customer)
     }
 
-    suspend fun searchWithFilter(attribute : String, attribute_term : String): List<ProductsApiResultItem> {
-        return productRemoteDataSource.searchWithFilter(attribute, attribute_term)
+    suspend fun searchWithFilter(attribute : String, attribute_term : String, str : String): List<ProductsApiResultItem> {
+        return productRemoteDataSource.searchWithFilter(attribute, attribute_term, str)
     }
 
 }

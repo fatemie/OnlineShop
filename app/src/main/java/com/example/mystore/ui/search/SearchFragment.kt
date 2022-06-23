@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.RadioButton
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,31 +47,30 @@ class SearchFragment : Fragment() {
     }
 
     private fun setListener() {
-            binding.outlinedTextField.
-        editText?.afterTextChanged {
-                val order = when(binding.sortRadioGroup.checkedRadioButtonId){
-                    binding.sellRadioBtn.id -> "rating"
-                    binding.newestRadioBtn.id -> "date"
-                    binding.expensiveRadioBtn.id -> "price"
-                    binding.cheapRadioBtn.id -> "price"
-                    else -> "date"
-                }
-                vModel.getSearchedProducts(searchStr = it, order =  order) }
+        binding.outlinedTextField.editText?.afterTextChanged {
+            if (filterIsChosen()) {
+                Log.e("tag", it)
+                filterSearch(it)
+            } else {
+                sortSearch(it)
+            }
+
+        }
 
         binding.btnSort.setOnClickListener {
-            if(binding.btnFilter.isVisible) {
+            if (binding.btnFilter.isVisible) {
                 binding.btnFilter.visibility = View.INVISIBLE
                 binding.llSort.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.btnFilter.visibility = View.VISIBLE
                 binding.llSort.visibility = View.GONE
             }
         }
         binding.btnFilter.setOnClickListener {
-            if(binding.btnSort.isVisible) {
+            if (binding.btnSort.isVisible) {
                 binding.btnSort.visibility = View.INVISIBLE
                 binding.llFilter.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.btnSort.visibility = View.VISIBLE
                 binding.llFilter.visibility = View.GONE
             }
@@ -86,6 +83,7 @@ class SearchFragment : Fragment() {
             SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(product.id)
         findNavController().navigate(action)
     }
+
     fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -100,8 +98,48 @@ class SearchFragment : Fragment() {
         })
     }
 
-    fun sortSearch(){
+    fun filterIsChosen(): Boolean {
+        val filter1 = when (binding.filterRadioGroup1.checkedRadioButtonId) {
+            binding.blackRadioBtn11.id -> "49"
+            binding.greenRadioBtn12.id -> "59"
+            else -> "false"
+        }
+        val filter2 = when (binding.filterRadioGroup2.checkedRadioButtonId) {
+            binding.blackRadioBtn11.id -> "49"
+            binding.greenRadioBtn12.id -> "59"
+            else -> "false"
+        }
+        return (filter1 != "false" || filter2 != "false")
+    }
 
+    fun sortSearch(str: String) {
+        val order = when (binding.sortRadioGroup.checkedRadioButtonId) {
+            binding.sellRadioBtn.id -> "rating"
+            binding.newestRadioBtn.id -> "date"
+            binding.expensiveRadioBtn.id -> "price"
+            binding.cheapRadioBtn.id -> "price"
+            else -> "date"
+        }
+        vModel.getSearchedProducts(searchStr = str, order = order)
+    }
+
+    fun filterSearch(str: String) {
+        val filter1 = when (binding.filterRadioGroup1. checkedRadioButtonId) {
+            binding.blackRadioBtn11.id -> "49"
+            binding.greenRadioBtn12.id -> "59"
+            else -> "false"
+        }
+        val filter2 = when (binding.filterRadioGroup2.checkedRadioButtonId) {
+            binding.blackRadioBtn11.id -> "49"
+            binding.greenRadioBtn12.id -> "59"
+            else -> "false"
+        }
+        when (filter2) {
+            "small" -> vModel.searchWithFilter("pa_size", "small", str)
+            "big" -> vModel.searchWithFilter("pa_size", "big", str)
+            "49" -> vModel.searchWithFilter("pa_color", "49", str)
+            "59" -> vModel.searchWithFilter("pa_color", "59", str)
+        }
     }
 
 

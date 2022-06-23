@@ -163,6 +163,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="کوچک" />
+                        <RadioButton android:id="@+id/radioBtnCheck1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:checked="true"/>
 
                     </RadioGroup>
 
@@ -176,11 +181,17 @@
                         <RadioButton android:id="@+id/blackRadioBtn11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="مشکی" />
+                            android:text="مشکی"
+                            style="@android:style/Widget.DeviceDefault.Light.CompoundButton.RadioButton"/>
                         <RadioButton android:id="@+id/greenRadioBtn12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="مرجانی" />
+                        <RadioButton android:id="@+id/radioBtnCheck2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:checked="true"/>
 
                     </RadioGroup>
 
