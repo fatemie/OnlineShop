@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_shoppingBasketFragment2_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_shoppingBasketFragment2_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"

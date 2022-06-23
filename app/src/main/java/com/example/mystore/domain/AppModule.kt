@@ -11,8 +11,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.logging.Logger
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -31,14 +34,29 @@ object AppModule {
 
     @Provides
     @Singleton
-    internal fun providesRetrofitInit(moshi: Moshi): ApiService {
+    internal fun providesRetrofitInit(moshi: Moshi, client: OkHttpClient ): ApiService {
 
         val retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(BASE_URL)
+            .client(client)
             .build()
 
+
         return retrofit.create(ApiService::class.java)
+    }
+
+
+    @Provides
+    @Singleton
+    internal fun providesLoggerInit(): OkHttpClient {
+
+        val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logger)
+            .build()
+
+        return client
     }
 
 

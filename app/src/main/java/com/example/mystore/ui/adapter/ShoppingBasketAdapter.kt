@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystore.data.model.ProductsApiResultItem
 
-typealias ItemProductChangedHandler = (Int) -> Unit
+typealias ItemProductChangedHandler = (ProductsApiResultItem) -> Unit
 
 class ShoppingBasketAdapter(var onProductClicked: ItemClickHandler , var onProductDeleted : ItemProductChangedHandler) :
     ListAdapter<ProductsApiResultItem, ShoppingBasketAdapter.ViewHolder>(BasketProductsDiffCallback) {
@@ -43,20 +43,20 @@ class ShoppingBasketAdapter(var onProductClicked: ItemClickHandler , var onProdu
             btnDcr.setOnClickListener {
                 if (product.numberInBasket != 1) {
                     product.numberInBasket--
-                    onProductChanged(product.id)
+                    onProductChanged(product)
 
                     tvCount.text = product.numberInBasket.toString()
                     if (product.numberInBasket == 1)
                         btnDcr.setImageResource(R.drawable.ic_baseline_delete_24)
                 } else {
                     product.numberInBasket = 0
-                    onProductChanged(product.id)
+                    onProductChanged(product)
                 }
             }
             btnRlz.setOnClickListener {
                 btnDcr.setImageResource(R.drawable.ic_baseline_exposure_neg_1_24)
                 product.numberInBasket++
-                onProductChanged(product.id)
+                onProductChanged(product)
                 tvCount.text = product.numberInBasket.toString()
             }
         }

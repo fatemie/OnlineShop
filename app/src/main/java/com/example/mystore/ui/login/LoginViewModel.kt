@@ -2,15 +2,17 @@ package com.example.mystore.ui.login
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
+import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.data.model.customer.Shipping
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 const val FIRSTNAME = "FIRSTNAME"
@@ -29,7 +31,7 @@ class LoginViewModel @Inject constructor(
 
     lateinit var prefs : SharedPreferences
 
-    val customer = MutableLiveData<CustomerItem>()
+    lateinit var  customer : CustomerItem
     var firstName = ""
     var lastName = ""
     var avatar = ""
@@ -66,7 +68,7 @@ class LoginViewModel @Inject constructor(
         return true
     }
 
-    fun saveInfoLogin(thisCustomer : CustomerItem) {
+    fun saveInfoLoginToSharedPref(thisCustomer : CustomerItem) {
         prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -74,13 +76,12 @@ class LoginViewModel @Inject constructor(
         val editor =  prefs.edit()
         editor.putString(FIRSTNAME, thisCustomer.firstName)
         editor.putString(LASTNAME, thisCustomer.lastName)
-        editor.putString(PHONE, thisCustomer.phone)
-        editor.putString(PASS , thisCustomer.username)
+        editor.putString(PHONE, thisCustomer.billing.phone)
+//        editor.putString(PASS , thisCustomer.username)
         editor.apply()
-        customer.value = thisCustomer
     }
 
-    fun saveInfoProfile(thisCustomer : CustomerItem) {
+    fun saveInfoProfileToSharedPref(thisCustomer : CustomerItem) {
         prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -89,10 +90,10 @@ class LoginViewModel @Inject constructor(
         editor.putString(FIRSTNAME, thisCustomer.firstName)
         editor.putString(LASTNAME, thisCustomer.lastName)
         editor.putString(EMAIL, thisCustomer.email)
-        editor.putString( ADDRESS, thisCustomer.address)
-        editor.putString( POSTALCODE, thisCustomer.postalCode)
+        editor.putString( ADDRESS, thisCustomer.billing.address1)
+        editor.putString( POSTALCODE, thisCustomer.billing.postcode)
         editor.apply()
-        customer.value = thisCustomer
+        customer = thisCustomer
     }
 
     fun isLogin() :Boolean{
@@ -119,6 +120,18 @@ class LoginViewModel @Inject constructor(
         editor.putString(EMAIL, "")
         editor.putString(PASS , "")
         editor.apply()
+    }
+
+    fun registerNewCustomerInServer(){
+        val customerForServer = Customer(       customer.email,
+        customer.firstName, customer.lastName,customer.username,customer.billing,
+            Shipping(customer.billing.address1,customer.billing.address2,customer.billing.city,
+            customer.billing.company, customer.billing.country,customer.firstName,
+            customer.lastName,customer.billing.postcode,customer.billing.state)
+        )
+        viewModelScope.launch {
+            repository.register(customerForServer)
+        }
     }
 
 

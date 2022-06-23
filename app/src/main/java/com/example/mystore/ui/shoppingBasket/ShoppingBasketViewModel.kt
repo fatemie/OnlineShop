@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.login.FIRSTNAME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class ShoppingBasketViewModel @Inject constructor(
     }
 
     fun addProductToBasket(productId: Int, number: Int) {
-
+        productStr = ""
         viewModelScope.launch {
             val product = repository.getProduct(productId)
             arrayList.add(product)
@@ -43,31 +44,31 @@ class ShoppingBasketViewModel @Inject constructor(
             } else {
                 product.numberInBasket = number
             }
+            onProductChanged(product)
             totalPrice.value = calculateTotalPrice().toString()
         }
     }
 
-    fun onProductChanged(productId: Int) {
-
-        var index = 0
+    fun onProductChanged(product: ProductsApiResultItem) {
         productStr = ""
-        viewModelScope.launch {
-            val product = repository.getProduct(productId)
-            for (i in 0..arrayList.size - 1) {
-                if (arrayList[i].id == product.id) {
-                    index = i
-                    if (arrayList[i].numberInBasket == 0) {
-                        arrayList.removeAt(index)
-                        shoppingBasketList.value = arrayList
-                    }
+        var index = 0
+
+        for (i in 0..arrayList.size - 1) {
+            if (arrayList[i].id == product.id) {
+                index = i
+                if (arrayList[i].numberInBasket == 0) {
+                    arrayList.removeAt(index)
+                    shoppingBasketList.value = arrayList
+                    continue
                 }
-                productStr =
-                    productStr + "${arrayList[i].id.toString() + "/" + arrayList[i].numberInBasket.toString()}" + " "
             }
-            Log.e("salam", productStr)
-            saveBasketInSharedPref(productStr)
+            productStr += "${arrayList[i].id.toString() + "/" + arrayList[i].numberInBasket.toString()}" + " "
         }
+        Log.e("tagChange", productStr)
+        saveBasketInSharedPref()
         totalPrice.value = calculateTotalPrice().toString()
+
+
     }
 
 
@@ -79,17 +80,14 @@ class ShoppingBasketViewModel @Inject constructor(
         return totalPrice
     }
 
-    private fun saveBasketInSharedPref(str: String) {
+    private fun saveBasketInSharedPref() {
         prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
         )
         val editor = prefs.edit()
-        editor.putBoolean("boolean", false)
-        editor.putString(PRODUCTSINBASKET, str)
+        editor.putString(PRODUCTSINBASKET, productStr)
         editor.apply()
-        val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
-        Log.e("salamRead", productsListStr)
     }
 
     fun readProductsFromSharedPref() {
@@ -98,23 +96,44 @@ class ShoppingBasketViewModel @Inject constructor(
             AppCompatActivity.MODE_PRIVATE
         )
         val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
-
-
-        if (arrayList.isEmpty()) {
+        if (arrayList.isEmpty() && !productsListStr.isNullOrEmpty()) {
             val list = productsListStr.split(" ")
-            //Log.e("salamSplit ", list.toString())
             for (item in list) {
                 if (item.contains("/")) {
                     val product = item.split("/")
-                    //Log.e("salamSplit/", product.toString())
                     val productId = Integer.parseInt(product[0])
-                    //Log.e("salamID", productId.toString())
                     val number = Integer.parseInt(product[1])
-                    //Log.e("salamNumber", number.toString())
                     addProductToBasket(productId, number)
                 }
-
             }
+        }
+    }
+
+    fun basketIsEmpty(): Boolean {
+        val prefs = app.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
+        return (productsListStr.isNullOrBlank())
+    }
+
+    fun registerBasket(){
+        val prefs = app.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val customerName = prefs.getString(FIRSTNAME, "").toString()
+        if(customerName.isNullOrEmpty()){
+            //go to login fragment
+        }else{
+            viewModelScope.launch {
+//                val product = repository.getProduct(productId)
+//                arrayList.add(product)
+//                shoppingBasketList.value = arrayList
+                //register order
+            }
+
         }
     }
 

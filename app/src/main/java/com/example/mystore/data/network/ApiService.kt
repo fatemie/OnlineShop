@@ -2,10 +2,8 @@ package com.example.mystore.data.network
 
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.category.CategoriesApiResultItem
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import com.example.mystore.data.model.customer.Customer
+import retrofit2.http.*
 
 const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
 private const val CONSUMER_KEY = "ck_6b55bb0ff3ea0b7bf4c0aa879af50061964ce38f"
@@ -54,6 +52,13 @@ interface ApiService {
         @Query("include") str : String,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ProductsApiResultItem>
+
+    @POST("customers")
+    suspend fun register(
+        @Body customer: Customer,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+
+    ): Customer
 
 
 }

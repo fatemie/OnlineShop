@@ -2,6 +2,7 @@ package com.example.mystore.data
 
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.category.CategoriesApiResultItem
+import com.example.mystore.data.model.customer.Customer
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
@@ -30,6 +31,10 @@ class ProductRepository @Inject constructor(
 
     suspend fun getRelatedProducts(str : String): List<ProductsApiResultItem> {
         return productRemoteDataSource.getRelatedProducts(str)
+    }
+
+    suspend fun register(customer: Customer) : Customer {
+        return productRemoteDataSource.register(customer)
     }
 
 }

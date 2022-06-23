@@ -3,11 +3,13 @@ package com.example.mystore.ui.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -47,19 +49,34 @@ class SearchFragment : Fragment() {
     }
 
     private fun setListener() {
-        val order = when(binding.sortRadioGroup.checkedRadioButtonId){
-            binding.sellRadioBtn.id -> "rating"
-            binding.newestRadioBtn.id -> "date"
-            binding.expensiveRadioBtn.id -> "price"
-            binding.cheapRadioBtn.id -> "price"
-            else -> "date"
-        }
             binding.outlinedTextField.
-        editText?.afterTextChanged { vModel.getSearchedProducts(searchStr = it, order =  order) }
+        editText?.afterTextChanged {
+                val order = when(binding.sortRadioGroup.checkedRadioButtonId){
+                    binding.sellRadioBtn.id -> "rating"
+                    binding.newestRadioBtn.id -> "date"
+                    binding.expensiveRadioBtn.id -> "price"
+                    binding.cheapRadioBtn.id -> "price"
+                    else -> "date"
+                }
+                vModel.getSearchedProducts(searchStr = it, order =  order) }
 
         binding.btnSort.setOnClickListener {
-            binding.btnFilter.visibility = View.INVISIBLE
-            binding.llSort.visibility = View.VISIBLE
+            if(binding.btnFilter.isVisible) {
+                binding.btnFilter.visibility = View.INVISIBLE
+                binding.llSort.visibility = View.VISIBLE
+            }else{
+                binding.btnFilter.visibility = View.VISIBLE
+                binding.llSort.visibility = View.GONE
+            }
+        }
+        binding.btnFilter.setOnClickListener {
+            if(binding.btnSort.isVisible) {
+                binding.btnSort.visibility = View.INVISIBLE
+                binding.llFilter.visibility = View.VISIBLE
+            }else{
+                binding.btnSort.visibility = View.VISIBLE
+                binding.llFilter.visibility = View.GONE
+            }
         }
 
     }

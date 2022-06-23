@@ -4,6 +4,7 @@ import com.example.mystore.data.model.Category
 import com.example.mystore.data.model.Image
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.category.CategoriesApiResultItem
+import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.network.ApiService
 import javax.inject.Inject
 
@@ -56,6 +57,9 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
             return sampleProducts()
         }
     }
+    suspend fun register(customer: Customer): Customer{
+        return apiService.register(customer = customer)
+    }
 
 
 
@@ -79,6 +83,8 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
             5,5,"category name",1, "")
         return listOf(category)
     }
+
+
 
 
 }

@@ -40,7 +40,7 @@ class ShoppingBasketFragment : Fragment() {
         binding.rvShoppingBasket.adapter = adapter
         vModel.shoppingBasketList.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
-        if(vModel.arrayList.isEmpty()){
+        if(vModel.basketIsEmpty()){
             binding.emptyMessage.visibility = View.VISIBLE
         }
     }

@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentLoginBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.CustomerItem
 import com.example.mystore.ui.search.SearchFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,15 +54,19 @@ class LoginFragment : Fragment() {
             if(verification()) {
                 val customer = CustomerItem(
                     "https://secure.gravatar.com/avatar/8eb1b522f60d11fa897de1dc6351b7e8?s=96",
-                    LocalDate.now().toString(),
+                    Billing("","","Tehran","","Iran","",
+                        binding.TextFieldFirstName.editText!!.text.toString(),
+                        binding.TextFieldLastName.editText!!.text.toString(),
+                        binding.TextFieldPhone.editText!!.text.toString(),"",""),
+                        LocalDate.now().toString(),
                     "",
-                    binding.TextFieldFirstName.editText!!.text.toString(), 1,
+                    binding.TextFieldFirstName.editText!!.text.toString(), 1,false,
                     binding.TextFieldLastName.editText!!.text.toString(),
-                    binding.TextFieldPass.editText!!.text.toString(),
-                    binding.TextFieldPhone.editText!!.text.toString(),
-                    "","")
+                    "customer",
+                    binding.TextFieldPass.editText!!.text.toString()
+                )
 
-                vModel.saveInfoLogin(customer)
+                vModel.saveInfoLoginToSharedPref(customer)
                 goToProfileFragment()
             }
         }

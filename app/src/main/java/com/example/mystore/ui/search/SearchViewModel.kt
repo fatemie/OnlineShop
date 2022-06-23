@@ -17,9 +17,6 @@ class SearchViewModel @Inject constructor(private val repository : ProductReposi
 
     val searchList = MutableLiveData<List<ProductsApiResultItem>>()
 
-
-
-
     fun getSearchedProducts(searchStr : String, order : String) {
         viewModelScope.launch {
             val list = repository.getSearchedProducts(searchStr, order)
