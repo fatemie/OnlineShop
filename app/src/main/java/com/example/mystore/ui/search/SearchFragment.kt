@@ -100,5 +100,9 @@ class SearchFragment : Fragment() {
         })
     }
 
+    fun sortSearch(){
+
+    }
+
 
 }

@@ -24,5 +24,12 @@ class SearchViewModel @Inject constructor(private val repository : ProductReposi
         }
     }
 
+    fun searchWithFilter(attribute : String, attribute_term : String){
+        viewModelScope.launch {
+            val list = repository.searchWithFilter(attribute, attribute_term)
+            searchList.value = list
+        }
+    }
+
 
 }

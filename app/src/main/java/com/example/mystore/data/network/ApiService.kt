@@ -57,8 +57,15 @@ interface ApiService {
     suspend fun register(
         @Body customer: Customer,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
-
     ): Customer
+
+    @GET("products")
+    suspend fun searchWithFilter(
+        @Query("per_page") page: Int = 55,
+        @Query("attribute") attribute : String,
+        @Query("attribute_term") attribute_term : String,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+    ): List<ProductsApiResultItem>
 
 
 }
