@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.review.ReviewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,6 +17,7 @@ class ProductDetailViewModel @Inject constructor(private val repository: Product
     val product = MutableLiveData<ProductsApiResultItem>()
     val description = MutableLiveData<String>()
     val relatedProducts = MutableLiveData<List<ProductsApiResultItem>>()
+    val reviews = MutableLiveData<List<ReviewItem>>()
 
 
     fun getProduct(id: Int) {
@@ -35,5 +37,13 @@ class ProductDetailViewModel @Inject constructor(private val repository: Product
             relatedProducts.value = thisRelatedProducts
         }
     }
+
+    fun getProductReviews(productId : String){
+        viewModelScope.launch {
+            val thisProductReviews = repository.getProductReviews(productId)
+            reviews.value = thisProductReviews
+        }
+    }
+
 }
 

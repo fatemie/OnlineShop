@@ -5,6 +5,7 @@ import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
+import com.example.mystore.data.model.review.ReviewItem
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -84,6 +85,13 @@ interface ApiService {
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
         @Body order: OrderItem
     ): OrderItem
+
+    @GET("products/reviews/")
+    suspend fun getProductReviews(
+        @Query("per_page") page: Int = 55,
+        @Query("product") product_id: String,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+    ): List<ReviewItem>
 
 
 }

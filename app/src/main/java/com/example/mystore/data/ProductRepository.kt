@@ -7,6 +7,7 @@ import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
+import com.example.mystore.data.model.review.ReviewItem
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -52,6 +53,10 @@ class ProductRepository @Inject constructor(
 
     suspend fun getAttributeTerms(attribute_id : Int): List<AttributeTermItem> {
         return productRemoteDataSource.getAttributeTerm(attribute_id)
+    }
+
+    suspend fun getProductReviews(productId : String): List<ReviewItem> {
+        return productRemoteDataSource.getProductReviews(productId)
     }
 
     fun sampleProducts() : List<ProductsApiResultItem>{

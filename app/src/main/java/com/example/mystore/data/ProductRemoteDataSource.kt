@@ -7,6 +7,7 @@ import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
+import com.example.mystore.data.model.review.ReviewItem
 import com.example.mystore.data.network.ApiService
 import retrofit2.Response
 import javax.inject.Inject
@@ -82,6 +83,14 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
             return apiService.getAttributeTerms(id = id)
         } catch (e: Exception) {
             //return sampleProducts()
+            return arrayListOf()
+        }
+    }
+
+    suspend fun getProductReviews(productId : String): List<ReviewItem> {
+        try {
+            return apiService.getProductReviews(product_id = productId)
+        } catch (e: Exception) {
             return arrayListOf()
         }
     }

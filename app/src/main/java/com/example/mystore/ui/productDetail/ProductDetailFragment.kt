@@ -54,11 +54,13 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vModel.getProduct(productId)
+        vModel.getProductReviews("[$productId]")
 
         vModel.product.observe(viewLifecycleOwner){
             imageViewPagerAdapter = ImageViewPagerAdapter(it.images)
             binding.viewPagerDetail.adapter = imageViewPagerAdapter
         }
+
 
         val relatedProductsAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
         binding.relatedProductsRecyclerView.adapter = relatedProductsAdapter
