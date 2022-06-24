@@ -2,7 +2,9 @@ package com.example.mystore.ui.shoppingBasket
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +12,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.ProductsApiResultItem
-import com.example.mystore.ui.login.FIRSTNAME
+import com.example.mystore.data.model.customer.Billing
+import com.example.mystore.data.model.order.LineItem
+import com.example.mystore.data.model.order.OrderItem
+import com.example.mystore.ui.login.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.*
 import javax.inject.Inject
 
 const val PRODUCTSINBASKET = "PRODUCTSINBASKET"
@@ -118,23 +125,53 @@ class ShoppingBasketViewModel @Inject constructor(
         return (productsListStr.isNullOrBlank())
     }
 
-    fun registerBasket(){
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun registerBasket() {
+        val prefs = app.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
+        val address = prefs.getString(ADDRESS, "").toString()
+        val email = prefs.getString(EMAIL, "").toString()
+        val firstName = prefs.getString(FIRSTNAME, "").toString()
+        val lastName = prefs.getString(LASTNAME, "").toString()
+        val phone = prefs.getString(PHONE, "").toString()
+        val postCode = prefs.getString(POSTALCODE, "").toString()
+
+        viewModelScope.launch {
+            val newArray = arrayListOf<LineItem>()
+            Log.e("tag", "salam")
+            for (product in arrayList) {
+                val lineItem = LineItem(
+                    0,
+                    product.name,
+                    product.price.toInt(),
+                    product.id,
+                    product.numberInBasket
+                )
+                newArray.add(lineItem)
+            }
+            val order = OrderItem(Billing(
+                address, "", "tehran", "",
+                "Iran", email, firstName, lastName, phone, postCode, "",),
+                newArray, LocalDate.now().toString())
+            Log.e("tag", email)
+            //repository.registerOrder(order)
+
+        }
+
+    }
+
+    fun isLoggedIn(): Boolean {
         val prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
         )
         val customerName = prefs.getString(FIRSTNAME, "").toString()
-        if(customerName.isNullOrEmpty()){
-            //go to login fragment
-        }else{
-            viewModelScope.launch {
-//                val product = repository.getProduct(productId)
-//                arrayList.add(product)
-//                shoppingBasketList.value = arrayList
-                //register order
-            }
-
-        }
+        Log.e("tag", customerName)
+        return (!customerName.isNullOrEmpty())
     }
+
 
 }

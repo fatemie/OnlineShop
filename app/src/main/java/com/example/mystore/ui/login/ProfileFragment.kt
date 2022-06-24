@@ -15,6 +15,7 @@ import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProfileBinding
 import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
@@ -62,19 +63,21 @@ class ProfileFragment : Fragment() {
             binding.firstLayout.visibility = View.GONE
         }
         binding.btnRegister.setOnClickListener {
-            if(verification()){
+            if (verification()) {
                 val customer = CustomerItem(
                     "https://secure.gravatar.com/avatar/8eb1b522f60d11fa897de1dc6351b7e8?s=96",
-                    Billing( binding.TextFieldAddress.editText!!.text.toString(),
-                        "","Tehran","Iran","",
+                    Billing(
+                        binding.TextFieldAddress.editText!!.text.toString(),
+                        "", "Tehran", "Iran", "",
                         binding.TextFieldEmail.editText!!.text.toString(),
                         binding.TextFieldFirstName1.editText!!.text.toString(),
                         binding.TextFieldLastName1.editText!!.text.toString(),
                         binding.TextFieldPhone.editText!!.text.toString(),
-                        binding.TextFieldPostalCode.editText!!.text.toString(),""),
+                        binding.TextFieldPostalCode.editText!!.text.toString(), ""
+                    ),
                     LocalDate.now().toString(),
-                    "",
-                    binding.TextFieldFirstName1.editText!!.text.toString(), 1,false,
+                    binding.TextFieldEmail.editText!!.text.toString(),
+                    binding.TextFieldFirstName1.editText!!.text.toString(), 1, false,
                     binding.TextFieldLastName1.editText!!.text.toString(),
                     "customer",
                     binding.TextFieldPass.editText!!.text.toString()
@@ -93,7 +96,7 @@ class ProfileFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    fun verification() :Boolean{
+    fun verification(): Boolean {
         val editTextArray = arrayListOf(
             binding.TextFieldFirstName1,
             binding.TextFieldLastName1,

@@ -1,8 +1,13 @@
 package com.example.mystore.data
 
+import com.example.mystore.data.model.Category
+import com.example.mystore.data.model.Image
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
+import com.example.mystore.data.model.order.OrderItem
+import retrofit2.Response
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
@@ -37,8 +42,23 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.register(customer)
     }
 
-    suspend fun searchWithFilter(attribute : String, attribute_term : String, str : String): List<ProductsApiResultItem> {
-        return productRemoteDataSource.searchWithFilter(attribute, attribute_term, str)
+    suspend fun registerOrder(order: OrderItem) : OrderItem {
+        return productRemoteDataSource.registerOrder(order)
+    }
+
+    suspend fun searchWithFilter(attribute : String, attribute_term : String, str : String, orderBy: String): List<ProductsApiResultItem> {
+        return productRemoteDataSource.searchWithFilter(attribute, attribute_term, str,orderBy )
+    }
+
+    suspend fun getAttributeTerms(attribute_id : Int): List<AttributeTermItem> {
+        return productRemoteDataSource.getAttributeTerm(attribute_id)
+    }
+
+    fun sampleProducts() : List<ProductsApiResultItem>{
+        val product = ProductsApiResultItem("","","",
+            listOf(Category(0, "", "")),"","","",1, listOf(Image(0, "")),"",true,"",
+            100,"", listOf(1,2),"","","",100,"","")
+        return listOf(product)
     }
 
 }

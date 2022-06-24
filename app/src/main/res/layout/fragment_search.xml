@@ -20,28 +20,26 @@
         tools:context="com.example.mystore.ui.search.SearchFragment">
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/outlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="جستجو محصول"
                 android:textSize="18dp"
-                app:startIconDrawable="@drawable/ic_baseline_search_24"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:startIconDrawable="@drawable/ic_baseline_search_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,8 +55,8 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="20dp"
+                android:layout_weight="1"
                 android:text="مرتب سازی"
                 android:textSize="16dp"
                 app:icon="@drawable/ic_baseline_sort_24" />
@@ -68,8 +66,8 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:text="فیلتر کردن"
                 android:textSize="16dp"
                 app:icon="@drawable/ic_baseline_filter_list_24" />
@@ -80,32 +78,40 @@
             android:id="@+id/llSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:cardCornerRadius="20dp">
 
             <RadioGroup
                 android:id="@+id/sortRadioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 android:gravity="end"
-                android:layout_marginEnd="16dp">
-                <RadioButton android:id="@+id/newestRadioBtn"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/newestRadioBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="جدیدترین"
-                    android:checked="true" />
-                <RadioButton android:id="@+id/sellRadioBtn"
+                    android:checked="true"
+                    android:text="جدیدترین" />
+
+                <RadioButton
+                    android:id="@+id/sellRadioBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="پرفروش ترین" />
-                <RadioButton android:id="@+id/expensiveRadioBtn"
+
+                <RadioButton
+                    android:id="@+id/expensiveRadioBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="گران ترین" />
-                <RadioButton android:id="@+id/cheapRadioBtn"
+
+                <RadioButton
+                    android:id="@+id/cheapRadioBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ارزان ترین" />
@@ -116,90 +122,66 @@
             android:id="@+id/llFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:cardCornerRadius="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="سایز" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="سایز"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:layout_weight="1"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="رنگ"
-                        android:gravity="center"
-                        android:layout_weight="1"/>
+                        android:text="رنگ" />
+
 
                 </LinearLayout>
-                <RadioGroup
-                    android:id="@+id/filterRadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioGroup
-                        android:id="@+id/filterRadioGroup1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_weight="1">
-                        <RadioButton android:id="@+id/mRadioBtn11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="M" />
-                        <RadioButton android:id="@+id/lRadioBtn12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="L" />
-                        <RadioButton android:id="@+id/xlRadioBtn12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="XL" />
-                        <RadioButton android:id="@+id/radioBtnCheck1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:checked="true"/>
 
-                    </RadioGroup>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
-                    <RadioGroup
-                        android:id="@+id/filterRadioGroup2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_weight="1">
-                        <RadioButton android:id="@+id/blackRadioBtn11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="مشکی"
-                            style="@android:style/Widget.DeviceDefault.Light.CompoundButton.RadioButton"/>
-                        <RadioButton android:id="@+id/greenRadioBtn12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="مرجانی" />
-                        <RadioButton android:id="@+id/radioBtnCheck2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:checked="true"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_size_term"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="start"
+                        android:layout_weight="1"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                    </RadioGroup>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_color_term"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                </RadioGroup>
+                </LinearLayout>
+
             </LinearLayout>
 
 
@@ -212,7 +194,6 @@
             android:layout_marginStart="10dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2" />
-
 
 
     </LinearLayout>

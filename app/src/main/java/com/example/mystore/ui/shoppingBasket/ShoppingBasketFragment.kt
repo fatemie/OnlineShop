@@ -1,9 +1,11 @@
 package com.example.mystore.ui.shoppingBasket
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -32,16 +34,21 @@ class ShoppingBasketFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ShoppingBasketAdapter ( {product -> goToProductDetailFragment(product)},
-            {product -> vModel.onProductChanged(product)} )
+        val adapter = ShoppingBasketAdapter({ product -> goToProductDetailFragment(product) },
+            { product -> vModel.onProductChanged(product) })
         binding.rvShoppingBasket.adapter = adapter
         vModel.shoppingBasketList.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
-        if(vModel.basketIsEmpty()){
+        if (vModel.basketIsEmpty()) {
             binding.emptyMessage.visibility = View.VISIBLE
+        }
+
+        binding.btnRegisterOrder.setOnClickListener {
+            registerOrder()
         }
     }
 
@@ -50,6 +57,18 @@ class ShoppingBasketFragment : Fragment() {
             ShoppingBasketFragmentDirections.actionShoppingBasketFragment2ToProductDetailFragment(
                 product.id
             )
+        findNavController().navigate(action)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun registerOrder() {
+        if (vModel.isLoggedIn()) vModel.registerBasket() else goToLoginFragment()
+    }
+
+
+    private fun goToLoginFragment() {
+        val action =
+            ShoppingBasketFragmentDirections.actionShoppingBasketFragment2ToLoginFragment2()
         findNavController().navigate(action)
     }
 

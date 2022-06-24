@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 import javax.inject.Singleton
 
@@ -54,6 +55,9 @@ object AppModule {
         val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
         val client = OkHttpClient.Builder()
             .addInterceptor(logger)
+            .connectTimeout(60,TimeUnit.SECONDS)
+            .readTimeout(60,TimeUnit.SECONDS)
+            .writeTimeout(60,TimeUnit.SECONDS)
             .build()
 
         return client

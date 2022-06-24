@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentSearchBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.adapter.AttributeItemAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,15 +45,30 @@ class SearchFragment : Fragment() {
         val searchAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
         binding.rvSearchList.adapter = searchAdapter
         vModel.searchList.observe(viewLifecycleOwner) { searchAdapter.submitList(it) }
+
+        val colorTermsAdapter = AttributeItemAdapter { attributeTerm -> vModel.getColorAttributeId(attributeTerm) }
+        binding.rvColorTerm.adapter = colorTermsAdapter
+        vModel.colorTerms.observe(viewLifecycleOwner) { colorTermsAdapter.submitList(it) }
+
+        val sizeTermsAdapter = AttributeItemAdapter { attributeTerm -> vModel.getSizeAttributeId(attributeTerm) }
+        binding.rvSizeTerm.adapter = sizeTermsAdapter
+        vModel.sizeTerms.observe(viewLifecycleOwner) { sizeTermsAdapter.submitList(it) }
     }
 
     private fun setListener() {
         binding.outlinedTextField.editText?.afterTextChanged {
-            if (filterIsChosen()) {
+            val order = when (binding.sortRadioGroup.checkedRadioButtonId) {
+                binding.sellRadioBtn.id -> "rating"
+                binding.newestRadioBtn.id -> "date"
+                binding.expensiveRadioBtn.id -> "price"
+                binding.cheapRadioBtn.id -> "price"
+                else -> "date"
+            }
+            if (filterIsChoosed()) {
                 Log.e("tag", it)
-                filterSearch(it)
+                filterSearch(it, order)
             } else {
-                sortSearch(it)
+                sortSearch(it, order)
             }
 
         }
@@ -98,49 +114,20 @@ class SearchFragment : Fragment() {
         })
     }
 
-    fun filterIsChosen(): Boolean {
-        val filter1 = when (binding.filterRadioGroup1.checkedRadioButtonId) {
-            binding.blackRadioBtn11.id -> "49"
-            binding.greenRadioBtn12.id -> "59"
-            else -> "false"
-        }
-        val filter2 = when (binding.filterRadioGroup2.checkedRadioButtonId) {
-            binding.blackRadioBtn11.id -> "49"
-            binding.greenRadioBtn12.id -> "59"
-            else -> "false"
-        }
-        return (filter1 != "false" || filter2 != "false")
+    private fun filterIsChoosed(): Boolean {
+        return (binding.btnFilter.isVisible)
     }
 
-    fun sortSearch(str: String) {
-        val order = when (binding.sortRadioGroup.checkedRadioButtonId) {
-            binding.sellRadioBtn.id -> "rating"
-            binding.newestRadioBtn.id -> "date"
-            binding.expensiveRadioBtn.id -> "price"
-            binding.cheapRadioBtn.id -> "price"
-            else -> "date"
-        }
+    fun sortSearch(str: String, order : String) {
         vModel.getSearchedProducts(searchStr = str, order = order)
     }
 
-    fun filterSearch(str: String) {
-        val filter1 = when (binding.filterRadioGroup1. checkedRadioButtonId) {
-            binding.mRadioBtn11.id -> "m"
-            binding.lRadioBtn12.id -> "l"
-            binding.xlRadioBtn12.id -> "xl"
-            else -> "false"
-        }
-        val filter2 = when (binding.filterRadioGroup2.checkedRadioButtonId) {
-            binding.blackRadioBtn11.id -> "49"
-            binding.greenRadioBtn12.id -> "59"
-            else -> "false"
-        }
-        when (filter2) {
-            "small" -> vModel.searchWithFilter("pa_size", "small", str)
-            "big" -> vModel.searchWithFilter("pa_size", "big", str)
-            "49" -> vModel.searchWithFilter("pa_color", "49", str)
-            "59" -> vModel.searchWithFilter("pa_color", "59", str)
-        }
+    fun filterSearch(str: String, orderBy : String) {
+        if(vModel.colorTermId != "")
+            vModel.searchWithFilter("pa_color", vModel.colorTermId, str, orderBy)
+        if(vModel.sizeTermId != "")
+            vModel.searchWithFilter("pa_size", vModel.sizeTermId, str, orderBy)
+
     }
 
 

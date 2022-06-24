@@ -1,8 +1,11 @@
 package com.example.mystore.data.network
 
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
+import com.example.mystore.data.model.order.OrderItem
+import retrofit2.Response
 import retrofit2.http.*
 
 const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
@@ -55,8 +58,8 @@ interface ApiService {
 
     @POST("customers")
     suspend fun register(
-        @Body customer: Customer,
-        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
+        @Body customer: Customer
     ): Customer
 
     @GET("products")
@@ -64,9 +67,23 @@ interface ApiService {
         @Query("per_page") page: Int = 55,
         @Query("attribute") attribute : String,
         @Query("attribute_term") attribute_term : String,
-        @Query("search") search: String ,
+        @Query("orderby") orderBy: String,
+        @Query("search") search: String,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ProductsApiResultItem>
+
+    @GET("products/attributes/{attribute_id}/terms")
+    suspend fun getAttributeTerms(
+        @Path("attribute_id") id: Int,
+        @Query("per_page") page: Int = 55,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+    ): List<AttributeTermItem>
+
+    @POST("orders")
+    suspend fun registerOrder(
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
+        @Body order: OrderItem
+    ): OrderItem
 
 
 }
