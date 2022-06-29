@@ -1,6 +1,7 @@
 package com.example.mystore.data.model.category
 
 
+import com.example.mystore.data.model.Image
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -14,10 +15,8 @@ data class CategoriesItem(
     val display: String,
     @Json(name = "id")
     val id: Int,
-    //@Json(name = "image")
-    //val image: Image,
-    //@Json(name = "_links")
-    //val links: Links,
+    @Json(name = "image")
+    val image: Image,
     @Json(name = "menu_order")
     val menuOrder: Int,
     @Json(name = "name")
@@ -26,4 +25,6 @@ data class CategoriesItem(
     val parent: Int,
     @Json(name = "slug")
     val slug: String
+    //@Json(name = "_links")
+    //val links: Links,
 )
