@@ -145,6 +145,7 @@ class LoginViewModel @Inject constructor(
                     val snack = Snackbar.make(view,"اطلاعات با موفقیت افزوده شد",
                         Snackbar.LENGTH_LONG)
                     snack.show()
+                    customerRegisterOK = false
                 }
             }
         } catch (e: Exception) {

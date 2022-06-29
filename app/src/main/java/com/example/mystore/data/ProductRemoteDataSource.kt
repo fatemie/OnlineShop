@@ -9,10 +9,12 @@ import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
+import com.example.mystore.data.model.review.ReviewerAvatarUrls
 import com.example.mystore.data.network.ApiService
 import com.example.mystore.ui.customerRegisterOK
 import com.example.mystore.ui.errorException
 import com.example.mystore.ui.orderRegisterOK
+import com.example.mystore.ui.reviewRegisterOK
 import javax.inject.Inject
 
 class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
@@ -149,6 +151,25 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
                 errorException.value = e
             listOf()
         }
+    }
+
+    suspend fun createReview(review : ReviewItem): ReviewItem {
+        return try {
+            errorException.value = null
+            apiService.createReview(review = review)
+        } catch (e: Exception) {
+            if (errorException.value == null)
+                errorException.value = e
+            reviewRegisterOK = false
+            sampleReview()
+        }
+    }
+
+    private fun sampleReview(): ReviewItem {
+        val review = ReviewItem(1, 1, "reviewer", "reviewer email",
+            "review description", ReviewerAvatarUrls("","","")
+        )
+        return review
     }
 
     fun sampleProduct(): ProductsApiResultItem {

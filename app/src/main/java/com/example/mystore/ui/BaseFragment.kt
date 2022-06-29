@@ -17,6 +17,7 @@ import java.net.UnknownHostException
 var errorException = MutableLiveData<Exception?>()
 var customerRegisterOK = true
 var orderRegisterOK = true
+var reviewRegisterOK = true
 
 @AndroidEntryPoint
 open class BaseFragment : Fragment() {

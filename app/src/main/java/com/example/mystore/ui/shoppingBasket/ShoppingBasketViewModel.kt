@@ -183,6 +183,7 @@ class ShoppingBasketViewModel @Inject constructor(
         basketIsEmpty.value = true
         saveBasketInSharedPref()
         totalPrice.value = "0"
+        orderRegisterOK = false
 
     }
 

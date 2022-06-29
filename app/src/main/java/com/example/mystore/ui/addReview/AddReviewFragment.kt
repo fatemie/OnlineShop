@@ -1,22 +1,28 @@
 package com.example.mystore.ui.addReview
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentAddReviewBinding
-import com.example.mystor.databinding.FragmentCategoryDetailBinding
-import com.example.mystore.ui.categories.categoryDetail.CategoryDetailViewModel
+import com.example.mystore.data.model.review.ReviewItem
+import com.example.mystore.data.model.review.ReviewerAvatarUrls
+import com.example.mystore.ui.BaseFragment
+import com.example.mystore.ui.login.EMAIL
+import com.example.mystore.ui.login.FIRSTNAME
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddReviewFragment : Fragment() {
+class AddReviewFragment : BaseFragment() {
 
     private val vModel: AddReviewViewModel by viewModels()
     lateinit var binding : FragmentAddReviewBinding
+    lateinit var prefs: SharedPreferences
+
 
     private var productID = 0
 
@@ -34,6 +40,26 @@ class AddReviewFragment : Fragment() {
         binding = FragmentAddReviewBinding.inflate(inflater, container, false)
         return  binding.root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.btnRegister.setOnClickListener {
+            createReview()
+        }
+    }
+
+    fun createReview(){
+        val prefs = activity?.getSharedPreferences(
+            R.string.app_name.toString(),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val email = prefs!!.getString(EMAIL, "").toString()
+
+        val review = ReviewItem(productID, binding.seekBar.progress, binding.TextFieldName.editText!!.text.toString(),
+        binding.TextFieldReview.editText!!.text.toString(),email, ReviewerAvatarUrls("","",""))
+
+        vModel.createReview(review,binding.btnRegister)
     }
 
 }
