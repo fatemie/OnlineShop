@@ -18,6 +18,7 @@ import com.example.mystor.databinding.FragmentLoginBinding
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.search.SearchFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
@@ -26,7 +27,7 @@ import java.time.LocalDateTime.now
 import java.util.*
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment(){
     lateinit var binding: FragmentLoginBinding
     private val vModel: LoginViewModel by activityViewModels()
 

@@ -2,14 +2,19 @@ package com.example.mystore.ui.login
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.ui.customerRegisterOK
+import com.example.mystore.ui.errorException
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,6 +41,8 @@ class LoginViewModel @Inject constructor(
     var lastName = ""
     var avatar = ""
     var pass = ""
+
+    val name = MutableLiveData<String>()
 
     init {
         isLogin()
@@ -79,6 +86,7 @@ class LoginViewModel @Inject constructor(
         editor.putString(PHONE, thisCustomer.billing.phone)
 //        editor.putString(PASS , thisCustomer.username)
         editor.apply()
+        name.value = thisCustomer.firstName + " " + thisCustomer.lastName
     }
 
     fun saveInfoProfileToSharedPref(thisCustomer: CustomerItem) {
@@ -94,10 +102,10 @@ class LoginViewModel @Inject constructor(
         editor.putString(POSTALCODE, thisCustomer.billing.postcode)
         editor.apply()
         customer = thisCustomer
+        name.value = thisCustomer.firstName + " " + thisCustomer.lastName
     }
 
     fun isLogin(): Boolean {
-
         val prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -106,6 +114,8 @@ class LoginViewModel @Inject constructor(
         lastName = prefs.getString(LASTNAME, "").toString()
         pass = prefs.getString(PASS, "").toString()
         avatar = "https://secure.gravatar.com/avatar/be7b5febff88a2d947c3289e90cdf017?s=96"
+        name.value = "$firstName $lastName"
+
 
         return (!firstName.isNullOrBlank())
     }
@@ -123,14 +133,19 @@ class LoginViewModel @Inject constructor(
         editor.apply()
     }
 
-    fun registerNewCustomerInServer() {
+    fun registerNewCustomerInServer(view: View) {
         try {
             viewModelScope.launch {
-                val customerForServer = Customer(customer.id,
+                val customerForServer = Customer(
                     customer.email, customer.firstName, customer.lastName,
                     customer.billing
                 )
                 repository.register(customerForServer)
+                if(customerRegisterOK){
+                    val snack = Snackbar.make(view,"اطلاعات با موفقیت افزوده شد",
+                        Snackbar.LENGTH_LONG)
+                    snack.show()
+                }
             }
         } catch (e: Exception) {
             Toast.makeText(app, "اطلاعات در سرور ذخیره نشد", Toast.LENGTH_SHORT).show()

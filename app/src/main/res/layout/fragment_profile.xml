@@ -30,11 +30,12 @@
                 android:layout_gravity="center" />
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text = "@{vModel.firstName +` `+ vModel.lastName}" />
+                android:text = "@{vModel.name}" />
 
             <Button
                 android:id="@+id/btnPersonalInfo"

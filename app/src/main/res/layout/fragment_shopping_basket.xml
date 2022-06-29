@@ -13,12 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingAnimation"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_animation" />
+
         <LinearLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="56dp"
             android:orientation="vertical"
-            tools:context="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment">
+            tools:context="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"

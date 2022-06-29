@@ -16,12 +16,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentSearchBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.AttributeItemAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment() {
     private val vModel: SearchViewModel by viewModels()
     lateinit var binding: FragmentSearchBinding
 
@@ -115,7 +116,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun filterIsChoosed(): Boolean {
-        return (binding.btnFilter.isVisible)
+        return (binding.llFilter.isVisible)
     }
 
     fun sortSearch(str: String, order : String) {

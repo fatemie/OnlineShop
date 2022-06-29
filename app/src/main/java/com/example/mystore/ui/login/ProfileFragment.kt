@@ -1,5 +1,7 @@
 package com.example.mystore.ui.login
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,12 +17,15 @@ import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProfileBinding
 import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.ui.BaseFragment
+import com.example.mystore.ui.errorException
 import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
     lateinit var binding: FragmentProfileBinding
     private val vModel: LoginViewModel by activityViewModels()
 
@@ -55,8 +60,7 @@ class ProfileFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun setListener() {
         binding.btnDeleteAccount.setOnClickListener {
-            vModel.deleteAccount()
-            goToLoginFragment()
+            showDeleteDialog()
         }
         binding.btnPersonalInfo.setOnClickListener {
             binding.InfoLayout.visibility = View.VISIBLE
@@ -83,7 +87,7 @@ class ProfileFragment : Fragment() {
                     binding.TextFieldPass.editText!!.text.toString()
                 )
                 vModel.saveInfoProfileToSharedPref(customer)
-                vModel.registerNewCustomerInServer()
+                vModel.registerNewCustomerInServer(binding.btnRegister)
 
                 binding.InfoLayout.visibility = View.GONE
                 binding.firstLayout.visibility = View.VISIBLE
@@ -117,6 +121,22 @@ class ProfileFragment : Fragment() {
             }
         }
         return vModel.verifyPostalCode(binding.TextFieldPostalCode)
+    }
+
+    private fun showDeleteDialog() {
+        val builder: AlertDialog.Builder = activity.let {
+            AlertDialog.Builder(it)
+        }
+        builder
+            .setTitle("خروج از حساب کاربری")
+            .setPositiveButton("بله", DialogInterface.OnClickListener {
+                    dialog, id -> vModel.deleteAccount()
+                                    goToLoginFragment()
+            })
+            .setNegativeButton("خیر", DialogInterface.OnClickListener {
+                    dialog, id -> dialog.cancel()
+            })
+            .show()
     }
 
 }

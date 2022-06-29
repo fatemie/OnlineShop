@@ -19,7 +19,7 @@ data class ReviewItem(
     @Json(name = "rating")
     val rating: Int,
     @Json(name = "review")
-    val reviewDescription: String,
+    var reviewDescription: String,
     @Json(name = "reviewer")
     val reviewer: String,
     @Json(name = "reviewer_avatar_urls")

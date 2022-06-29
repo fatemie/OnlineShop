@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentCategoriesBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.ProductsAdapter
 import com.example.mystore.ui.home.HomeViewModel
 import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
@@ -21,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoriesFragment : Fragment() {
+class CategoriesFragment : BaseFragment() {
     private val vModel: CategoriesViewModel by viewModels()
     private val homeVModel: HomeViewModel by activityViewModels()
 
@@ -82,7 +83,10 @@ class CategoriesFragment : Fragment() {
 
         val superMarketCategoryAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
         binding.category6RecyclerView.adapter = superMarketCategoryAdapter
-        vModel.productsInCategorySuperMarket.observe(viewLifecycleOwner){superMarketCategoryAdapter.submitList(it)}
+        vModel.productsInCategorySuperMarket.observe(viewLifecycleOwner){
+            superMarketCategoryAdapter.submitList(it)
+            binding.loadingAnimation.visibility = View.GONE
+            binding.mainLayout.visibility = View.VISIBLE}
 
     }
 

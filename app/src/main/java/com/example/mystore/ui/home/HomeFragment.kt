@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentHomeBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.ImageViewPagerAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -54,7 +55,10 @@ class HomeFragment : Fragment() {
 
         val mostPopularAdapter = ProductsAdapter {product -> goToProductDetailFragment(product)}
         binding.mostPopularProductsRecyclerView.adapter = mostPopularAdapter
-        vModel.mostPopularProduct.observe(viewLifecycleOwner) {mostPopularAdapter.submitList(it)}
+        vModel.mostPopularProduct.observe(viewLifecycleOwner) {
+            mostPopularAdapter.submitList(it)
+            binding.loadingAnimation.visibility = View.GONE
+            binding.mainLayout.visibility = View.VISIBLE}
 
         val mostViewAdapter = ProductsAdapter {product -> goToProductDetailFragment(product)}
         binding.mostViewProductsRecyclerView.adapter = mostViewAdapter
@@ -109,8 +113,5 @@ class HomeFragment : Fragment() {
         }
 
     }
-
-
-
 
 }

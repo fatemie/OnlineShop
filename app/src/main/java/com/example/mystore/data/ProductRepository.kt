@@ -40,7 +40,7 @@ class ProductRepository @Inject constructor(
     }
 
     suspend fun register(customer: Customer) : Customer {
-        return productRemoteDataSource.register(customer)
+        return  productRemoteDataSource.register(customer)
     }
 
     suspend fun registerOrder(order: OrderItem) : OrderItem {
@@ -55,8 +55,8 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getAttributeTerm(attribute_id)
     }
 
-    suspend fun getProductReviews(productId : String): List<ReviewItem> {
-        return productRemoteDataSource.getProductReviews(productId)
+    suspend fun getProductReviews(product_id : Int): List<ReviewItem> {
+        return productRemoteDataSource.getProductReviews(product_id)
     }
 
     fun sampleProducts() : List<ProductsApiResultItem>{

@@ -11,8 +11,8 @@ data class OrderItem(
     val billing: Billing,
     @Json(name = "line_items")
     val lineItems: List<LineItem>,
-    @Json(name = "date_completed")
-    val dateCompleted: String,
+    //@Json(name = "date_completed")
+    //val dateCompleted: String,
 //    @Json(name = "customer_id")
 //    val customerId: Int,
 //    @Json(name = "id")

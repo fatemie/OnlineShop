@@ -29,7 +29,7 @@ class ReviewAdapter() :
             tvReviewerName.text = review.reviewer
             tvReview.text = review.reviewDescription
             Glide.with(context)
-                .load(review.reviewerAvatarUrls.x48)
+                .load(review.reviewerAvatarUrls.x24)
                 .fitCenter()
                 .into(ivReviewerAvatar)
         }

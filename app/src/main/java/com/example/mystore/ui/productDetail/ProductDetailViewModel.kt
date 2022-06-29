@@ -1,5 +1,6 @@
 package com.example.mystore.ui.productDetail
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,6 +29,7 @@ class ProductDetailViewModel @Inject constructor(private val repository: Product
                 .replace("<p>", "")
                 .replace("</p>", "")
             getRelatedProducts(thisProduct.relatedIds.toString() )
+            getProductReviews(id)
         }
     }
 
@@ -38,9 +40,15 @@ class ProductDetailViewModel @Inject constructor(private val repository: Product
         }
     }
 
-    fun getProductReviews(productId : String){
+    fun getProductReviews(product_id : Int){
         viewModelScope.launch {
-            val thisProductReviews = repository.getProductReviews(productId)
+            val thisProductReviews = repository.getProductReviews(product_id)
+            for (review in thisProductReviews){
+                val newDescription = review.reviewDescription.replace("<br />", "")
+                    .replace("<p>", "")
+                    .replace("</p>", "")
+                review.reviewDescription = newDescription
+            }
             reviews.value = thisProductReviews
         }
     }

@@ -14,13 +14,15 @@ import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProductDetailBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.ImageViewPagerAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
+import com.example.mystore.ui.adapter.ReviewAdapter
 import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductDetailFragment : Fragment() {
+class ProductDetailFragment : BaseFragment() {
     private val vModel: ProductDetailViewModel by viewModels()
     private val sharedVModel: ShoppingBasketViewModel by activityViewModels()
     private lateinit var imageViewPagerAdapter: ImageViewPagerAdapter
@@ -54,17 +56,23 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vModel.getProduct(productId)
-        vModel.getProductReviews("[$productId]")
+        val array = arrayListOf(productId)
 
         vModel.product.observe(viewLifecycleOwner){
             imageViewPagerAdapter = ImageViewPagerAdapter(it.images)
             binding.viewPagerDetail.adapter = imageViewPagerAdapter
         }
 
-
         val relatedProductsAdapter = ProductsAdapter { product -> goToProductDetailFragment(product) }
         binding.relatedProductsRecyclerView.adapter = relatedProductsAdapter
         vModel.relatedProducts.observe(viewLifecycleOwner) { relatedProductsAdapter.submitList(it) }
+
+        val reviewsAdapter = ReviewAdapter()
+        binding.reviewsRecyclerView.adapter = reviewsAdapter
+        vModel.reviews.observe(viewLifecycleOwner) {
+            reviewsAdapter.submitList(it)
+        binding.loadingAnimation.visibility = View.GONE
+        binding.mainLayout.visibility = View.VISIBLE}
 
         setUpViewPager()
         setListener()

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
@@ -16,10 +17,12 @@ import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.order.LineItem
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.ui.login.*
+import com.example.mystore.ui.orderRegisterOK
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.util.*
+import java.time.LocalDate.now
 import javax.inject.Inject
 
 const val PRODUCTSINBASKET = "PRODUCTSINBASKET"
@@ -31,9 +34,10 @@ class ShoppingBasketViewModel @Inject constructor(
 ) : AndroidViewModel(app) {
     lateinit var prefs: SharedPreferences
     val shoppingBasketList = MutableLiveData<List<ProductsApiResultItem>>()
-    var arrayList = arrayListOf<ProductsApiResultItem>()
-    val totalPrice = MutableLiveData<String>()
+    private var arrayList = arrayListOf<ProductsApiResultItem>()
+    val totalPrice = MutableLiveData<String>("0")
     var productStr = ""
+    var basketIsEmpty = MutableLiveData<Boolean>()
 
     init {
         readProductsFromSharedPref()
@@ -58,7 +62,7 @@ class ShoppingBasketViewModel @Inject constructor(
 
     fun onProductChanged(product: ProductsApiResultItem) {
         productStr = ""
-        var index = 0
+        var index: Int
 
         for (i in 0..arrayList.size - 1) {
             if (arrayList[i].id == product.id) {
@@ -69,13 +73,12 @@ class ShoppingBasketViewModel @Inject constructor(
                     continue
                 }
             }
-            productStr += "${arrayList[i].id.toString() + "/" + arrayList[i].numberInBasket.toString()}" + " "
+            productStr += arrayList[i].id.toString() + "/" + arrayList[i].numberInBasket.toString() + " "
         }
         Log.e("tagChange", productStr)
         saveBasketInSharedPref()
         totalPrice.value = calculateTotalPrice().toString()
-
-
+        basketIsEmpty.value = arrayList.isEmpty()
     }
 
 
@@ -97,13 +100,13 @@ class ShoppingBasketViewModel @Inject constructor(
         editor.apply()
     }
 
-    fun readProductsFromSharedPref() {
+    private fun readProductsFromSharedPref() {
         val prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
         )
         val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
-        if (arrayList.isEmpty() && !productsListStr.isNullOrEmpty()) {
+        if (arrayList.isEmpty() && productsListStr.isNotEmpty()) {
             val list = productsListStr.split(" ")
             for (item in list) {
                 if (item.contains("/")) {
@@ -113,6 +116,7 @@ class ShoppingBasketViewModel @Inject constructor(
                     addProductToBasket(productId, number)
                 }
             }
+            basketIsEmpty.value = false
         }
     }
 
@@ -122,24 +126,24 @@ class ShoppingBasketViewModel @Inject constructor(
             AppCompatActivity.MODE_PRIVATE
         )
         val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
-        return (productsListStr.isNullOrBlank())
+        basketIsEmpty.value = productsListStr.isBlank()
+        return (productsListStr.isBlank())
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun registerBasket() {
+    fun registerBasket(view : View) {
         val prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
         )
-        val productsListStr = prefs.getString(PRODUCTSINBASKET, "").toString()
-        val address = prefs.getString(ADDRESS, "").toString()
-        val email = prefs.getString(EMAIL, "").toString()
-        val firstName = prefs.getString(FIRSTNAME, "").toString()
-        val lastName = prefs.getString(LASTNAME, "").toString()
-        val phone = prefs.getString(PHONE, "").toString()
-        val postCode = prefs.getString(POSTALCODE, "").toString()
 
         viewModelScope.launch {
+            val address = prefs.getString(ADDRESS, "").toString()
+            val email = prefs.getString(EMAIL, "").toString()
+            val firstName = prefs.getString(FIRSTNAME, "").toString()
+            val lastName = prefs.getString(LASTNAME, "").toString()
+            val phone = prefs.getString(PHONE, "").toString()
+            val postCode = prefs.getString(POSTALCODE, "").toString()
             val newArray = arrayListOf<LineItem>()
             Log.e("tag", "salam")
             for (product in arrayList) {
@@ -152,14 +156,33 @@ class ShoppingBasketViewModel @Inject constructor(
                 )
                 newArray.add(lineItem)
             }
-            val order = OrderItem(Billing(
-                address, "", "tehran", "",
-                "Iran", email, firstName, lastName, phone, postCode, "",),
-                newArray, LocalDate.now().toString())
-            Log.e("tag", email)
-            //repository.registerOrder(order)
+            val order = OrderItem(
+                Billing(
+                    address, "", "tehran", "",
+                    "Iran", email, firstName, lastName, phone, postCode, "",
+                ),
+                newArray
+            )
+            Log.e("tagEmail", email)
+            repository.registerOrder(order)
+            if (orderRegisterOK){
+                basketIsRegistered(view)
+            }
 
         }
+
+    }
+
+    fun basketIsRegistered(view : View){
+        val snack = Snackbar.make(view,"اطلاعات با موفقیت افزوده شد",
+            Snackbar.LENGTH_LONG)
+        snack.show()
+        productStr = ""
+        arrayList = arrayListOf()
+        shoppingBasketList.value = arrayList
+        basketIsEmpty.value = true
+        saveBasketInSharedPref()
+        totalPrice.value = "0"
 
     }
 
@@ -170,7 +193,7 @@ class ShoppingBasketViewModel @Inject constructor(
         )
         val customerName = prefs.getString(FIRSTNAME, "").toString()
         Log.e("tag", customerName)
-        return (!customerName.isNullOrEmpty())
+        return (customerName.isNotEmpty())
     }
 
 

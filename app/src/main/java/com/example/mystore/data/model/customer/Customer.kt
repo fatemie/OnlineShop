@@ -3,8 +3,8 @@ package com.example.mystore.data.model.customer
 import com.squareup.moshi.Json
 
 data class Customer (
-    @Json(name = "id")
-    val id: Int,
+//    @Json(name = "id")
+//    val id: Int,
     @Json(name = "email")
     val email: String,
     @Json(name = "first_name")

@@ -3,8 +3,8 @@ package com.example.mystore.data.network
 class NetworkParams {
 
     companion object{
-        const val CONSUMER_KEY = "ck_6b55bb0ff3ea0b7bf4c0aa879af50061964ce38f"
-        const val CONSUMER_SECRET = "cs_9b09e5125acffdd27bbe72843ced49db5f8bffb4"
+        const val CONSUMER_KEY = "ck_63f4c52da932ddad1570283b31f3c96c4bd9fd6f"
+        const val CONSUMER_SECRET = "cs_294e7de35430398f323b43c21dd1b29f67b5370b"
 
         fun getBaseOptions() : Map<String,String>{
             val optionHashMap = HashMap<String, String>()

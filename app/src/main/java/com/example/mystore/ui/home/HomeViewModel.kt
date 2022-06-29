@@ -27,30 +27,10 @@ class HomeViewModel @Inject constructor(private val repository: ProductRepositor
     val mostViewProduct = MutableLiveData<List<ProductsApiResultItem>>()
     val specialProducts = MutableLiveData<ProductsApiResultItem>()
 
-    init {
-        getProducts()
-    }
 
     fun getProducts() {
         var array = arrayListOf<ProductsApiResultItem>()
         viewModelScope.launch {
-//            productList.postValue(Resource.Loading())
-//            try {
-//                val response  = repository.getProductsOrderBy("date")
-//                productList.postValue(handleProductList(response))
-//                specialProducts.value = productList.value?.data?.get(10)
-//                array = productList.value?.data as ArrayList
-//                array.removeAt(10)
-//                productList.value!!.data = array
-//
-//                val response1  = repository.getProductsOrderBy("popularity")
-//                mostPopularProduct.postValue(handleProductList(response1))
-//                val response2  = repository.getProductsOrderBy("rating")
-//                mostViewProduct.postValue(handleProductList(response2))
-//
-//            }catch (t :Throwable){
-//                productList.postValue(Resource.Error("Unknown Error!"))
-//            }
             val dateList = repository.getProductsOrderBy("date")
             specialProducts.value = dateList[10]
             array = dateList as ArrayList
@@ -85,16 +65,6 @@ class HomeViewModel @Inject constructor(private val repository: ProductRepositor
         }
         return false
     }
-
-    private fun handleProductList(response: Response<List<ProductsApiResultItem>>):Resource<List<ProductsApiResultItem>>{
-        if (response.isSuccessful){
-            response.body()?.let{
-                return Resource.Success(it)
-            }
-        }
-        return Resource.Error(response.message())
-    }
-
 
 
 }

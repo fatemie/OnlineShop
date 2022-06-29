@@ -86,10 +86,10 @@ interface ApiService {
         @Body order: OrderItem
     ): OrderItem
 
-    @GET("products/reviews/")
+    @GET("products/reviews")
     suspend fun getProductReviews(
         @Query("per_page") page: Int = 55,
-        @Query("product") product_id: String,
+        @Query("product") product_id : Int,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ReviewItem>
 
