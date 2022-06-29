@@ -101,13 +101,15 @@ class ProductDetailFragment : BaseFragment() {
     fun setListener() {
         binding.fab.setOnClickListener {
             sharedVModel.addProductToBasket(productId,0)
-            //goToShoppingBasketFragment()
+        }
+        binding.submitReview.setOnClickListener{
+            goToAddReviewFragment(productId)
         }
     }
 
-    fun goToShoppingBasketFragment() {
+    private fun goToAddReviewFragment(productId: Int) {
         val action =
-            ProductDetailFragmentDirections.actionProductDetailFragmentToShoppingBasketFragment2()
+            ProductDetailFragmentDirections.actionProductDetailFragmentToAddReviewFragment(productId)
         findNavController().navigate(action)
     }
 
