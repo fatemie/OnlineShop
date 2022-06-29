@@ -57,13 +57,7 @@ class SearchViewModel @Inject constructor(private val repository : ProductReposi
         }
     }
 
-    fun getColorAttributeId(attribute_term: AttributeTermItem){
-        colorTermId = attribute_term.id.toString()
-    }
 
-    fun getSizeAttributeId(attribute_term: AttributeTermItem){
-        sizeTermId = attribute_term.id.toString()
-    }
 
 
 

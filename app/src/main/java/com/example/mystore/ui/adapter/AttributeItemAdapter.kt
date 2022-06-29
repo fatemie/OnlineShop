@@ -30,19 +30,18 @@ class AttributeItemAdapter(var onItemClicked: AtttributeItemClickHandler) :
         fun bind(attributeTerm: AttributeTermItem, onItemClicked: AtttributeItemClickHandler, list : List<AttributeTermItem>) {
             tvAttributeName.text = attributeTerm.name
 
-            //Log.e("tag", list[0].name)
             var isChoose = attributeTerm.isChoosed
-//            if(isChoose){
-//                ivChoose.setImageResource(R.drawable.ic_baseline_brightness_1_24)
-//            }else{
-//                ivChoose.setImageResource(R.drawable.ic_baseline_album_24)
-//            }
+            if(isChoose){
+                ivChoose.setImageResource(R.drawable.ic_baseline_brightness_1_24)
+            }else{
+                ivChoose.setImageResource(R.drawable.ic_baseline_album_24)
+            }
+
             ivChoose.setOnClickListener {
                 for (item in list){
                     if (item.id != attributeTerm.id){
                         item.isChoosed = false
                     }
-
                 }
                 if (isChoose){
                     ivChoose.setImageResource(R.drawable.ic_baseline_brightness_1_24)
@@ -52,6 +51,7 @@ class AttributeItemAdapter(var onItemClicked: AtttributeItemClickHandler) :
                     attributeTerm.isChoosed = false
                 }
                 isChoose = !isChoose
+                Log.e("tag",list[0].isChoosed.toString() )
                 onItemClicked(attributeTerm)
             }
         }
@@ -65,6 +65,7 @@ class AttributeItemAdapter(var onItemClicked: AtttributeItemClickHandler) :
 
     override fun onBindViewHolder(holder: AttributeItemAdapter.ViewHolder, position: Int) {
         val attribute_term = getItem(position)
+        submitList(currentList )
         holder.bind(attribute_term, onItemClicked, currentList)
     }
 

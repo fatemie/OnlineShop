@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentSearchBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.AttributeItemAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
@@ -25,6 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : BaseFragment() {
     private val vModel: SearchViewModel by viewModels()
     lateinit var binding: FragmentSearchBinding
+    lateinit var colorTermsAdapter: AttributeItemAdapter
+    lateinit var sizeTermsAdapter: AttributeItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,11 +51,11 @@ class SearchFragment : BaseFragment() {
         binding.rvSearchList.adapter = searchAdapter
         vModel.searchList.observe(viewLifecycleOwner) { searchAdapter.submitList(it) }
 
-        val colorTermsAdapter = AttributeItemAdapter { attributeTerm -> vModel.getColorAttributeId(attributeTerm) }
+        colorTermsAdapter = AttributeItemAdapter { attributeTerm -> getColorAttributeId(attributeTerm) }
         binding.rvColorTerm.adapter = colorTermsAdapter
         vModel.colorTerms.observe(viewLifecycleOwner) { colorTermsAdapter.submitList(it) }
 
-        val sizeTermsAdapter = AttributeItemAdapter { attributeTerm -> vModel.getSizeAttributeId(attributeTerm) }
+        sizeTermsAdapter = AttributeItemAdapter { attributeTerm -> getSizeAttributeId(attributeTerm) }
         binding.rvSizeTerm.adapter = sizeTermsAdapter
         vModel.sizeTerms.observe(viewLifecycleOwner) { sizeTermsAdapter.submitList(it) }
     }
@@ -93,6 +97,16 @@ class SearchFragment : BaseFragment() {
             }
         }
 
+    }
+
+    fun getColorAttributeId(attribute_term: AttributeTermItem){
+        vModel.colorTermId = attribute_term.id.toString()
+        colorTermsAdapter.submitList(vModel.colorTerms.value)
+    }
+
+    fun getSizeAttributeId(attribute_term: AttributeTermItem){
+        vModel.sizeTermId = attribute_term.id.toString()
+        sizeTermsAdapter.submitList(vModel.sizeTerms.value)
     }
 
     private fun goToProductDetailFragment(product: ProductsApiResultItem) {

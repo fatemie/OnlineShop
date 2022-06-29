@@ -21,11 +21,11 @@
             android:name="productId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_productDetailFragment_to_shoppingBasketFragment2"
-            app:destination="@id/shoppingBasketFragment2" />
-        <action
             android:id="@+id/action_productDetailFragment_self"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_addReviewFragment"
+            app:destination="@id/addReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -57,9 +57,6 @@
         <action
             android:id="@+id/action_shoppingBasketFragment2_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
-        <action
-            android:id="@+id/action_shoppingBasketFragment2_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -88,5 +85,14 @@
         <action
             android:id="@+id/action_categoryDetailFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReviewFragment"
+        android:name="com.example.mystore.ui.addReview.AddReviewFragment"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" >
+        <argument
+            android:name="productId"
+            app:argType="integer" />
     </fragment>
 </navigation>

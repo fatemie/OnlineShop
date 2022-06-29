@@ -93,5 +93,11 @@ interface ApiService {
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): List<ReviewItem>
 
+    @POST("products/reviews")
+    suspend fun createReview(
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
+        @Body review: ReviewItem
+    ): ReviewItem
+
 
 }
