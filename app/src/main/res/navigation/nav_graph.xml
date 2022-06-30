@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_productDetailFragment_to_addReviewFragment"
             app:destination="@id/addReviewFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_addReviewFragment2"
+            app:destination="@id/addReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -93,6 +96,9 @@
         tools:layout="@layout/fragment_add_review" >
         <argument
             android:name="productId"
+            app:argType="integer" />
+        <argument
+            android:name="reviewId"
             app:argType="integer" />
     </fragment>
 </navigation>

@@ -62,14 +62,17 @@ class ShoppingBasketViewModel @Inject constructor(
 
     fun onProductChanged(product: ProductsApiResultItem) {
         productStr = ""
-        var index: Int
+        var deleteFlag = false
+        val size = arrayList.size - 1
 
-        for (i in 0..arrayList.size - 1) {
+        for (i in 0..size) {
+            if(deleteFlag && i == size)
+                break
             if (arrayList[i].id == product.id) {
-                index = i
                 if (arrayList[i].numberInBasket == 0) {
-                    arrayList.removeAt(index)
+                    arrayList.removeAt(i)
                     shoppingBasketList.value = arrayList
+                    deleteFlag = true
                     continue
                 }
             }

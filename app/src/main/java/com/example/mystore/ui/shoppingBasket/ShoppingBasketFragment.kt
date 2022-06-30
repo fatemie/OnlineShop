@@ -14,8 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentShoppingBasketBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.domain.isOnline
 import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.ShoppingBasketAdapter
+import com.example.mystore.ui.search.SearchFragmentDirections
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,12 +72,19 @@ class ShoppingBasketFragment : BaseFragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun goToProductDetailFragment(product: ProductsApiResultItem) {
-        val action =
-            ShoppingBasketFragmentDirections.actionShoppingBasketFragment2ToProductDetailFragment(
-                product.id
-            )
-        findNavController().navigate(action)
+        if(isOnline(requireActivity().application)){
+            val action =
+                ShoppingBasketFragmentDirections.actionShoppingBasketFragment2ToProductDetailFragment(
+                    product.id
+                )
+            findNavController().navigate(action)
+        }else{
+            val snack = Snackbar.make(binding.rvShoppingBasket,"خطا در برقراری ارتباط",
+                Snackbar.LENGTH_LONG)
+            snack.show()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -2,6 +2,7 @@ package com.example.mystore.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,8 @@ open class BaseFragment : Fragment() {
                     is retrofit2.HttpException -> showDialog("خطا در درخواست ارسال")
                     is ConnectException -> showDialog("خطای سرور")
                     is SocketException -> showDialog("خطای سرور")
-                    else -> it.message?.let{m -> showDialog(m)}
+                    else -> it.message?.let{ m -> showDialog(m)
+                    }
                 }
             }
         }

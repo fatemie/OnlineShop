@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentHomeBinding
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.domain.isOnline
 import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.ImageViewPagerAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
@@ -103,7 +104,7 @@ class HomeFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun goToProductDetailFragment(product : ProductsApiResultItem){
-        if(vModel.isOnline()){
+        if(isOnline(requireActivity().application)){
         val action =
             HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product.id)
         findNavController().navigate(action)

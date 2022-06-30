@@ -1,36 +1,25 @@
 package com.example.mystore.ui.login
 
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentLoginBinding
-import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.customer.Billing
-import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.ui.BaseFragment
-import com.example.mystore.ui.search.SearchFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.LocalDate.now
-import java.time.LocalDateTime.now
-import java.util.*
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment(){
+class LoginFragment : BaseFragment() {
     lateinit var binding: FragmentLoginBinding
     private val vModel: LoginViewModel by activityViewModels()
-
 
 
     override fun onCreateView(
@@ -52,18 +41,16 @@ class LoginFragment : BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnRegister.setOnClickListener {
-            if(verification()) {
-                val customer = CustomerItem(
-                    "https://secure.gravatar.com/avatar/8eb1b522f60d11fa897de1dc6351b7e8?s=96",
-                    Billing("","","Tehran","","Iran","",
+            if (verification()) {
+                val customer = Customer(
+                    "", binding.TextFieldFirstName.editText!!.text.toString(),
+                    binding.TextFieldLastName.editText!!.text.toString(),
+                    Billing(
+                        "", "", "Tehran", "", "Iran", "",
                         binding.TextFieldFirstName.editText!!.text.toString(),
                         binding.TextFieldLastName.editText!!.text.toString(),
-                        binding.TextFieldPhone.editText!!.text.toString(),"",""),
-                        LocalDate.now().toString(),
-                    "",
-                    binding.TextFieldFirstName.editText!!.text.toString(), 1,false,
-                    binding.TextFieldLastName.editText!!.text.toString(),
-                    "customer",
+                        binding.TextFieldPhone.editText!!.text.toString(), "", ""
+                    ),
                     binding.TextFieldPass.editText!!.text.toString()
                 )
 
@@ -71,7 +58,7 @@ class LoginFragment : BaseFragment(){
                 goToProfileFragment()
             }
         }
-        if (vModel.isLogin()){
+        if (vModel.isLogin()) {
             goToProfileFragment()
         }
     }

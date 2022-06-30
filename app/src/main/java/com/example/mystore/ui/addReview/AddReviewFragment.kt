@@ -25,18 +25,23 @@ class AddReviewFragment : BaseFragment() {
 
 
     private var productID = 0
+    private var reviewID = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             productID = it.getInt("productId")
+            reviewID = it.getInt("reviewId")
+        }
+        if(reviewID != 0){
+            vModel.getReviewById(reviewID)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddReviewBinding.inflate(inflater, container, false)
         return  binding.root
 
@@ -44,6 +49,15 @@ class AddReviewFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (reviewID != 0){
+            vModel.thisReview.observe(viewLifecycleOwner){
+                binding.TextFieldName.editText!!.setText(it.reviewer)
+                binding.TextFieldReview.editText!!.setText(it.reviewDescription)
+                binding.seekBar.setProgress(it.rating)
+            }
+        }
+
         binding.btnRegister.setOnClickListener {
             createReview()
         }
@@ -57,7 +71,7 @@ class AddReviewFragment : BaseFragment() {
         val email = prefs!!.getString(EMAIL, "").toString()
 
         val review = ReviewItem(productID, binding.seekBar.progress, binding.TextFieldName.editText!!.text.toString(),
-        binding.TextFieldReview.editText!!.text.toString(),email, ReviewerAvatarUrls("","",""))
+            email,binding.TextFieldReview.editText!!.text.toString(), ReviewerAvatarUrls("","",""),0)
 
         vModel.createReview(review,binding.btnRegister)
     }

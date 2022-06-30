@@ -15,9 +15,11 @@ import com.example.mystor.R
 import com.example.mystor.databinding.FragmentCategoriesBinding
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.category.CategoriesItem
+import com.example.mystore.domain.isOnline
 import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.CategoriesAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
+import com.example.mystore.ui.home.HomeFragmentDirections
 import com.example.mystore.ui.home.HomeViewModel
 import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -72,10 +74,16 @@ class CategoriesFragment : BaseFragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun goToCategoryDetailFragment(category: CategoriesItem) {
-        val action =
-            CategoriesFragmentDirections.actionCategoriesFragmentToCategoryDetailFragment(category.id.toString())
-        findNavController().navigate(action)
+        if(isOnline(requireActivity().application)){
+            val action =
+                CategoriesFragmentDirections.actionCategoriesFragmentToCategoryDetailFragment(category.id.toString())
+            findNavController().navigate(action)
+        }else{
+            val snack = Snackbar.make(binding.mainLayout,"خطا در برقراری ارتباط",Snackbar.LENGTH_LONG)
+            snack.show()
+        }
     }
 
 

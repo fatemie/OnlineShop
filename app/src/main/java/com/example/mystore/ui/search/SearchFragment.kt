@@ -1,5 +1,6 @@
 package com.example.mystore.ui.search
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,9 +20,12 @@ import com.example.mystor.R
 import com.example.mystor.databinding.FragmentSearchBinding
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.attributeTerm.AttributeTermItem
+import com.example.mystore.domain.isOnline
 import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.adapter.AttributeItemAdapter
 import com.example.mystore.ui.adapter.ProductsAdapter
+import com.example.mystore.ui.productDetail.ProductDetailFragmentDirections
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,6 +48,7 @@ class SearchFragment : BaseFragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListener()
@@ -70,7 +76,6 @@ class SearchFragment : BaseFragment() {
                 else -> "date"
             }
             if (filterIsChoosed()) {
-                Log.e("tag", it)
                 filterSearch(it, order)
             } else {
                 sortSearch(it, order)
@@ -101,18 +106,31 @@ class SearchFragment : BaseFragment() {
 
     fun getColorAttributeId(attribute_term: AttributeTermItem){
         vModel.colorTermId = attribute_term.id.toString()
+        vModel.sizeTermId = ""
+        for (item in vModel.colorTerms.value!!){
+            if(item.id != attribute_term.id)
+                item.isChoosed = false
+        }
         colorTermsAdapter.submitList(vModel.colorTerms.value)
     }
 
     fun getSizeAttributeId(attribute_term: AttributeTermItem){
         vModel.sizeTermId = attribute_term.id.toString()
+        vModel.colorTermId = ""
         sizeTermsAdapter.submitList(vModel.sizeTerms.value)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun goToProductDetailFragment(product: ProductsApiResultItem) {
-        val action =
-            SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(product.id)
-        findNavController().navigate(action)
+        if(isOnline(requireActivity().application)){
+            val action =
+                SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(product.id)
+            findNavController().navigate(action)
+        }else{
+            val snack = Snackbar.make(binding.rvSearchList,"خطا در برقراری ارتباط",
+                Snackbar.LENGTH_LONG)
+            snack.show()
+        }
     }
 
     fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {

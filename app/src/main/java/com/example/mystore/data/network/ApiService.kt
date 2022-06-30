@@ -99,5 +99,11 @@ interface ApiService {
         @Body review: ReviewItem
     ): ReviewItem
 
+    @GET("products/reviews/{id}")
+    suspend fun getReviewById(
+        @Path("id") id: Int,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+    ): ReviewItem
+
 
 }

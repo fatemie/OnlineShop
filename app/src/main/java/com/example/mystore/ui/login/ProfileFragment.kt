@@ -9,18 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystor.databinding.FragmentProfileBinding
 import com.example.mystore.data.model.customer.Billing
-import com.example.mystore.data.model.customer.CustomerItem
+import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.ui.BaseFragment
-import com.example.mystore.ui.errorException
-import com.example.mystore.ui.shoppingBasket.ShoppingBasketViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
@@ -63,13 +59,19 @@ class ProfileFragment : BaseFragment() {
             showDeleteDialog()
         }
         binding.btnPersonalInfo.setOnClickListener {
-            binding.InfoLayout.visibility = View.VISIBLE
+            binding.llShowInfo.visibility = View.VISIBLE
             binding.firstLayout.visibility = View.GONE
+        }
+        binding.btnEdit.setOnClickListener {
+            binding.llShowInfo.visibility = View.GONE
+            binding.editInfoLayout.visibility = View.VISIBLE
         }
         binding.btnRegister.setOnClickListener {
             if (verification()) {
-                val customer = CustomerItem(
-                    "https://secure.gravatar.com/avatar/8eb1b522f60d11fa897de1dc6351b7e8?s=96",
+                val customer = Customer(
+                    binding.TextFieldEmail.editText!!.text.toString(),
+                    binding.TextFieldFirstName1.editText!!.text.toString(),
+                    binding.TextFieldLastName1.editText!!.text.toString(),
                     Billing(
                         binding.TextFieldAddress.editText!!.text.toString(),
                         "", "Tehran", "Iran", "",
@@ -79,17 +81,12 @@ class ProfileFragment : BaseFragment() {
                         binding.TextFieldPhone.editText!!.text.toString(),
                         binding.TextFieldPostalCode.editText!!.text.toString(), ""
                     ),
-                    LocalDate.now().toString(),
-                    binding.TextFieldEmail.editText!!.text.toString(),
-                    binding.TextFieldFirstName1.editText!!.text.toString(), 1, false,
-                    binding.TextFieldLastName1.editText!!.text.toString(),
-                    "customer",
-                    binding.TextFieldPass.editText!!.text.toString()
+                    binding.TextFieldPass.editText!!.text.toString(),
                 )
                 vModel.saveInfoProfileToSharedPref(customer)
                 vModel.registerNewCustomerInServer(binding.btnRegister)
 
-                binding.InfoLayout.visibility = View.GONE
+                binding.editInfoLayout.visibility = View.GONE
                 binding.firstLayout.visibility = View.VISIBLE
             }
         }
@@ -129,12 +126,12 @@ class ProfileFragment : BaseFragment() {
         }
         builder
             .setTitle("خروج از حساب کاربری")
-            .setPositiveButton("بله", DialogInterface.OnClickListener {
-                    dialog, id -> vModel.deleteAccount()
-                                    goToLoginFragment()
+            .setPositiveButton("بله", DialogInterface.OnClickListener { dialog, id ->
+                vModel.deleteAccount()
+                goToLoginFragment()
             })
-            .setNegativeButton("خیر", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
+            .setNegativeButton("خیر", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
             })
             .show()
     }

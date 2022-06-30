@@ -2,6 +2,7 @@ package com.example.mystore.ui.login
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.location.Address
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +11,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
+import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.Customer
-import com.example.mystore.data.model.customer.CustomerItem
 import com.example.mystore.ui.customerRegisterOK
 import com.example.mystore.ui.errorException
 import com.google.android.material.snackbar.Snackbar
@@ -36,11 +37,8 @@ class LoginViewModel @Inject constructor(
 
     lateinit var prefs: SharedPreferences
 
-    lateinit var customer: CustomerItem
-    var firstName = ""
-    var lastName = ""
+    lateinit var customer: Customer
     var avatar = ""
-    var pass = ""
 
     val name = MutableLiveData<String>()
 
@@ -75,7 +73,7 @@ class LoginViewModel @Inject constructor(
         return true
     }
 
-    fun saveInfoLoginToSharedPref(thisCustomer: CustomerItem) {
+    fun saveInfoLoginToSharedPref(thisCustomer: Customer) {
         prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -84,12 +82,13 @@ class LoginViewModel @Inject constructor(
         editor.putString(FIRSTNAME, thisCustomer.firstName)
         editor.putString(LASTNAME, thisCustomer.lastName)
         editor.putString(PHONE, thisCustomer.billing.phone)
-//        editor.putString(PASS , thisCustomer.username)
+//      editor.putString(PASS , thisCustomer.username)
         editor.apply()
         name.value = thisCustomer.firstName + " " + thisCustomer.lastName
+        customer = thisCustomer
     }
 
-    fun saveInfoProfileToSharedPref(thisCustomer: CustomerItem) {
+    fun saveInfoProfileToSharedPref(thisCustomer: Customer) {
         prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -110,11 +109,18 @@ class LoginViewModel @Inject constructor(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
         )
-        firstName = prefs.getString(FIRSTNAME, "").toString()
-        lastName = prefs.getString(LASTNAME, "").toString()
-        pass = prefs.getString(PASS, "").toString()
+        val firstName = prefs.getString(FIRSTNAME, "").toString()
+        val lastName = prefs.getString(LASTNAME, "").toString()
+        val email = prefs.getString(EMAIL, "").toString()
+        val address = prefs.getString(ADDRESS, "").toString()
+        val phone = prefs.getString(PHONE, "").toString()
+        val postCode = prefs.getString(POSTALCODE, "").toString()
+        val pass = prefs.getString(PASS, "").toString()
         avatar = "https://secure.gravatar.com/avatar/be7b5febff88a2d947c3289e90cdf017?s=96"
         name.value = "$firstName $lastName"
+
+        customer = Customer(email, firstName, lastName, Billing(address, "", "Tehran",
+        "company", "Iran", email, firstName, lastName,phone, postCode, "" ), pass)
 
 
         return (!firstName.isNullOrBlank())
@@ -137,13 +143,14 @@ class LoginViewModel @Inject constructor(
         try {
             viewModelScope.launch {
                 val customerForServer = Customer(
-                    customer.email, customer.firstName, customer.lastName,
-                    customer.billing
+                    customer.email, customer.firstName, customer.lastName, customer.billing, ""
                 )
                 repository.register(customerForServer)
-                if(customerRegisterOK){
-                    val snack = Snackbar.make(view,"اطلاعات با موفقیت افزوده شد",
-                        Snackbar.LENGTH_LONG)
+                if (customerRegisterOK) {
+                    val snack = Snackbar.make(
+                        view, "اطلاعات با موفقیت افزوده شد",
+                        Snackbar.LENGTH_LONG
+                    )
                     snack.show()
                     customerRegisterOK = false
                 }

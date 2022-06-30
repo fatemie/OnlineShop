@@ -46,23 +46,13 @@ class SearchViewModel @Inject constructor(private val repository : ProductReposi
         viewModelScope.launch {
             val list = repository.getAttributeTerms(3)
             colorTerms.value = list
-            //Log.e("tag", list[0].name)
-        }
     }
 
+}
     fun getSizeTerms(){
         viewModelScope.launch {
             val list = repository.getAttributeTerms(4)
-           sizeTerms.value = list
+            sizeTerms.value = list
         }
     }
-
-
-
-
-
-
-
-
-
 }

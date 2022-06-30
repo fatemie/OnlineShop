@@ -63,5 +63,9 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.createReview(review)
     }
 
+    suspend fun getReviewById(id : Int): ReviewItem {
+        return productRemoteDataSource.getReviewById(id)
+    }
+
 
 }

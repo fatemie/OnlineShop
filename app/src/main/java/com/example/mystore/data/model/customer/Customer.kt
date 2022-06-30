@@ -13,6 +13,10 @@ data class Customer (
     val lastName: String,
     @Json(name = "billing")
     val billing: Billing,
+    @Json(name = "username")
+    val pass : String
+//    @Json(name = "avatarUrl")
+//    val avatarUrl : String,
 //    @Json(name = "shipping")
 //    val shipping: Shipping,
     )

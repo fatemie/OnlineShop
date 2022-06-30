@@ -165,10 +165,21 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
+    suspend fun getReviewById(id: Int): ReviewItem {
+        return try {
+            errorException.value = null
+            apiService.getReviewById(id = id)
+        } catch (e: Exception) {
+            if (errorException.value == null)
+                errorException.value = e
+            sampleReview()
+        }
+    }
+
     private fun sampleReview(): ReviewItem {
         val review = ReviewItem(1, 1, "reviewer", "reviewer email",
-            "review description", ReviewerAvatarUrls("","","")
-        )
+            "review description", ReviewerAvatarUrls("","",""),
+        0)
         return review
     }
 
@@ -184,7 +195,7 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
     fun sampleCustomer() : Customer{
         val customer = Customer("email", "firstName", "lastName",
         Billing("address1", "address2","tehran", "company", "Iran",
-        "email", "firstName", "lastName", "phone", "postCode", "state")
+        "email", "firstName", "lastName", "phone", "postCode", "state"), ""
         )
         return customer
     }

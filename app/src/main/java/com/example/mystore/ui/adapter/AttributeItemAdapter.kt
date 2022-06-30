@@ -38,11 +38,11 @@ class AttributeItemAdapter(var onItemClicked: AtttributeItemClickHandler) :
             }
 
             ivChoose.setOnClickListener {
-                for (item in list){
-                    if (item.id != attributeTerm.id){
-                        item.isChoosed = false
-                    }
-                }
+//                for (item in list){
+//                    if (item.id != attributeTerm.id){
+//                        item.isChoosed = false
+//                    }
+//                }
                 if (isChoose){
                     ivChoose.setImageResource(R.drawable.ic_baseline_brightness_1_24)
                     attributeTerm.isChoosed = true
