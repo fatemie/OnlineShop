@@ -100,5 +100,9 @@
         <argument
             android:name="reviewId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_addReviewFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

@@ -182,6 +182,8 @@
                     android:layoutDirection="rtl"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <LinearLayout

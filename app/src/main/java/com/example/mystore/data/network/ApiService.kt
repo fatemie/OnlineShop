@@ -7,6 +7,7 @@ import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
+import com.example.mystore.data.model.review.reviewForServer
 import retrofit2.http.*
 import retrofit2.http.DELETE
 
@@ -110,8 +111,8 @@ interface ApiService {
     suspend fun updateReview(
         @Path("id") id: Int,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
-        @Body review: ReviewItem
-    ): ReviewItem
+        @Body review: reviewForServer
+    ): reviewForServer
 
     @DELETE("products/reviews/{id}")
     suspend fun deleteReview(

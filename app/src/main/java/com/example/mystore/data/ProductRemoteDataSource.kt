@@ -10,6 +10,7 @@ import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
 import com.example.mystore.data.model.review.ReviewerAvatarUrls
+import com.example.mystore.data.model.review.reviewForServer
 import com.example.mystore.data.network.ApiService
 import com.example.mystore.ui.customerRegisterOK
 import com.example.mystore.ui.errorException
@@ -177,14 +178,14 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
-    suspend fun updateReview(review: ReviewItem): ReviewItem {
+    suspend fun updateReview(id: Int,review: reviewForServer): reviewForServer {
         return try {
             errorException.value = null
-            apiService.updateReview(id = review.id, review = review)
+            apiService.updateReview(id = id, review = review)
         } catch (e: Exception) {
             if (errorException.value == null)
                 errorException.value = e
-            sampleReview()
+            sampleReview1()
         }
     }
 
@@ -205,6 +206,12 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         val review = ReviewItem(1, 1, "reviewer", "reviewer email",
             "review description", ReviewerAvatarUrls("","",""),
         0)
+        return review
+    }
+
+    private fun sampleReview1(): reviewForServer {
+        val review = reviewForServer( 1, "reviewer", "reviewer email",
+            "review description", ReviewerAvatarUrls("","",""))
         return review
     }
 

@@ -8,6 +8,7 @@ import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
+import com.example.mystore.data.model.review.reviewForServer
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -67,8 +68,8 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getReviewById(id)
     }
 
-    suspend fun updateReview(review: ReviewItem): ReviewItem {
-        return productRemoteDataSource.updateReview(review)
+    suspend fun updateReview(id : Int,review: reviewForServer): reviewForServer {
+        return productRemoteDataSource.updateReview(id, review)
     }
 
     suspend fun deleteReview(id : Int): ReviewItem {
