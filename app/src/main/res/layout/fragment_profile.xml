@@ -154,19 +154,38 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextFieldAddress"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" آدرس"
-                    android:textSize="15dp">
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <Button
+                        android:id="@+id/btnLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center_horizontal"
+                        app:icon="@drawable/ic_baseline_add_location_24"
+                        app:iconGravity="end" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/TextFieldAddress"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:hint=" آدرس"
+                        android:layout_weight="1">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/TextFieldPostalCode"
