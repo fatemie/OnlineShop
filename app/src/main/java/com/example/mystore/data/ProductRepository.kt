@@ -67,5 +67,13 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getReviewById(id)
     }
 
+    suspend fun updateReview(review: ReviewItem): ReviewItem {
+        return productRemoteDataSource.updateReview(review)
+    }
+
+    suspend fun deleteReview(id : Int): ReviewItem {
+        return productRemoteDataSource.deleteReview(id)
+    }
+
 
 }

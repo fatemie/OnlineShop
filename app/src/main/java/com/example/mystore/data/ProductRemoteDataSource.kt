@@ -156,6 +156,7 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
     suspend fun createReview(review : ReviewItem): ReviewItem {
         return try {
             errorException.value = null
+            reviewRegisterOK = true
             apiService.createReview(review = review)
         } catch (e: Exception) {
             if (errorException.value == null)
@@ -172,6 +173,30 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         } catch (e: Exception) {
             if (errorException.value == null)
                 errorException.value = e
+            sampleReview()
+        }
+    }
+
+    suspend fun updateReview(review: ReviewItem): ReviewItem {
+        return try {
+            errorException.value = null
+            apiService.updateReview(id = review.id, review = review)
+        } catch (e: Exception) {
+            if (errorException.value == null)
+                errorException.value = e
+            sampleReview()
+        }
+    }
+
+    suspend fun deleteReview(id : Int): ReviewItem {
+        return try {
+            errorException.value = null
+            reviewRegisterOK = true
+            apiService.deleteReview(id)
+        } catch (e: Exception) {
+            if (errorException.value == null)
+                errorException.value = e
+            reviewRegisterOK = false
             sampleReview()
         }
     }

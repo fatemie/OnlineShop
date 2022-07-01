@@ -15,6 +15,7 @@ import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.login.EMAIL
 import com.example.mystore.ui.login.FIRSTNAME
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.concurrent.fixedRateTimer
 
 @AndroidEntryPoint
 class AddReviewFragment : BaseFragment() {
@@ -26,6 +27,7 @@ class AddReviewFragment : BaseFragment() {
 
     private var productID = 0
     private var reviewID = 0
+    lateinit var review : ReviewItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +57,25 @@ class AddReviewFragment : BaseFragment() {
                 binding.TextFieldName.editText!!.setText(it.reviewer)
                 binding.TextFieldReview.editText!!.setText(it.reviewDescription)
                 binding.seekBar.setProgress(it.rating)
+                binding.btnRegister.visibility = View.GONE
+                binding.btnUpdateReview.visibility = View.VISIBLE
+                binding.btnDeleteReview.visibility = View.VISIBLE
             }
         }
 
         binding.btnRegister.setOnClickListener {
             createReview()
+            vModel.createReview(review,binding.btnRegister)
+        }
+
+        binding.btnUpdateReview.setOnClickListener {
+            createReview()
+            vModel.updateReview(review)
+        }
+
+        binding.btnDeleteReview.setOnClickListener {
+            vModel.deleteReview(reviewID, binding.btnDeleteReview)
+
         }
     }
 
@@ -70,10 +86,9 @@ class AddReviewFragment : BaseFragment() {
         )
         val email = prefs!!.getString(EMAIL, "").toString()
 
-        val review = ReviewItem(productID, binding.seekBar.progress, binding.TextFieldName.editText!!.text.toString(),
-            email,binding.TextFieldReview.editText!!.text.toString(), ReviewerAvatarUrls("","",""),0)
-
-        vModel.createReview(review,binding.btnRegister)
+        review = ReviewItem(productID, binding.seekBar.progress, binding.TextFieldName.editText!!.text.toString(),
+            email,binding.TextFieldReview.editText!!.text.toString(), ReviewerAvatarUrls("","",""),reviewID)
     }
+
 
 }

@@ -1,13 +1,14 @@
 package com.example.mystore.data.network
 
+import androidx.room.Delete
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
-import retrofit2.Response
 import retrofit2.http.*
+import retrofit2.http.DELETE
 
 const val BASE_URL = "https://woocommerce.maktabsharif.ir/wp-json/wc/v3/"
 private const val CONSUMER_KEY = "ck_6b55bb0ff3ea0b7bf4c0aa879af50061964ce38f"
@@ -105,5 +106,17 @@ interface ApiService {
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
     ): ReviewItem
 
+    @PUT("products/reviews/{id}")
+    suspend fun updateReview(
+        @Path("id") id: Int,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
+        @Body review: ReviewItem
+    ): ReviewItem
+
+    @DELETE("products/reviews/{id}")
+    suspend fun deleteReview(
+        @Path("id") id: Int,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
+    ): ReviewItem
 
 }
