@@ -1,13 +1,12 @@
 package com.example.mystore.data.network
 
-import androidx.room.Delete
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
+import com.example.mystore.data.model.coupons.Coupon
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
-import com.example.mystore.data.model.review.reviewForServer
 import retrofit2.http.*
 import retrofit2.http.DELETE
 
@@ -110,14 +109,23 @@ interface ApiService {
     @PUT("products/reviews/{id}")
     suspend fun updateReview(
         @Path("id") id: Int,
+        @Query("review") reviewDescruption : String,
+        @Query("rating") rating : Int,
+        @Query("reviewer") reviwer : String,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
-        @Body review: reviewForServer
-    ): reviewForServer
+
+    ): ReviewItem
 
     @DELETE("products/reviews/{id}")
     suspend fun deleteReview(
         @Path("id") id: Int,
         @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions(),
     ): ReviewItem
+
+    @GET("coupons")
+    suspend fun getCoupon(
+        @Query("code") code : String ,
+        @QueryMap option : Map<String, String> = NetworkParams.getBaseOptions()
+    ): List<Coupon>
 
 }

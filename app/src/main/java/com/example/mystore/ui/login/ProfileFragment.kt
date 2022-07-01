@@ -2,12 +2,15 @@ package com.example.mystore.ui.login
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,6 +27,7 @@ import java.time.LocalDate
 class ProfileFragment : BaseFragment() {
     lateinit var binding: FragmentProfileBinding
     private val vModel: LoginViewModel by activityViewModels()
+    //lateinit var prefs : SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +59,32 @@ class ProfileFragment : BaseFragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setListener() {
+
+        prefs = requireActivity().getSharedPreferences(resources.getString(R.string.app_name),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val editor =  prefs.edit()
+
+        binding.btnChangeTheme.setOnClickListener {
+            if(binding.radioGroupTheme.isVisible){
+                binding.radioGroupTheme.visibility = View.GONE
+            }else{
+                binding.radioGroupTheme.visibility = View.VISIBLE
+            }
+            val theme = when(binding.radioGroupTheme.checkedRadioButtonId){
+                binding.redBtn.id -> 1
+                binding.blueBtn.id -> 2
+                else -> 0
+            }
+            editor.putInt("THEME", theme)
+            if(theme == 1){
+                activity?.setTheme(R.style.Theme_MyStor)
+            }else{
+                activity?.setTheme(R.style.Theme_MyStor1)
+            }
+        }
+
+
         binding.btnDeleteAccount.setOnClickListener {
             showDeleteDialog()
         }

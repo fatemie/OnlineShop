@@ -1,11 +1,13 @@
 package com.example.mystore.ui
 
 import android.app.AlertDialog
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.example.mystor.R
@@ -23,12 +25,24 @@ var reviewRegisterOK = true
 @AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
+    lateinit var prefs : SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        prefs = requireActivity().getSharedPreferences(resources.getString(R.string.app_name),
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val theme = prefs.getInt("THEME",1)
+
+
+        if(theme ==1){
+            activity?.setTheme(R.style.Theme_MyStor)
+        }else{
+            activity?.setTheme(R.style.Theme_MyStor1)
+        }
         return inflater.inflate(R.layout.fragment_base, container, false)
     }
 
@@ -47,6 +61,7 @@ open class BaseFragment : Fragment() {
                 }
             }
         }
+
     }
 
     fun showDialog(message: String) {

@@ -5,12 +5,12 @@ import com.example.mystore.data.model.Image
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
+import com.example.mystore.data.model.coupons.Coupon
 import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
 import com.example.mystore.data.model.review.ReviewerAvatarUrls
-import com.example.mystore.data.model.review.reviewForServer
 import com.example.mystore.data.network.ApiService
 import com.example.mystore.ui.customerRegisterOK
 import com.example.mystore.ui.errorException
@@ -178,14 +178,15 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
-    suspend fun updateReview(id: Int,review: reviewForServer): reviewForServer {
+    suspend fun updateReview(id: Int,reviewDescription : String, rating: Int, reviewer: String): ReviewItem {
         return try {
             errorException.value = null
-            apiService.updateReview(id = id, review = review)
+            apiService.updateReview(id = id, reviewDescription, rating = rating, reviewer)
         } catch (e: Exception) {
             if (errorException.value == null)
                 errorException.value = e
-            sampleReview1()
+            reviewRegisterOK = false
+            sampleReview()
         }
     }
 
@@ -202,6 +203,17 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         }
     }
 
+    suspend fun getCoupon(code : String): List<Coupon> {
+        return try {
+            errorException.value = null
+            apiService.getCoupon(code)
+        } catch (e: Exception) {
+            if (errorException.value == null)
+                errorException.value = e
+            listOf()
+        }
+    }
+
     private fun sampleReview(): ReviewItem {
         val review = ReviewItem(1, 1, "reviewer", "reviewer email",
             "review description", ReviewerAvatarUrls("","",""),
@@ -209,11 +221,6 @@ class ProductRemoteDataSource @Inject constructor(val apiService: ApiService) {
         return review
     }
 
-    private fun sampleReview1(): reviewForServer {
-        val review = reviewForServer( 1, "reviewer", "reviewer email",
-            "review description", ReviewerAvatarUrls("","",""))
-        return review
-    }
 
     fun sampleProduct(): ProductsApiResultItem {
         val product = ProductsApiResultItem(

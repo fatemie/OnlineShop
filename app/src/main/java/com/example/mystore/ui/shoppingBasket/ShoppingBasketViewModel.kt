@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mystor.R
 import com.example.mystore.data.ProductRepository
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.coupons.Coupon
 import com.example.mystore.data.model.customer.Billing
 import com.example.mystore.data.model.order.LineItem
 import com.example.mystore.data.model.order.OrderItem
@@ -21,8 +22,6 @@ import com.example.mystore.ui.orderRegisterOK
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.LocalDate.now
 import javax.inject.Inject
 
 const val PRODUCTSINBASKET = "PRODUCTSINBASKET"
@@ -32,10 +31,12 @@ class ShoppingBasketViewModel @Inject constructor(
     private val repository: ProductRepository,
     val app: Application
 ) : AndroidViewModel(app) {
+
+
     lateinit var prefs: SharedPreferences
     val shoppingBasketList = MutableLiveData<List<ProductsApiResultItem>>()
     private var arrayList = arrayListOf<ProductsApiResultItem>()
-    val totalPrice = MutableLiveData<String>("0")
+    val totalPrice = MutableLiveData("0")
     var productStr = ""
     var basketIsEmpty = MutableLiveData<Boolean>()
 
@@ -66,7 +67,7 @@ class ShoppingBasketViewModel @Inject constructor(
         val size = arrayList.size - 1
 
         for (i in 0..size) {
-            if(deleteFlag && i == size)
+            if (deleteFlag && i == size)
                 break
             if (arrayList[i].id == product.id) {
                 if (arrayList[i].numberInBasket == 0) {
@@ -134,7 +135,7 @@ class ShoppingBasketViewModel @Inject constructor(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun registerBasket(view : View) {
+    fun registerBasket(view: View) {
         val prefs = app.getSharedPreferences(
             R.string.app_name.toString(),
             AppCompatActivity.MODE_PRIVATE
@@ -168,7 +169,7 @@ class ShoppingBasketViewModel @Inject constructor(
             )
             Log.e("tagEmail", email)
             repository.registerOrder(order)
-            if (orderRegisterOK){
+            if (orderRegisterOK) {
                 basketIsRegistered(view)
             }
 
@@ -176,9 +177,11 @@ class ShoppingBasketViewModel @Inject constructor(
 
     }
 
-    fun basketIsRegistered(view : View){
-        val snack = Snackbar.make(view,"اطلاعات با موفقیت افزوده شد",
-            Snackbar.LENGTH_LONG)
+    fun basketIsRegistered(view: View) {
+        val snack = Snackbar.make(
+            view, "اطلاعات با موفقیت افزوده شد",
+            Snackbar.LENGTH_LONG
+        )
         snack.show()
         productStr = ""
         arrayList = arrayListOf()
@@ -200,5 +203,55 @@ class ShoppingBasketViewModel @Inject constructor(
         return (customerName.isNotEmpty())
     }
 
+    fun getCoupon(code: String, view: View) {
+        viewModelScope.launch {
+            val thisCoupon = repository.getCoupon(code)
+            if (thisCoupon.isNullOrEmpty()){
+                val snack = Snackbar.make(
+                    view, "کد وارد شده معتبر نیست",
+                    Snackbar.LENGTH_LONG
+                )
+                snack.show()
+            }else {
+                if (thisCoupon[0].discountType == "percent") {
+                    val price = Integer.parseInt(totalPrice.value)
+                    if (price.toFloat() > thisCoupon[0].minimumAmount!!.toFloat()) {
+                        if (checkExcludeProduct(thisCoupon = thisCoupon[0])) {
+                            totalPrice.value =
+                                (price.toFloat() - (price.toFloat() / (thisCoupon[0].amount.toFloat()))).toString()
+                        } else {
+                            val snack = Snackbar.make(
+                                view, "این کد تخفیف به کالاهای مورد نظر شما تعلق نمیگیرد",
+                                Snackbar.LENGTH_LONG
+                            )
+                            snack.show()
+                        }
+                    } else {
+                        val snack = Snackbar.make(
+                            view, "مبلغ خرید شما به حداقل خرید استفاده از این کد نرسیده است.",
+                            Snackbar.LENGTH_LONG
+                        )
+                        snack.show()
+                    }
+                } else {
+                    val snack = Snackbar.make(
+                        view, "این کد تخفیف معتبر نیست.",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snack.show()
+                }
+            }
+        }
+    }
+
+    fun checkExcludeProduct(thisCoupon : Coupon):Boolean{
+        var ok = true
+        for (item in arrayList){
+            if(thisCoupon.excludedProductIds.contains(item.id)){
+                ok = false
+            }
+        }
+        return ok
+    }
 
 }

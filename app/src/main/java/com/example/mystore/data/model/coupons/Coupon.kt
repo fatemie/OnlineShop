@@ -39,27 +39,27 @@ data class Coupon(
     @Json(name = "id")
     val id: Int,
     @Json(name = "individual_use")
-    val individualUse: Boolean,
+    val individualUse: Boolean?,
     @Json(name = "limit_usage_to_x_items")
-    val limitUsageToXItems: Any,
+    val limitUsageToXItems: Any?,
 //    @Json(name = "_links")
 //    val links: Links,
     @Json(name = "maximum_amount")
-    val maximumAmount: String,
+    val maximumAmount: String?,
 //    @Json(name = "meta_data")
 //    val metaData: List<Any>,
     @Json(name = "minimum_amount")
-    val minimumAmount: String,
+    val minimumAmount: String?,
     @Json(name = "product_categories")
-    val productCategories: List<Any>,
+    val productCategories: List<Any?>,
     @Json(name = "product_ids")
-    val productIds: List<Any>,
+    val productIds: List<Any?>,
     @Json(name = "usage_count")
-    val usageCount: Int,
+    val usageCount: Int?,
     @Json(name = "usage_limit")
-    val usageLimit: Any,
+    val usageLimit: Any?,
     @Json(name = "usage_limit_per_user")
-    val usageLimitPerUser: Any,
+    val usageLimitPerUser: Any?,
     @Json(name = "used_by")
-    val usedBy: List<Any>
+    val usedBy: List<Any?>
 )

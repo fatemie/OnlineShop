@@ -9,28 +9,29 @@
             type="com.example.mystore.ui.categories.CategoriesViewModel" />
     </data>
 
-    <ScrollView
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/llCategories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="48dp"
-        android:gravity="center"
-        tools:context="com.example.mystore.ui.categories.CategoriesFragment">
+        android:orientation="vertical">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/llCategories"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingAnimation"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_animation" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="48dp"
-            android:orientation="vertical">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/loadingAnimation"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading_animation" />
+            android:gravity="center"
+            tools:context="com.example.mystore.ui.categories.CategoriesFragment">
 
             <LinearLayout
                 android:id="@+id/mainLayout"
@@ -38,6 +39,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="gone">
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -62,12 +64,12 @@
                     app:spanCount="2">
 
                 </androidx.recyclerview.widget.RecyclerView>
+
             </LinearLayout>
+        </ScrollView>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-    </ScrollView>
 
 </layout>
 

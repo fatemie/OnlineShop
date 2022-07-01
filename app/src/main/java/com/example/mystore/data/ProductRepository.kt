@@ -1,15 +1,12 @@
 package com.example.mystore.data
 
-import com.example.mystore.data.model.Category
-import com.example.mystore.data.model.Image
 import com.example.mystore.data.model.ProductsApiResultItem
 import com.example.mystore.data.model.attributeTerm.AttributeTermItem
 import com.example.mystore.data.model.category.CategoriesItem
+import com.example.mystore.data.model.coupons.Coupon
 import com.example.mystore.data.model.customer.Customer
 import com.example.mystore.data.model.order.OrderItem
 import com.example.mystore.data.model.review.ReviewItem
-import com.example.mystore.data.model.review.reviewForServer
-import retrofit2.Response
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
@@ -68,12 +65,16 @@ class ProductRepository @Inject constructor(
         return productRemoteDataSource.getReviewById(id)
     }
 
-    suspend fun updateReview(id : Int,review: reviewForServer): reviewForServer {
-        return productRemoteDataSource.updateReview(id, review)
+    suspend fun updateReview(id : Int,reviewDescription : String, rating : Int, reviewer: String): ReviewItem {
+        return productRemoteDataSource.updateReview(id, reviewDescription, rating, reviewer)
     }
 
     suspend fun deleteReview(id : Int): ReviewItem {
         return productRemoteDataSource.deleteReview(id)
+    }
+
+    suspend fun getCoupon(code : String): List<Coupon> {
+        return productRemoteDataSource.getCoupon(code)
     }
 
 

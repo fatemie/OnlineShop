@@ -11,7 +11,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loadingAnimation"
@@ -28,7 +29,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="56dp"
             android:orientation="vertical"
-            tools:context="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment"
             android:visibility="gone">
 
             <TextView
@@ -64,7 +64,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="150dp"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 app:cardCornerRadius="10dp">
@@ -83,22 +83,64 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal">
+
                         <Button
                             android:id="@+id/btnRegisterOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
                             android:text="ثبت سفارش"
-                            android:textSize="18dp" />
+                            android:textSize="18dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_gravity="start"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:paddingStart="48dp"
                             android:text="@{vModel.totalPrice+`  تومان  `}" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp">
+
+                        <Button
+                            android:id="@+id/btnCoupon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="center_horizontal"
+                            app:icon="@drawable/ic_baseline_search_24"
+                            app:iconGravity="end"
+                            android:layout_weight="0.5"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextFieldCoupon"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint=" کد تخفیف دارید؟"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 

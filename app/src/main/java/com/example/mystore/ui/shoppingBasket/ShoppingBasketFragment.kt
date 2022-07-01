@@ -67,6 +67,11 @@ class ShoppingBasketFragment : BaseFragment() {
             }
         }
 
+        binding.btnCoupon.setOnClickListener {
+            vModel.getCoupon(binding.TextFieldCoupon.editText!!.text.toString(), binding.btnCoupon)
+
+        }
+
         binding.btnRegisterOrder.setOnClickListener {
             registerOrder()
         }

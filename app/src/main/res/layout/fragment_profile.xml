@@ -51,6 +51,34 @@
                     android:text="اطللاعات کاربری" />
 
                 <Button
+                    android:id="@+id/btnChangeTheme"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="start"
+                    android:text="تغییر تم" />
+                <RadioGroup
+                    android:id="@+id/radioGroupTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:visibility="gone">
+                    <RadioButton
+                        android:id="@+id/blueBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="تم آبی"/>
+                    <RadioButton
+                        android:id="@+id/redBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="تم قرمز"/>
+                </RadioGroup>
+
+                <Button
                     android:id="@+id/btnDeleteAccount"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="match_parent"

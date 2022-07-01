@@ -1,6 +1,7 @@
 package com.example.mystore.ui
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -25,6 +26,7 @@ import me.relex.circleindicator.CircleIndicator3
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityMainBinding
     private val vModel: HomeViewModel by viewModels()
 

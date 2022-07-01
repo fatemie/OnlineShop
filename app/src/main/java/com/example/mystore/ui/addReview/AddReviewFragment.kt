@@ -14,7 +14,6 @@ import com.example.mystor.R
 import com.example.mystor.databinding.FragmentAddReviewBinding
 import com.example.mystore.data.model.review.ReviewItem
 import com.example.mystore.data.model.review.ReviewerAvatarUrls
-import com.example.mystore.data.model.review.reviewForServer
 import com.example.mystore.ui.BaseFragment
 import com.example.mystore.ui.login.EMAIL
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +23,6 @@ class AddReviewFragment : BaseFragment() {
 
     private val vModel: AddReviewViewModel by viewModels()
     lateinit var binding: FragmentAddReviewBinding
-    lateinit var prefs: SharedPreferences
 
 
     private var productID = 0
@@ -62,12 +60,12 @@ class AddReviewFragment : BaseFragment() {
                 binding.btnRegister.visibility = View.GONE
                 binding.btnUpdateReview.visibility = View.VISIBLE
                 binding.btnDeleteReview.visibility = View.VISIBLE
+                binding.loadingAnimation.visibility = View.GONE
+                binding.llAddReview.visibility = View.VISIBLE
             }
-        }
-
-        vModel.reviewIsDeleted.observe(viewLifecycleOwner) {
-            if (it)
-                backToDetailFragment()
+        } else {
+            binding.loadingAnimation.visibility = View.GONE
+            binding.llAddReview.visibility = View.VISIBLE
         }
 
         binding.btnRegister.setOnClickListener {
@@ -76,16 +74,14 @@ class AddReviewFragment : BaseFragment() {
         }
 
         binding.btnUpdateReview.setOnClickListener {
-            //createReview()
-            val updatedReview = reviewForServer(
-                binding.seekBar.progress,
-                binding.TextFieldName.editText!!.text.toString(),
-                "email",
-                binding.TextFieldReview.editText!!.text.toString(),
-                ReviewerAvatarUrls("", "", "")
+            vModel.updateReview(
+                reviewID, binding.TextFieldReview.editText!!.text.toString(),
+                binding.seekBar.progress, binding.TextFieldName.editText!!.text.toString(),
+                binding.btnRegister
             )
-            vModel.updateReview(reviewID,updatedReview)
         }
+
+        activity?.setTheme(R.style.Theme_MyStor1)
 
         binding.btnDeleteReview.setOnClickListener {
             vModel.deleteReview(reviewID, binding.btnDeleteReview)
