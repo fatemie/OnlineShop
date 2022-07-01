@@ -3,6 +3,7 @@ package com.example.mystore.ui.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.PendingIntent.getService
 import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
@@ -22,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.getSystemServiceName
+import androidx.core.location.LocationManagerCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -42,11 +45,8 @@ class ProfileFragment : BaseFragment() {
     lateinit var binding: FragmentProfileBinding
     private val vModel: LoginViewModel by activityViewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    private lateinit var locationManager: LocationManager
-    private lateinit var tvGpsLocation: TextView
     private val locationPermissionCode = 2
-
+    var address2 = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -138,7 +138,7 @@ class ProfileFragment : BaseFragment() {
                     binding.TextFieldLastName1.editText!!.text.toString(),
                     Billing(
                         binding.TextFieldAddress.editText!!.text.toString(),
-                        "", "Tehran", "Iran", "",
+                        address2, "Tehran", "Iran", "",
                         binding.TextFieldEmail.editText!!.text.toString(),
                         binding.TextFieldFirstName1.editText!!.text.toString(),
                         binding.TextFieldLastName1.editText!!.text.toString(),
@@ -174,13 +174,10 @@ class ProfileFragment : BaseFragment() {
                 location?.let {
                     Toast.makeText(
                         activity,
-                        "latitude" + it.latitude + " , long=" + it.longitude,
+                        "latitude= " + it.latitude + " , long= " + it.longitude,
                         Toast.LENGTH_LONG
                     ).show()
-                    Log.d(
-                        "tag",
-                        "latitude" + it.latitude + " , long=" + it.longitude
-                    )
+                    address2 = "latitude= " + it.latitude + " , long= " + it.longitude
                 }
             }
     }
@@ -199,11 +196,6 @@ class ProfileFragment : BaseFragment() {
         }
 
     }
-
-//    private fun isLocationEnabled(): Boolean {
-//        val locationManager = getSystemService(requireContext().LOCATION_SERVICE) as LocationManager
-//        return LocationManagerCompat.isLocationEnabled(locationManager)
-//    }
 
 
     fun goToLoginFragment() {
