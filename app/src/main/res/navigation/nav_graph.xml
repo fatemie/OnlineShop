@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -23,6 +20,15 @@
         <argument
             android:name="productId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_productDetailFragment_self"
+            app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_addReviewFragment"
+            app:destination="@id/addReviewFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_addReviewFragment2"
+            app:destination="@id/addReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -35,5 +41,68 @@
         <action
             android:id="@+id/action_categoriesFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.mystore.ui.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingBasketFragment2"
+        android:name="com.example.mystore.ui.shoppingBasket.ShoppingBasketFragment"
+        android:label="ShoppingBasketFragment" >
+        <action
+            android:id="@+id/action_shoppingBasketFragment2_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.example.mystore.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment2_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mystore.ui.login.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.example.mystore.ui.categories.categoryDetail.CategoryDetailFragment"
+        android:label="fragment_category_detail"
+        tools:layout="@layout/fragment_category_detail" >
+        <argument
+            android:name="categoryID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReviewFragment"
+        android:name="com.example.mystore.ui.addReview.AddReviewFragment"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" >
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+        <argument
+            android:name="reviewId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addReviewFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

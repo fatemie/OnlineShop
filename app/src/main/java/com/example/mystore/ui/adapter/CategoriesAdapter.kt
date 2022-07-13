@@ -1,12 +1,12 @@
 package com.example.mystore.ui.adapter
 
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,53 +14,55 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mystor.R
 import com.example.mystore.data.model.ProductsApiResultItem
+import com.example.mystore.data.model.category.CategoriesItem
 
+typealias CategoryClickHandler = (CategoriesItem) -> Unit
 
-class CategoriesAdapter(var onProductClicked: ItemClickHandler) :
-    ListAdapter<ProductsApiResultItem, CategoriesAdapter.ViewHolder>(CategoriesDiffCallback) {
+class CategoriesAdapter(var onCategoryClicked: CategoryClickHandler) :
+    ListAdapter<CategoriesItem, CategoriesAdapter.ViewHolder>(CategoriesDiffCallback) {
 
 
     class ViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
-        var ivProductPicture = view.findViewById<ImageView>(R.id.iv_picture)
-        var tvProductTitle = view.findViewById<TextView>(R.id.tv_title)
-        var productLauout = view.findViewById<ConstraintLayout>(R.id.constraint)
+        var ivCategoryPicture = view.findViewById<ImageView>(R.id.ivCategoryPicture)
+        var tvCategoryTitle = view.findViewById<TextView>(R.id.tvCategoryName)
+        var categoryCard = view.findViewById<CardView>(R.id.categoryCard)
 
-        fun bind(product: ProductsApiResultItem, onProductClicked: ItemClickHandler) {
-            tvProductTitle.text = product.name
+        fun bind(category: CategoriesItem, onCategoryClicked: CategoryClickHandler) {
+            tvCategoryTitle.text = category.name
             Glide.with(context)
-                .load(product.images[0].src)
+                .load(category.image.src)
                 .fitCenter()
-                .into(ivProductPicture)
-            productLauout.setOnClickListener {
-                onProductClicked(product)
+                .into(ivCategoryPicture)
+            categoryCard.setOnClickListener {
+                onCategoryClicked(category)
             }
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.recycler_product_item, viewGroup, false)
-        return ViewHolder(view, viewGroup.context)
+            .inflate(R.layout.categories_rv_item, viewGroup, false)
+        return ViewHolder(view,viewGroup.context)
     }
 
     override fun onBindViewHolder(holder: CategoriesAdapter.ViewHolder, position: Int) {
-        val product = getItem(position)
-        holder.bind(product, onProductClicked)
+        val category = getItem(position)
+        holder.bind(category, onCategoryClicked)
     }
 
 }
 
-object CategoriesDiffCallback : DiffUtil.ItemCallback<ProductsApiResultItem>() {
+object CategoriesDiffCallback : DiffUtil.ItemCallback<CategoriesItem>() {
     override fun areItemsTheSame(
-        oldItem: ProductsApiResultItem,
-        newItem: ProductsApiResultItem
+        oldItem: CategoriesItem,
+        newItem: CategoriesItem
     ): Boolean {
         return oldItem == newItem
     }
 
     override fun areContentsTheSame(
-        oldItem: ProductsApiResultItem,
-        newItem: ProductsApiResultItem
+        oldItem: CategoriesItem,
+        newItem: CategoriesItem
     ): Boolean {
         return oldItem.id == newItem.id
     }
